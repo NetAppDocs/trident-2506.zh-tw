@@ -1,0 +1,223 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy.html 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, tanzu, vmware 
+summary: '您可以使用Trident運算子（手動或使用 Helm）安裝Trident ，或使用 `tridentctl`。本主題提供重要訊息，幫助您選擇合適的安裝流程。' 
+---
+= 了解Trident安裝
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+為了確保Trident能夠安裝在各種不同的環境和組織中， NetApp提供了多種安裝選項。您可以使用Trident運算子（手動或使用 Helm）安裝Trident ，或使用 `tridentctl`。本主題提供重要訊息，幫助您選擇合適的安裝流程。
+
+
+
+== 關於Trident25.06的關鍵訊息
+
+*您必須閱讀以下關於Trident的重要資訊。 *
+
+.關於Trident的關鍵訊息
+[%collapsible%open]
+====
+[]
+=====
+* Trident現已支援 Kubernetes 1.34。在升級 Kubernetes 之前先升級Trident 。
+* Trident嚴格強制要求在 SAN 環境中使用多路徑配置，建議值為 `find_multipaths: no`在 multipath.conf 檔案中。
++
+使用非多路徑配置或使用 `find_multipaths: yes`或者 `find_multipaths: smart`multipath.conf 檔案中的值會導致掛載失敗。  Trident建議使用 `find_multipaths: no`自 21.07 版本發布以來。
+
+
+
+=====
+====
+
+
+== 開始之前
+
+無論採用何種安裝路徑，您都必須具備以下條件：
+
+* 對運行受支援版本的 Kubernetes 且已啟用功能要求的受支援 Kubernetes 叢集擁有完全權限。回顧link:requirements.html["要求"]了解詳情。
+* 可存取受支援的NetApp儲存系統。
+* 能夠從所有 Kubernetes 工作節點掛載磁碟區。
+* 一台有 Linux 主機的 `kubectl`（或者 `oc`如果您使用的是 OpenShift，則需要安裝並設定 OpenShift 來管理您要使用的 Kubernetes 叢集。
+* 這 `KUBECONFIG`設定環境變數以指向您的 Kubernetes 叢集配置。
+* 如果您正在將 Kubernetes 與 Docker Enterprise 一起使用， https://docs.docker.com/ee/ucp/user-access/cli/["請依照以下步驟啟用 CLI 訪問"^] 。
+* 叢集必須支援特權工作負載。
+
+
+
+TIP: 如果您還不熟悉…link:../trident-get-started/intro.html["基本概念"^]現在正是做這件事的好時機。
+
+
+
+== 選擇您的安裝方式
+
+選擇適合您的安裝方式。您還應該考慮以下因素：link:kubernetes-deploy.html#move-between-installation-methods["方法之間的轉換"]在做出決定之前。
+
+
+
+=== 使用Trident運算符
+
+無論是手動部署還是使用 Helm， Trident operator 都是簡化安裝和動態管理Trident資源的絕佳方式。你甚至可以link:../trident-get-started/kubernetes-customize-deploy.html["自訂您的Trident操作員部署"]使用屬性 `TridentOrchestrator`自訂資源（CR）。
+
+使用Trident運算子的優點包括：
+
+.<strong>建立Trident物件</strong>
+[%collapsible]
+====
+Trident運算子會自動為您的 Kubernetes 版本建立下列物件。
+
+* 操作員的服務帳戶
+* 叢集角色和叢集角色綁定到服務帳戶
+* 專用 PodSecurityPolicy（適用於 Kubernetes 1.25 及更早版本）
+* 操作員本身
+
+
+====
+.資源問責制
+[%collapsible]
+====
+叢集範圍的Trident運算子管理與叢集層級的Trident安裝相關的資源。這樣可以減輕使用命名空間作用域的運算元維護群集作用域資源時可能出現的錯誤。這對於自我修復和修補至關重要。
+
+====
+.<strong>自癒能力</strong>
+[%collapsible]
+====
+操作員監控Trident安裝情況，並積極採取措施解決問題，例如部署被刪除或意外修改時。一個 `trident-operator-<generated-id>`建立一個與以下物件關聯的 pod： `TridentOrchestrator` CR 安裝了Trident系統。這樣可以確保叢集中只有一個Trident實例，並控制其設置，從而確保安裝是冪等的。當安裝進行變更時（例如，刪除部署或節點守護程式集），操作員會識別這些變更並逐一修復它們。
+
+====
+.<strong>輕鬆更新現有安裝</strong>
+[%collapsible]
+====
+您可以使用操作符輕鬆更新現有部署。你只需要編輯 `TridentOrchestrator`CR 安裝進行更新。
+
+例如，假設您需要啟用Trident來產生偵錯日誌。為此，請修補您的 `TridentOrchestrator`設定 `spec.debug`到 `true`：
+
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spec":{"debug":true}}'
+----
+後 `TridentOrchestrator`更新完成後，操作員會處理更新並修補現有安裝。這可能會觸發建立新的 pod，以便相應地修改安裝。
+
+====
+.<strong>全新安裝</strong>
+[%collapsible]
+====
+叢集範圍的Trident運算子能夠乾淨俐落地移除叢集範圍的資源。使用者可以完全解除安裝Trident ，並輕鬆重新安裝。
+
+====
+.<strong>Kubernetes 自動升級處理</strong>
+[%collapsible]
+====
+當叢集的 Kubernetes 版本升級到支援的版本時，操作員會自動更新現有的Trident安裝，並對其進行更改，以確保其符合 Kubernetes 版本的要求。
+
+
+NOTE: 如果叢集升級到不支援的版本，操作員將阻止安裝Trident。如果Trident已隨 Operator 一起安裝，則會顯示警告，指示Trident安裝在不支援的 Kubernetes 版本上。
+
+====
+
+
+=== 使用 `tridentctl`
+
+如果您有需要升級的現有部署，或者您希望高度客製化部署，則應考慮以下事項： 。這是部署Trident的常規方法。
+
+你可以產生Trident資源的清單。這包括Trident在安裝過程中所建立的部署、守護程式集、服務帳戶和叢集角色。
+
+
+NOTE: 從 22.04 版本開始，每次安裝Trident時將不再重新產生 AES 金鑰。透過此發布， Trident將安裝一個新的金鑰對象，該對象將在不同的安裝版本中持久存在。這意味著， `tridentctl` 22.04 版本可以解除安裝先前版本的Trident，但更早的版本無法解除安裝 22.04 版本的安裝。選擇合適的安裝方法。
+
+
+
+== 選擇您的安裝模式
+
+根據貴組織所需的_安裝模式_（標準、離線或遠端）確定部署流程。
+
+[role="tabbed-block"]
+====
+.標準安裝
+--
+這是安裝Trident最簡單的方法，適用於大多數沒有網路限制的環境。標準安裝模式使用預設登錄來儲存所需的Trident。(`docker.io` ）和 CSI(`registry.k8s.io`圖片。
+
+使用標準模式時， Trident安裝程序：
+
+* 從網路取得容器影像
+* 建立一個部署或節點守護程式集，該程式集會在 Kubernetes 叢集中所有符合條件的節點上啟動Trident Pod。
+
+
+--
+.離線安裝
+--
+在與外界完全隔離或安全的位置，可能需要離線安裝模式。在這種情況下，您可以建立一個私有鏡像註冊表或兩個鏡像註冊表來儲存所需的Trident和 CSI 映像。
+
+
+NOTE: 無論你的登錄配置如何，CSI 鏡像都必須位於同一個登錄檔。
+
+--
+.遠端安裝
+--
+以下是遠端安裝過程的概要：
+
+* 部署適當版本的 `kubectl`在您要部署Trident 的遠端電腦上。
+* 從 Kubernetes 叢集複製設定檔並進行設置 `KUBECONFIG`遠端電腦上的環境變數。
+* 發起 `kubectl get nodes`使用命令驗證您是否可以連線到所需的 Kubernetes 叢集。
+* 使用標準安裝步驟，從遠端電腦完成部署。
+
+
+--
+====
+
+
+== 根據您的方法和模式選擇流程
+
+做出決定後，選擇合適的流程。
+
+[cols="2"]
+|===
+| 方法 | 安裝方式 
+
+
+| Trident操作員（手動）  a| 
+link:kubernetes-deploy-operator.html["標準安裝"]
+
+link:kubernetes-deploy-operator-mirror.html["離線安裝"]
+
+
+
+| Trident操作員（Helm）  a| 
+link:kubernetes-deploy-helm.html["標準安裝"]
+
+link:kubernetes-deploy-helm-mirror.html["離線安裝"]
+
+
+
+| `tridentctl`  a| 
+link:kubernetes-deploy-tridentctl.html["標準安裝或離線安裝"]
+
+|===
+
+
+== 安裝方法之間的轉換
+
+您可以自行決定更改安裝方法。在此之前，請考慮以下事項：
+
+* 安裝並解除安裝Trident時，請務必使用相同的方法。如果您已經部署了 `tridentctl`你應該使用適當版本的 `tridentctl`用於卸載Trident 的二進位檔案。同樣，如果您使用操作員進行部署，則應該編輯 `TridentOrchestrator`CR 和設定 `spec.uninstall=true`卸載Trident。
+* 如果您有一個基於操作員的部署，想要將其移除並改用其他方式，請嘗試以下方法： `tridentctl`要部署Trident，您應該先進行編輯 `TridentOrchestrator`並設定 `spec.uninstall=true`卸載Trident。然後刪除 `TridentOrchestrator`以及操作員部署。然後您可以使用以下方式進行安裝 `tridentctl`。
+* 如果您有一個基於手動操作員的部署，並且想要使用基於 Helm 的Trident操作員部署，則應先手動卸載操作員，然後執行 Helm 安裝。這使得 Helm 能夠使用所需的標籤和註解來部署Trident運算子。如果不這樣做，基於 Helm 的Trident操作員部署將因標籤驗證錯誤和註解驗證錯誤而失敗。
+* 如果你有一個 `tridentctl`基於 Helm 的部署，您可以執行基於 Helm 或基於 Operator 的部署，而無需卸載Trident。
+
+
+
+
+== 其他已知配置選項
+
+在 VMware Tanzu Portfolio 產品上安裝Trident ：
+
+* 這 `--kubelet-dir`應該將標誌設為 kubelet 目錄的位置。預設情況下，這是 `/var/vcap/data/kubelet`。
++
+使用下列方式指定 kubelet 位置 `--kubelet-dir`據悉，他曾為Trident Operator、Helm 等公司工作。 `tridentctl`部署。
+
+

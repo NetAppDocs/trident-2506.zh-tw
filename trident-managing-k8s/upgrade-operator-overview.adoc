@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-operator-overview.html 
+keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
+summary: 在使用Trident操作員升級Trident之前，您應該了解升級期間發生的背景處理程序。這包括對Trident控制器、控制器 Pod 和節點 Pod 以及節點 DaemonSet 的更改，以啟用滾動更新。 
+---
+= 了解操作員升級工作流程
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在使用Trident操作員升級Trident之前，您應該了解升級期間發生的背景處理程序。這包括對Trident控制器、控制器 Pod 和節點 Pod 以及節點 DaemonSet 的更改，以啟用滾動更新。
+
+
+
+== Trident操作員升級處理
+
+眾多之一link:../trident-get-started/kubernetes-deploy.html["使用Trident運算子的好處"]安裝和升級Trident 的過程是自動處理Trident和 Kubernetes 對象，而不會中斷現有的已掛載磁碟區。這樣一來， Trident就能支援零停機時間的升級，或者說，link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["捲動更新"^] 。具體來說， Trident運算子與 Kubernetes 叢集通訊以：
+
+* 刪除並重新建立Trident Controller 部署和節點 DaemonSet。
+* 將Trident Controller Pod 和Trident Node Pod 替換為新版本。
++
+** 如果某個節點沒有更新，並不妨礙其他節點的更新。
+** 只有運行了Trident Node Pod 的節點才能掛載磁碟區。
+
+
+
+
+
+TIP: 有關 Kubernetes 叢集上Trident架構的更多信息，請參閱：link:../trident-get-started/architecture.html["Trident架構"^] 。
+
+
+
+== 操作員升級工作流程
+
+當您使用Trident運算子啟動升級時：
+
+. Trident運算子：
++
+.. 偵測目前安裝的Trident版本（版本 _n_）。
+.. 更新所有 Kubernetes 對象，包括 CRD、RBAC 和Trident SVC。
+.. 刪除版本為 _n_ 的Trident Controller 部署。
+.. 建立版本 _n+1_ 的Trident Controller 部署。
+
+
+. *Kubernetes* 為 _n+1_ 建立Trident Controller Pod。
+. Trident運算子：
++
+.. 刪除 _n_ 的Trident節點 DaemonSet。操作員不會等待節點 Pod 終止。
+.. 為 _n+1_ 建立Trident節點守護程式集。
+
+
+. *Kubernetes* 在未執行Trident Node Pod _n_ 的節點上建立Trident Node Pod。這樣可以確保一個節點上永遠不會有超過一個Trident Node Pod，無論版本如何。
+

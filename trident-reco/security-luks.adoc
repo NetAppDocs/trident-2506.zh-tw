@@ -1,0 +1,270 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/security-luks.html 
+keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
+summary: '您可以啟用 Linux 統一密鑰設定 (LUKS) 來加密Trident上的ONTAP SAN 和ONTAP SAN ECONOMY 磁碟區。  Trident支援 LUKS 加密磁碟區的磁碟區大小調整和金鑰（口令）輪替。' 
+---
+= Linux 統一金鑰設定 (LUKS)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以啟用 Linux 統一密鑰設定 (LUKS) 來加密Trident上的ONTAP SAN 和ONTAP SAN ECONOMY 磁碟區。  Trident支援 LUKS 加密磁碟區的密碼短語輪換和磁碟區擴展。
+
+在Trident中，LUKS 加密磁碟區使用 aes-xts-plain64 密碼和模式，這是建議的。link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["美國國家標準與技術研究院"^] 。
+
+
+NOTE: ASA r2 系統不支援 LUKS 加密。有關ASA r2 系統的信息，請參閱link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["了解ASA r2 儲存系統"^]。
+
+.開始之前
+* 工作節點必須安裝 cryptsetup 2.1 或更高版本（但低於 3.0）。欲了解更多信息，請訪問link:https://gitlab.com/cryptsetup/cryptsetup["GitLab：加密設定"^]。
+* 出於效能方面的考慮， NetApp建議工作節點支援進階加密標準新指令 (AES-NI)。若要驗證是否支援 AES-NI，請執行下列命令：
++
+[listing]
+----
+grep "aes" /proc/cpuinfo
+----
++
+如果沒有回傳任何內容，則表示您的處理器不支援 AES-NI。有關 AES-NI 的更多信息，請訪問：link:https://www.intel.com/content/www/us/en/developer/articles/technical/advanced-encryption-standard-instructions-aes-ni.html["英特爾：高階加密標準指令集（AES-NI）"^] 。
+
+
+
+
+
+== 啟用 LUKS 加密
+
+您可以使用 Linux 統一密鑰設定 (LUKS) 為ONTAP SAN 和ONTAP SAN ECONOMY 磁碟區啟用按磁碟區主機端加密。
+
+.步驟
+. 在後端配置中定義 LUKS 加密屬性。有關ONTAP SAN 後端配置選項的更多信息，請參閱link:../trident-use/ontap-san-examples.html["ONTAP SAN 配置選項"]。
++
+[source, json]
+----
+{
+  "storage": [
+    {
+      "labels": {
+        "luks": "true"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "true"
+      }
+    },
+    {
+      "labels": {
+        "luks": "false"
+      },
+      "zone": "us_east_1a",
+      "defaults": {
+        "luksEncryption": "false"
+      }
+    }
+  ]
+}
+----
+. 使用 `parameters.selector`使用 LUKS 加密定義儲存池。例如：
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: luks
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "luks=true"
+  csi.storage.k8s.io/node-stage-secret-name: luks-${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+. 建立一個包含 LUKS 密碼短語的金鑰。例如：
++
+[source, yaml]
+----
+kubectl -n trident create -f luks-pvc1.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: luks-pvc1
+stringData:
+  luks-passphrase-name: A
+  luks-passphrase: secretA
+----
+
+
+
+
+=== 限制
+
+LUKS 加密磁碟區無法利用ONTAP重複資料刪除和壓縮功能。
+
+
+
+== 導入 LUKS 磁碟區的後端配置
+
+若要匯入 LUKS 卷，您必須設定 `luksEncryption`到(`true`在後端。這 `luksEncryption`此選項用於告知Trident該磁碟區是否符合 LUKS 標準。(`true`或不符合 LUKS 標準(`false`）如下例所示。
+
+[source, yaml]
+----
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: admin
+password: password
+defaults:
+  luksEncryption: 'true'
+  spaceAllocation: 'false'
+  snapshotPolicy: default
+  snapshotReserve: '10'
+----
+
+
+== 用於導入 LUKS 磁碟區的 PVC 配置
+
+若要動態匯入 LUKS 卷，請設定註釋 `trident.netapp.io/luksEncryption`到 `true`並在 PVC 中包含一個支援 LUKS 的儲存類，如本例所示。
+
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: luks-pvc
+  namespace: trident
+  annotations:
+    trident.netapp.io/luksEncryption: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: luks-sc
+----
+
+
+== 輪換 LUKS 密碼短語
+
+您可以輪換 LUKS 密碼短語並確認輪換。
+
+
+WARNING: 在您確認任何磁碟區、快照或金鑰不再引用該密碼短語之前，請勿忘記該密碼短語。如果引用的密碼短語遺失，您可能無法掛載卷，資料將保持加密狀態且無法存取。
+
+.關於此任務
+當指定新的 LUKS 密碼短語後建立掛載磁碟區的 pod 時，就會發生 LUKS 密碼短語輪替。當建立新的 pod 時， Trident會將磁碟區上的 LUKS 密碼短語與金鑰中的活動密碼短語進行比較。
+
+* 如果磁碟區上的密碼短語與金鑰中的活動密碼短語不匹配，則會發生輪換。
+* 如果磁碟區上的密碼短語與金鑰中的活動密碼短語匹配，則 `previous-luks-passphrase`參數被忽略。
+
+
+.步驟
+. 添加 `node-publish-secret-name`和 `node-publish-secret-namespace`StorageClass 參數。例如：
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-san
+provisioner: csi.trident.netapp.io
+parameters:
+  trident.netapp.io/backendType: "ontap-san"
+  csi.storage.k8s.io/node-stage-secret-name: luks
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+  csi.storage.k8s.io/node-publish-secret-name: luks
+  csi.storage.k8s.io/node-publish-secret-namespace: ${pvc.namespace}
+----
+. 識別磁碟區或快照上已存在的密碼短語。
++
+.體積
+[listing]
+----
+tridentctl -d get volume luks-pvc1
+GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>
+
+...luksPassphraseNames:["A"]
+----
++
+.快照
+[listing]
+----
+tridentctl -d get snapshot luks-pvc1
+GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>/<snapshotID>
+
+...luksPassphraseNames:["A"]
+----
+. 更新磁碟區的 LUKS 金鑰，以指定新的和先前的密碼短語。確保 `previous-luke-passphrase-name`和 `previous-luks-passphrase`與先前的密碼短語相符。
++
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: luks-pvc1
+stringData:
+  luks-passphrase-name: B
+  luks-passphrase: secretB
+  previous-luks-passphrase-name: A
+  previous-luks-passphrase: secretA
+----
+. 建立一個新的 pod，掛載該磁碟區。這是啟動旋轉所必需的步驟。
+. 確認密碼短語已輪換。
++
+.體積
+[listing]
+----
+tridentctl -d get volume luks-pvc1
+GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>
+
+...luksPassphraseNames:["B"]
+----
++
+.快照
+[listing]
+----
+tridentctl -d get snapshot luks-pvc1
+GET http://127.0.0.1:8000/trident/v1/volume/<volumeID>/<snapshotID>
+
+...luksPassphraseNames:["B"]
+----
+
+
+.結果
+當磁碟區和快照上僅傳回新密碼短語時，密碼短語就會輪替。
+
+
+NOTE: 例如，如果傳回兩個密碼短語。 `luksPassphraseNames: ["B", "A"]`旋轉不完整。您可以觸發一個新的機艙來嘗試完成輪換。
+
+
+
+== 啟用磁碟區擴充
+
+您可以對 LUKS 加密磁碟區啟用磁碟區擴充。
+
+.步驟
+. 啟用 `CSINodeExpandSecret`功能門（beta 1.25+）。參考 link:https://kubernetes.io/blog/2022/09/21/kubernetes-1-25-use-secrets-while-expanding-csi-volumes-on-node-alpha/["Kubernetes 1.25：使用金鑰實作 CSI 磁碟區的節點驅動擴展"^] 了解詳情。
+. 添加 `node-expand-secret-name`和 `node-expand-secret-namespace`StorageClass 參數。例如：
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: luks
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "luks=true"
+  csi.storage.k8s.io/node-stage-secret-name: luks-${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+  csi.storage.k8s.io/node-expand-secret-name: luks-${pvc.name}
+  csi.storage.k8s.io/node-expand-secret-namespace: ${pvc.namespace}
+allowVolumeExpansion: true
+----
+
+
+.結果
+啟動線上儲存擴充功能時，kubelet 會將對應的憑證傳遞給驅動程式。

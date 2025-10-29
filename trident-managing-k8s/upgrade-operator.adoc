@@ -1,0 +1,183 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-operator.html 
+keywords: upgrade, trident, methods, operator, tridentctl, helm 
+summary: 您可以使用操作員輕鬆升級現有的Trident安裝。 
+---
+= 使用Trident Operator 或 Helm 升級Trident安裝
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用Trident Operator 手動升級Trident ，也可以使用 Helm 進行升級。您可以從一個Trident Operator 安裝升級到另一個Trident Operator 安裝，或從一個 Trident Operator 安裝升級到另一個 Trident Operator 安裝。 `tridentctl`安裝到Trident操作員版本。審查link:upgrade-trident.html#select-an-upgrade-method["選擇升級方式"]在升級Trident操作程序之前。
+
+
+
+== 升級手動安裝
+
+您可以從叢集範圍的Trident操作員安裝升級到另一個叢集範圍的Trident操作員安裝。所有Trident版本都使用叢集範圍的運算元。
+
+
+NOTE: 若要從使用命名空間作用域運算子安裝的Trident （版本 20.07 至 20.10）進行升級，請使用下列升級說明：link:../earlier-versions.html["您已安裝的版本"]Trident。
+
+.關於此任務
+Trident提供了一個捆綁文件，您可以使用該文件安裝 Operator 並為您的 Kubernetes 版本建立關聯物件。
+
+* 對於運行 Kubernetes 1.24 的集群，請使用link:https://github.com/NetApp/trident/tree/stable/v25.02/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^]。
+* 對於運行 Kubernetes 1.25 或更高版本的集群，請使用link:https://github.com/NetApp/trident/tree/stable/v25.02/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^]。
+
+
+.開始之前
+請確保您使用的是正在運行的 Kubernetes 叢集。link:../trident-get-started/requirements.html["支援的 Kubernetes 版本"] 。
+
+.步驟
+. 請驗證您的Trident版本：
++
+[listing]
+----
+./tridentctl -n trident version
+----
+. 更新 `operator.yaml`， `tridentorchestrator_cr.yaml` ， 和 `post_1_25_bundle.yaml`使用要升級到的版本（例如 25.06）的登錄和映像路徑，以及正確的金鑰。
+. 刪除用於安裝目前Trident實例的Trident操作員。例如，如果您從 25.02 升級，請執行以下命令：
++
+[listing]
+----
+kubectl delete -f 25.02.0/trident-installer/deploy/<bundle.yaml> -n trident
+----
+. 如果您使用自訂方式進行了初始安裝 `TridentOrchestrator`屬性，您可以編輯 `TridentOrchestrator`用於修改安裝參數的物件。這可能包括為離線模式指定鏡像Trident和 CSI 映像登錄、啟用偵錯日誌或指定映像拉取金鑰所做的變更。
+. 使用適用於您環境的正確 bundle.yaml 檔案安裝Trident ，其中 _<bundle.yaml>_ 是
+`bundle_pre_1_25.yaml`或者 `bundle_post_1_25.yaml`根據您的 Kubernetes 版本。例如，如果您正在安裝Trident 25.06.0，請執行下列命令：
++
+[listing]
+----
+kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
+----
+. 編輯三叉戟項圈以包含圖像 25.06.0。
+
+
+
+
+== 升級 Helm 安裝
+
+您可以升級Trident Helm 安裝。
+
+
+WARNING: 當已安裝Trident 的Kubernetes 叢集從 1.24 版本升級到 1.25 或更高版本時，必須更新 values.yaml 檔案進行設定。 `excludePodSecurityPolicy`到 `true`或添加 `--set excludePodSecurityPolicy=true`到 `helm upgrade`升級叢集前需要執行此命令。
+
+如果您已將 Kubernetes 叢集從 1.24 升級到 1.25，但未升級Trident helm，則 helm 升級將失敗。若要成功升級 Helm，請先執行以下步驟：
+
+. 從下列位置安裝 helm-mapkubeapis 插件 https://github.com/helm/helm-mapkubeapis[]。
+. 在Trident安裝所在的命名空間中，對Trident版本執行一次試運行。這裡列出了需要清理的資源。
++
+[listing]
+----
+helm mapkubeapis --dry-run trident  --namespace trident
+----
+. 使用 Helm 執行完整運行以進行清理。
++
+[listing]
+----
+helm mapkubeapis trident  --namespace trident
+----
+
+
+.步驟
+. 如果你link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["使用 Helm 安裝了Trident 。"]你可以使用 `helm upgrade trident netapp-trident/trident-operator --version 100.2506.0`一步即可升級。如果您沒有新增 Helm 倉庫或無法使用它進行升級：
++
+.. 從此處下載最新版Tridentlink:https://github.com/NetApp/trident/releases/latest["GitHub 上的 _Assets_ 部分"^] 。
+.. 使用 `helm upgrade`其中命令 `trident-operator-25.06.0.tgz`反映您想要升級到的版本。
++
+[listing]
+----
+helm upgrade <name> trident-operator-25.06.0.tgz
+----
++
+
+NOTE: 如果在初始安裝期間設定了自訂選項（例如，為Trident和 CSI 映像指定私人映像登錄），請附加以下內容： `helm upgrade`命令使用 `--set`確保將這些選項包含在升級命令中，否則這些值將重設為預設值。
+
+
+
+. 跑步 `helm list`確認圖表和應用程式版本均已升級。跑步 `tridentctl logs`查看所有調試資訊。
+
+
+
+
+== 從 `tridentctl`安裝到Trident操作員
+
+您可以從下列位置升級到最新版本的Trident運算子： `tridentctl`安裝。現有的後端和PVC將自動可用。
+
+
+NOTE: 在切換安裝方法之前，請先查看link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["安裝方法之間的轉換"]。
+
+.步驟
+. 下載最新版的Trident 。
++
+[listing]
+----
+# Download the release required [25.06.0]
+mkdir 25.06.0
+cd 25.06.0
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
+cd trident-installer
+----
+. 創建 `tridentorchestrator`來自清單文件的 CRD。
++
+[listing]
+----
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+----
+. 在相同命名空間中部署叢集範圍的操作符。
++
+[listing]
+----
+kubectl create -f deploy/<bundle-name.yaml>
+
+serviceaccount/trident-operator created
+clusterrole.rbac.authorization.k8s.io/trident-operator created
+clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
+deployment.apps/trident-operator created
+podsecuritypolicy.policy/tridentoperatorpods created
+
+#Examine the pods in the Trident namespace
+NAME                                  READY   STATUS    RESTARTS   AGE
+trident-controller-79df798bdc-m79dc   6/6     Running   0          150d
+trident-node-linux-xrst8              2/2     Running   0          150d
+trident-operator-5574dbbc68-nthjv     1/1     Running   0          1m30s
+----
+. 創建一個 `TridentOrchestrator`安裝Trident的 CR。
++
+[listing]
+----
+cat deploy/crds/tridentorchestrator_cr.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+
+kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
+
+#Examine the pods in the Trident namespace
+NAME                                READY   STATUS    RESTARTS   AGE
+trident-csi-79df798bdc-m79dc        6/6     Running   0          1m
+trident-csi-xrst8                   2/2     Running   0          1m
+trident-operator-5574dbbc68-nthjv   1/1     Running   0          5m41s
+----
+. 確認Trident已升級至預期版本。
++
+[listing]
+----
+kubectl describe torc trident | grep Message -A 3
+
+Message:                Trident installed
+Namespace:              trident
+Status:                 Installed
+Version:                v25.06.0
+----
+

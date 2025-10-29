@@ -1,0 +1,24 @@
+---
+section: trident-get-started
+title: 開始
+entries:
+- title: 了解Trident
+  entries:
+  - title: Trident概述
+    url: "/trident-get-started/intro.html"
+  - title: Trident架構
+    url: "/trident-get-started/architecture.html"
+  - title: 概念
+    entries:
+    - title: 供應
+      url: "/trident-concepts/provisioning.html"
+    - title: 卷快照
+      url: "/trident-concepts/snapshots.html"
+    - title: 虛擬池
+      url: "/trident-concepts/virtual-storage-pool.html"
+    - title: 卷訪問群組
+      url: "/trident-concepts/vol-access-groups.html"
+- title: 快速啟動
+  url: "/trident-get-started/quickstart.html"
+- title: 要求
+  url: "/trident-get-started/requirements.html"

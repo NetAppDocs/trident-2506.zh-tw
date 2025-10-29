@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: trident-use/anf-prep.html 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, active directory, csi proxy, aks, managed identities 
+summary: 在設定Azure NetApp Files後端之前，需要確保滿足以下要求。 
+---
+= 準備設定Azure NetApp Files後端
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在設定Azure NetApp Files後端之前，需要確保滿足以下要求。
+
+
+
+== NFS 和 SMB 磁碟區的先決條件
+
+如果您是第一次使用Azure NetApp Files或在新的位置使用，則需要進行一些初始設定來設定 Azure NetApp檔案並建立 NFS 磁碟區。參考 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure：設定Azure NetApp Files並建立 NFS 卷"^]。
+
+配置和使用 https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^]後端需要以下組件：
+
+[NOTE]
+====
+* `subscriptionID`， `tenantID` ， `clientID` ， `location` ， 和 `clientSecret`在 AKS 叢集上使用託管身分時，這些是可選的。
+* `tenantID`， `clientID` ， 和 `clientSecret`在 AKS 叢集上使用雲端身分時，這些是可選的。
+
+
+====
+* 容量池。參考link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["微軟：為Azure NetApp Files建立容量池"^]。
+* 委派給Azure NetApp Files 的子網路。參考link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft：將子網路委派給Azure NetApp Files"^]。
+* `subscriptionID`來自已啟用Azure NetApp Files功能的 Azure 訂閱。
+* `tenantID`， `clientID` ， 和 `clientSecret`來自link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["應用程式註冊"^]在 Azure Active Directory 中擁有對Azure NetApp Files服務的足夠權限。應用程式註冊應使用以下任一方式：
++
+** 所有者或貢獻者角色link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Azure 預定義"^]。
+** 一個link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["自訂貢獻者角色"]訂閱等級(`assignableScopes`）但權限僅限於Trident所需的權限。建立自訂角色後，link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["使用 Azure 入口網站指派角色"^] 。
++
+.自訂貢獻者角色
+[%collapsible]
+====
+[source, JSON]
+----
+{
+  "id": "/subscriptions/<subscription-id>/providers/Microsoft.Authorization/roleDefinitions/<role-definition-id>",
+  "properties": {
+    "roleName": "custom-role-with-limited-perms",
+    "description": "custom role providing limited permissions",
+    "assignableScopes": [
+      "/subscriptions/<subscription-id>"
+    ],
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.NetApp/netAppAccounts/capacityPools/read",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/write",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/read",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/write",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/delete",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/snapshots/read",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/snapshots/write",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/snapshots/delete",
+          "Microsoft.NetApp/netAppAccounts/capacityPools/volumes/MountTargets/read",
+          "Microsoft.Network/virtualNetworks/read",
+          "Microsoft.Network/virtualNetworks/subnets/read",
+          "Microsoft.Features/featureProviders/subscriptionFeatureRegistrations/read",
+          "Microsoft.Features/featureProviders/subscriptionFeatureRegistrations/write",
+          "Microsoft.Features/featureProviders/subscriptionFeatureRegistrations/delete",
+          "Microsoft.Features/features/read",
+          "Microsoft.Features/operations/read",
+          "Microsoft.Features/providers/features/read",
+          "Microsoft.Features/providers/features/register/action",
+          "Microsoft.Features/providers/features/unregister/action",
+          "Microsoft.Features/subscriptionFeatureRegistrations/read"
+        ],
+        "notActions": [],
+        "dataActions": [],
+        "notDataActions": []
+      }
+    ]
+  }
+}
+----
+====
+
+
+* 蔚藍 `location`包含至少一個 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["委託子網"^]。截至Trident 22.01版本， `location`參數是後端設定檔頂層的一個必填欄位。虛擬池中指定的位置值將被忽略。
+* 使用 `Cloud Identity`得到 `client ID`從一個 https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["使用者指派的託管身份"^]並指定該 ID `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx` 。
+
+
+
+
+== 中小企業卷的附加要求
+
+若要建立 SMB 卷，您必須具備以下條件：
+
+* Active Directory 已設定並連線至Azure NetApp Files。參考link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft：建立和管理Azure NetApp Files管理器的 Active Directory 連接"^]。
+* 一個 Kubernetes 叢集，包含一個 Linux 控制器節點和至少一個執行 Windows Server 2022 的 Windows 工作節點。  Trident僅支援掛載到執行在 Windows 節點上的 pod 的 SMB 磁碟區。
+* 至少需要一個包含 Active Directory 憑證的Trident金鑰，以便Azure NetApp Files可以向 Active Directory 進行驗證。生成秘密 `smbcreds`：
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* 配置為 Windows 服務的 CSI 代理程式。要配置 `csi-proxy`，請參閱link:https://github.com/kubernetes-csi/csi-proxy["GitHub：CSI代理"^]或者link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub：適用於 Windows 的 CSI 代理"^]適用於在 Windows 上執行的 Kubernetes 節點。
+

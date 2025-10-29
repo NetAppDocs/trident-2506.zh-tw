@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: 您可以使用Trident安裝程式來自訂部署。 
+---
+= 自訂 tridentctl 安裝
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用Trident安裝程式來自訂安裝。
+
+
+
+== 了解安裝程序
+
+Trident安裝程式可讓您自訂屬性。例如，如果您已將Trident映像複製到私人倉庫，則可以使用下列方式指定映像名稱： `--trident-image` 。如果您已將Trident鏡像以及所需的 CSI sidecar 映像複製到私人儲存庫，則最好使用下列方式指定該儲存庫的位置： `--image-registry`開關，其形式 `<registry FQDN>[:port]`。
+
+
+IMPORTANT: 在私人倉庫中安裝Trident時，如果您使用的是 `--image-registry`切換以指定儲存庫位置，請勿使用 `/netapp/`在儲存庫路徑中。例如： `./tridentctl install --image-registry <image-registry> -n <namespace>`
+
+如果您使用的是 Kubernetes 發行版，那麼 `kubelet`它的資料保存在與通常路徑不同的路徑上。 `/var/lib/kubelet`您可以使用以下方式指定備用路徑 `--kubelet-dir`。
+
+如果需要對安裝進行超出安裝程式參數允許範圍的自訂，您也可以自訂部署檔案。使用 `--generate-custom-yaml`此參數會在安裝程式中建立以下 YAML 文件 `setup`目錄：
+
+* `trident-clusterrolebinding.yaml`
+* `trident-deployment.yaml`
+* `trident-crds.yaml`
+* `trident-clusterrole.yaml`
+* `trident-daemonset.yaml`
+* `trident-service.yaml`
+* `trident-namespace.yaml`
+* `trident-serviceaccount.yaml`
+* `trident-resourcequota.yaml`
+
+
+產生這些文件後，您可以根據需要修改它們，然後使用它們。 `--use-custom-yaml`安裝您的自訂部署。
+
+[source, console]
+----
+./tridentctl install -n trident --use-custom-yaml
+----

@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/ports.html 
+keywords: Trident, port, ports 
+summary: 了解更多關於Trident通訊所使用的連接埠的資訊。 
+---
+= Trident港口
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+了解更多關於Trident用於通訊的連接埠的資訊。
+
+
+
+== Trident港口
+
+Trident使用下列連接埠在 Kubernetes 內部進行通訊：
+
+[cols="2,4"]
+|===
+| 港口 | 目的 
+
+
+| 8443 | 反向通道 HTTPS 
+
+
+| 8001 | Prometheus 指標端點 
+
+
+| 8000 | Trident REST 伺服器 
+
+
+| 17546 | Trident守護程序集 pod 使用的存活/就緒偵測埠 
+|===
+
+NOTE: 安裝過程中可以使用以下方法變更活性/就緒探針端口： `--probe-port`旗幟。務必確保工作節點上的其他進程沒有使用該連接埠。

@@ -1,0 +1,235 @@
+---
+sidebar: sidebar 
+permalink: troubleshooting.html 
+keywords: troubleshooting, trident 
+summary: 使用此處提供的提示來解決您在安裝和使用Trident時可能遇到的問題。 
+---
+= 故障排除
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+使用此處提供的提示來解決您在安裝和使用Trident時可能遇到的問題。
+
+
+NOTE: 如需Trident的協助，請使用下列指令建立支援包 `tridentctl logs -a -n trident`然後將其發送給NetApp支援團隊。
+
+
+
+== 常規故障排除
+
+* 如果Trident艙無法正常升空（例如，當Trident艙卡在…中時 `ContainerCreating`階段（準備容器少於兩個）運行 `kubectl -n trident describe deployment trident`和 `kubectl -n trident describe pod trident-********-****`可以提供更多見解。取得 kubelet 日誌（例如，透過 `journalctl -xeu kubelet`）也可能有所幫助。
+* 如果Trident日誌中的資訊不足，您可以嘗試透過傳遞參數來啟用Trident的偵錯模式。 `-d`根據您的安裝選項，為安裝參數新增標誌。
++
+然後確認調試模式已設定 `./tridentctl logs -n trident`並正在尋找 `level=debug msg`在日誌中。
+
++
+已安裝操作員::
++
+--
+[listing]
+----
+kubectl patch torc trident -n <namespace> --type=merge -p '{"spec":{"debug":true}}'
+----
+這將重新啟動所有Trident pod，這可能需要幾秒鐘。您可以透過觀察輸出結果中的“AGE”列來驗證這一點。 `kubectl get pod -n trident` 。
+
+適用於Trident 20.07 和 20.10 版本 `tprov`代替 `torc`。
+
+--
+使用 Helm 安裝::
++
+--
+[listing]
+----
+helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
+----
+--
+使用 tridentctl 安裝::
++
+--
+[listing]
+----
+./tridentctl uninstall -n trident
+./tridentctl install -d -n trident
+----
+--
+
+
+* 您也可以透過新增以下命令來取得每個後端的偵錯日誌。 `debugTraceFlags`在您的後端定義中。例如，包括 `debugTraceFlags: {"api":true, "method":true,}`取得Trident日誌中的 API 呼叫和方法遍歷。現有後端可以有 `debugTraceFlags`配置為 `tridentctl backend update`。
+* 使用 Red Hat Enterprise Linux CoreOS (RHCOS) 時，請確保： `iscsid`在工作節點上已啟用，並且預設已啟動。這可以透過使用 OpenShift MachineConfigs 或修改 Ignition 模板來實現。
+* 使用Trident時可能會遇到的常見問題是… https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"]指的是租用戶和用戶端金鑰來自權限不足的應用程式註冊。有關Trident要求的完整列表，請參閱link:trident-use/anf.html["Azure NetApp Files"]配置。
+* 如果將光電系統安裝到貨櫃上遇到問題，請確保： `rpcbind`已安裝並正在運行。使用主機作業系統所需的軟體包管理器並檢查是否 `rpcbind`正在運行。您可以查看以下狀態： `rpcbind`透過運行服務 `systemctl status rpcbind`或其等效物。
+* 如果Trident後端報告它處於 `failed`儘管之前運行正常，但當前狀態可能是由於更改了與後端關聯的 SVM/管理員憑證所致。使用以下方式更新後端訊息 `tridentctl update backend`或者晃動Trident煙囪就能解決這個問題。
+* 如果在使用 Docker 作為容器執行時安裝Trident時遇到權限問題，請嘗試使用下列方式安裝Trident： `--in cluster=false`旗幟。這樣就不會使用安裝程式 pod，以避免因以下原因導致的權限問題： `trident-installer`用戶。
+* 使用 `uninstall parameter <Uninstalling Trident>`用於清理運行失敗後的殘局。預設情況下，該腳本不會刪除Trident建立的 CRD，因此即使在執行的部署中，卸載和重新安裝也是安全的。
+* 如果您想要降級到早期版本的Trident，請先執行以下指令： `tridentctl uninstall`移除Trident的指令。下載所需文件 https://github.com/NetApp/trident/releases["Trident版"]並使用以下方式安裝 `tridentctl install`命令。
+* 安裝成功後，如果PVC管卡在… `Pending`階段，運行 `kubectl describe pvc`可以提供更多關於Trident為何未能為此PVC配置PV的資訊。
+
+
+
+
+== 使用操作員部署Trident失敗
+
+如果您使用 Operator 部署Trident ，則狀態為： `TridentOrchestrator`變化來自 `Installing`到 `Installed`。如果你觀察 `Failed`如果操作員處於異常狀態且無法自行恢復，則應執行以下命令檢查操作員的日誌：
+
+[listing]
+----
+tridentctl logs -l trident-operator
+----
+追蹤 trident-operator 容器的日誌可以指出問題所在。例如，在與外界隔離的環境中，可能無法從上游鏡像倉庫拉取所需的容器鏡像。
+
+要了解為什麼Trident安裝失敗，您應該查看以下內容： `TridentOrchestrator`地位。
+
+[listing]
+----
+kubectl describe torc trident-2
+Name:         trident-2
+Namespace:
+Labels:       <none>
+Annotations:  <none>
+API Version:  trident.netapp.io/v1
+Kind:         TridentOrchestrator
+...
+Status:
+  Current Installation Params:
+    IPv6:
+    Autosupport Hostname:
+    Autosupport Image:
+    Autosupport Proxy:
+    Autosupport Serial Number:
+    Debug:
+    Image Pull Secrets:         <nil>
+    Image Registry:
+    k8sTimeout:
+    Kubelet Dir:
+    Log Format:
+    Silence Autosupport:
+    Trident Image:
+  Message:                      Trident is bound to another CR 'trident'
+  Namespace:                    trident-2
+  Status:                       Error
+  Version:
+Events:
+  Type     Reason  Age                From                        Message
+  ----     ------  ----               ----                        -------
+  Warning  Error   16s (x2 over 16s)  trident-operator.netapp.io  Trident is bound to another CR 'trident'
+----
+此錯誤表示已存在 `TridentOrchestrator`用於安裝Trident 的程式。由於每個 Kubernetes 叢集只能有一個Trident實例，因此 Operator 會確保在任何給定時間都只有一個活躍的 Trident 實例。 `TridentOrchestrator`它能夠創造。
+
+此外，觀察Trident艙的狀態通常可以顯示是否有異常情況。
+
+[listing]
+----
+kubectl get pods -n trident
+
+NAME                                READY   STATUS             RESTARTS   AGE
+trident-csi-4p5kq                   1/2     ImagePullBackOff   0          5m18s
+trident-csi-6f45bfd8b6-vfrkw        4/5     ImagePullBackOff   0          5m19s
+trident-csi-9q5xc                   1/2     ImagePullBackOff   0          5m18s
+trident-csi-9v95z                   1/2     ImagePullBackOff   0          5m18s
+trident-operator-766f7b8658-ldzsv   1/1     Running            0          8m17s
+----
+您可以清楚地看到，由於一個或多個容器鏡像未獲取，因此 pod 無法完全初始化。
+
+要解決這個問題，你應該編輯 `TridentOrchestrator`CR。或者，您可以刪除 `TridentOrchestrator`並根據修改後的準確定義建立一個新的定義。
+
+
+
+== 使用Trident部署失敗 `tridentctl`
+
+為了幫助找出出錯的原因，您可以再次執行安裝程式：``-d``使用此參數將開啟調試模式，幫助您了解問題所在：
+
+[listing]
+----
+./tridentctl install -n trident -d
+----
+解決問題後，您可以依照下列步驟清理安裝，然後執行： `tridentctl install`再次執行命令：
+
+[listing]
+----
+./tridentctl uninstall -n trident
+INFO Deleted Trident deployment.
+INFO Deleted cluster role binding.
+INFO Deleted cluster role.
+INFO Deleted service account.
+INFO Removed Trident user from security context constraint.
+INFO Trident uninstallation succeeded.
+----
+
+
+== 徹底移除Trident和CRDs
+
+您可以完全移除Trident以及所有建立的 CRD 和相關的自訂資源。
+
+
+WARNING: 此操作無法撤銷。除非你想全新安裝Trident，否則不要這樣做。若要在不刪除 CRD 的情況下卸載Trident ，請參閱link:trident-managing-k8s/uninstall-trident.html["解除安裝Trident"]。
+
+[role="tabbed-block"]
+====
+.Trident操作員
+--
+若要解除安裝Trident並使用Trident運算子徹底刪除 CRD，請執行下列操作：
+
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.舵
+--
+使用 Helm 卸載Trident並徹底刪除 CRD：
+
+[listing]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.<code>tridentctl</code>
+--
+解除Trident後，若要徹底刪除 CRD，請使用 `tridentctl`
+
+[listing]
+----
+tridentctl obliviate crd
+----
+--
+====
+
+
+== Kubernetes 1.26 版本中，使用 RWX 原始區塊命名空間時，NVMe 節點卸載失敗
+
+如果您使用的是 Kubernetes 1.26，則在使用 NVMe/TCP 和 RWX 原始區塊命名空間時，節點取消暫存可能會失敗。以下方案提供了應對此故障的變通方法。或者，您可以將 Kubernetes 升級到 1.27 版本。
+
+
+
+=== 刪除了命名空間和 pod。
+
+設想這樣一個場景：你將一個Trident管理的命名空間（NVMe 持久卷）附加到一個 pod 上。如果直接從ONTAP後端刪除命名空間，則在嘗試刪除 pod 後，取消暫存程序會卡住。此情況不會影響 Kubernetes 叢集或其他功能。
+
+.解決方法
+從對應的節點卸載持久性磁碟區（與該命名空間對應），並將其刪除。
+
+
+
+=== 阻塞資料LIF
+
+ If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.解決方法
+啟動 dataLIFS 以恢復全部功能。
+
+
+
+=== 已刪除命名空間映射
+
+ If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.解決方法
+添加 `hostNQN`返回子系統。
+
+
+
+== 當預期啟用“v4.2-xattrs”時，NFSv4.2 用戶端在升級ONTAP後報告“無效參數”
+
+升級ONTAP後，NFSv4.2 用戶端在嘗試掛載 NFSv4.2 匯出時可能會報告「無效參數」錯誤。當 `v4.2-xattrs` SVM 上未啟用該選項。.解決方法啟用 `v4.2-xattrs` 選項或升級至ONTAP 9.12.1 或更高版本，預設此選項為啟用。

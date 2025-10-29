@@ -1,0 +1,184 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-cli.html 
+keywords: trident, protect, command line utility, cli, netapp, custom, resources 
+summary: 您可以使用 protectctl 指令建立和操作Trident Protect 自訂資源。 
+---
+= 安裝Trident Protect CLI 插件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用Trident Protect 命令列插件，它是Trident的一個擴充。 `tridentctl`實用程序，用於建立和與Trident Protect 自訂資源 (CR) 進行互動。
+
+
+
+== 安裝Trident Protect CLI 插件
+
+在使用命令列實用程式之前，需要將其安裝在用於存取叢集的電腦上。根據您的機器使用的是 x64 還是ARM CPU，請依照以下步驟操作。
+
+[role="tabbed-block"]
+====
+.下載適用於 Linux AMD64 CPU 的插件
+--
+.步驟
+. 下載Trident Protect CLI 外掛：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-protect-linux-amd64
+----
+
+
+--
+.下載適用於 Linux ARM64 CPU 的插件
+--
+.步驟
+. 下載Trident Protect CLI 外掛：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-protect-linux-arm64
+----
+
+
+--
+.下載適用於 Mac AMD64 CPU 的插件
+--
+.步驟
+. 下載Trident Protect CLI 外掛：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-protect-macos-amd64
+----
+
+
+--
+.下載適用於 Mac ARM64 CPU 的插件
+--
+.步驟
+. 下載Trident Protect CLI 外掛：
++
+[source, console]
+----
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-protect-macos-arm64
+----
+
+
+--
+====
+. 啟用插件二進位檔案的執行權限：
++
+[source, console]
+----
+chmod +x tridentctl-protect
+----
+. 將插件二進位檔案複製到 PATH 環境變數中定義的位置。例如， `/usr/bin`或者 `/usr/local/bin`（您可能需要更高的權限）：
++
+[source, console]
+----
+cp ./tridentctl-protect /usr/local/bin/
+----
+. 您也可以選擇將插件二進位檔案複製到您主目錄中的某個位置。在這種情況下，建議確保該位置已新增至您的 PATH 環境變數：
++
+[source, console]
+----
+cp ./tridentctl-protect ~/bin/
+----
+
+
+
+NOTE: 將插件複製到 PATH 環境變數中的某個位置，即可透過鍵入以下命令來使用該插件。 `tridentctl-protect`或者 `tridentctl protect`從任何地點。
+
+
+
+== 查看Trident CLI 外掛程式幫助
+
+您可以使用插件內建的幫助功能來獲得有關插件功能的詳細幫助：
+
+.步驟
+. 使用幫助功能查看使用指南：
++
+[source, console]
+----
+tridentctl-protect help
+----
+
+
+
+
+== 啟用指令自動補全
+
+安裝Trident Protect CLI 外掛程式後，您可以為某些指令啟用自動補全功能。
+
+[role="tabbed-block"]
+====
+.為 Bash shell 啟用自動補全功能
+--
+.步驟
+. 下載完成腳本：
++
+[source, console]
+----
+curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-completion.bash
+----
+. 在您的使用者目錄下建立一個新目錄，用於存放腳本：
++
+[source, console]
+----
+mkdir -p ~/.bash/completions
+----
+. 將下載的腳本移到 `~/.bash/completions`目錄：
++
+[source, console]
+----
+mv tridentctl-completion.bash ~/.bash/completions/
+----
+. 將以下行新增至 `~/.bashrc`您主目錄中的檔案：
++
+[source, console]
+----
+source ~/.bash/completions/tridentctl-completion.bash
+----
+
+
+--
+.為 Z shell 啟用自動補全
+--
+.步驟
+. 下載完成腳本：
++
+[source, console]
+----
+curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.06.0/tridentctl-completion.zsh
+----
+. 在您的使用者目錄下建立一個新目錄，用於存放腳本：
++
+[source, console]
+----
+mkdir -p ~/.zsh/completions
+----
+. 將下載的腳本移到 `~/.zsh/completions`目錄：
++
+[source, console]
+----
+mv tridentctl-completion.zsh ~/.zsh/completions/
+----
+. 將以下行新增至 `~/.zprofile`您主目錄中的檔案：
++
+[source, console]
+----
+source ~/.zsh/completions/tridentctl-completion.zsh
+----
+
+
+--
+====
+.結果
+下次登入 shell 時，您可以使用 tridentctl-protect 外掛程式進行指令自動補全。

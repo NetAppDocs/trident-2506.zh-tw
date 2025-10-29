@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: earlier-versions.html 
+keywords: earlier versions, Trident versions 
+summary: 您可以使用版本選擇器在最新版本和前四個版本之間導航，或使用下面的連結。 
+---
+= 早期版本的文檔
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果您使用的不是Trident 25.06 版本，則可以根據以下資訊取得先前版本的文件：link:get-help.html["Trident支援生命週期"] 。
+
+* https://docs.netapp.com/us-en/trident-2502/index.html["Trident25.02"^]
+* https://docs.netapp.com/us-en/trident-2410/index.html["Trident24.10"^]
+* https://docs.netapp.com/us-en/trident-2406/index.html["Trident24.06"^]
+* https://docs.netapp.com/us-en/trident-2402/index.html["Trident24.02"^]
+* https://docs.netapp.com/us-en/trident-2310/index.html["Trident23.10"^]
+* https://docs.netapp.com/us-en/trident-2307/index.html["Trident23.07"^]
+* https://docs.netapp.com/us-en/trident-2304/index.html["Trident23.04"^]
+* https://docs.netapp.com/us-en/trident-2301/index.html["Trident23.01"^]
+* https://docs.netapp.com/us-en/trident-2210/index.html["Trident22.10"^]
+

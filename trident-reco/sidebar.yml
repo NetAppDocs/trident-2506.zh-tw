@@ -1,0 +1,20 @@
+---
+section: trident-reco
+title: 最佳實踐和建議
+entries:
+- title: 部署
+  url: "/trident-reco/deploy-reco.html"
+- title: 儲存配置
+  url: "/trident-reco/storage-config-best-practices.html"
+- title: Trident集成
+  url: "/trident-reco/integrate-trident.html"
+- title: 資料保護和災難復原
+  url: "/trident-reco/backup.html"
+- title: 安全
+  entries:
+  - title: 安全建議
+    url: "/trident-reco/security-reco.html"
+  - title: Linux 統一金鑰設定 (LUKS)
+    url: "/trident-reco/security-luks.html"
+  - title: Kerberos 飛行中加密
+    url: "/trident-reco/kerberos-inflight-encryption.html"

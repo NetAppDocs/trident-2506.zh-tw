@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/known-issues-docker.html 
+keywords: known issues, trident, trident for docker, docker 
+summary: 尋找有關將Trident與 Docker 結合使用時已知問題的資訊。 
+---
+= 已知問題和限制
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+尋找有關將Trident與 Docker 結合使用時已知問題和限制的資訊。
+
+
+
+== 將Trident Docker Volume Plugin 從舊版升級到 20.10 及更高版本會導致升級失敗，並出現「沒有這樣的檔案或目錄」錯誤。
+
+.解決方法
+. 禁用插件。
++
+[source, console]
+----
+docker plugin disable -f netapp:latest
+----
+. 移除插件。
++
+[source, console]
+----
+docker plugin rm -f netapp:latest
+----
+. 重新安裝插件，並提供額外信息 `config`範圍。
++
+[source, console]
+----
+docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
+----
+
+
+
+
+== 卷名長度至少為 2 個字元。
+
+
+NOTE: 這是 Docker 客戶端的限制。用戶端會將單一字元名稱解釋為 Windows 路徑。 https://github.com/moby/moby/issues/25773["參見錯誤 25773"^] 。
+
+
+
+== Docker Swarm 的某些行為導致Trident無法支援它與所有儲存和驅動程式的組合。
+
+* Docker Swarm 目前使用磁碟區名稱而不是磁碟區 ID 作為其唯一的磁碟區識別碼。
+* 卷請求會同時傳送到 Swarm 叢集中的每個節點。
+* 磁碟區插件（包括Trident）必須在 Swarm 叢集中的每個節點上獨立運行。由於ONTAP 的工作方式以及 `ontap-nas`和 `ontap-san`駕駛員之所以能發揮作用，是因為他們是唯一能夠在這些限制條件下操作的人。
+
+
+其餘驅動程式會受到諸如競爭條件之類的問題的影響，這可能會導致單一請求創建大量卷，而沒有明確的「贏家」；例如，Element 具有允許卷具有相同名稱但 ID 不同的功能。
+
+NetApp已向 Docker 團隊提供了回饋，但目前沒有任何跡象表明未來會採取什麼措施。
+
+
+
+== 如果正在配置FlexGroup ，而第二個FlexGroup與正在配置的FlexGroup有一個或多個共同的聚合，則ONTAP不會配置第二個FlexGroup 。

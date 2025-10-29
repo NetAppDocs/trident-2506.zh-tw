@@ -1,0 +1,419 @@
+---
+sidebar: sidebar 
+permalink: faq.html 
+keywords: faq, frequently asked questions 
+summary: 尋找有關Trident 的安裝、設定、升級和故障排除的常見問題。 
+---
+= 常見問題解答
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+尋找有關Trident 的安裝、設定、升級和故障排除的常見問題。
+
+
+
+== 一般性問題
+
+
+
+=== Trident 的發布頻率如何？
+
+從 24.02 年版本開始， Trident每四個月發布一次：二月、六月和十月。
+
+
+
+=== Trident是否支援特定版本 Kubernetes 中發布的所有功能？
+
+Trident通常不支援 Kubernetes 中的 alpha 功能。  Trident可能會在 Kubernetes beta 版本之後的兩個Trident版本中支援 beta 功能。
+
+
+
+=== Trident 的運作是否依賴其他NetApp產品？
+
+Trident不依賴其他NetApp軟體產品，它可以作為獨立應用程式運作。但是，您應該使用NetApp後端儲存設備。
+
+
+
+=== 如何取得完整的Trident設定詳情？
+
+使用 `tridentctl get`命令以獲取有關您的Trident配置的更多資訊。
+
+
+
+=== 我能否取得Trident如何設定儲存的指標？
+
+是的。可用於收集有關Trident操作的資訊的 Prometheus 端點，例如管理的後端數量、已配置的磁碟區數量、消耗的位元組數等等。您也可以使用link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^]用於監測和分析。
+
+
+
+=== 使用Trident作為 CSI 設定器時，使用者體驗是否會改變？
+
+不，使用者體驗和功能方面沒有任何變化。使用的設定程式名稱是 `csi.trident.netapp.io`。如果您想使用目前和未來版本提供的所有新功能，建議使用此方法安裝Trident 。
+
+
+
+== 在 Kubernetes 叢集上安裝和使用Trident
+
+
+
+=== Trident是否支援從私人註冊表進行離線安裝？
+
+是的， Trident可以離線安裝。參考link:../trident-get-started/kubernetes-deploy.html["了解Trident安裝"^]。
+
+
+
+=== 我可以遠端安裝Trident嗎？
+
+是的。Trident 18.10 及更高版本支援從任何具備以下功能的機器進行遠端安裝： `kubectl`訪問集群。後 `kubectl`存取權限已驗證（例如，發起一次存取） `kubectl get nodes`從遠端機器發出命令進行驗證），請按照安裝說明進行操作。
+
+
+
+=== 我可以使用Trident設定高可用性嗎？
+
+Trident以 Kubernetes Deployment（ReplicaSet）的形式安裝，只有一個實例，因此它內建了高可用性 (HA)。您不應該增加 Deployment 中的副本數量。如果安裝了Trident 的節點遺失或 pod 無法訪問，Kubernetes 會自動將 pod 重新部署到叢集中的健康節點。  Trident僅用於控制平面，因此如果重新部署Trident，目前已安裝的 pod 不會受到影響。
+
+
+
+=== Trident是否需要存取 kube-system 命名空間？
+
+Trident從 Kubernetes API 伺服器讀取訊息，以確定應用程式何時要求新的 PVC，因此它需要存取 kube-system。
+
+
+
+=== Trident使用哪些角色和權限？
+
+Trident安裝程式會建立一個 Kubernetes ClusterRole，該角色對 Kubernetes 叢集的 PersistentVolume、PersistentVolumeClaim、StorageClass 和 Secret 資源有特定的存取權。參考link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂 tridentctl 安裝"^]。
+
+
+
+=== 我可以在本地產生Trident安裝時使用的確切清單檔案嗎？
+
+如有需要，您可以在本機產生和修改Trident安裝時使用的確切清單檔案。參考link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["自訂 tridentctl 安裝"^]。
+
+
+
+=== 我可以為兩個獨立的 Kubernetes 叢集中的兩個獨立的Trident實例共用同一個ONTAP後端 SVM 嗎？
+
+雖然不建議這樣做，但您可以為兩個Trident實例使用同一個後端 SVM。安裝期間為每個實例指定唯一的磁碟區名稱和/或指定唯一的 `StoragePrefix`參數 `setup/backend.json`文件。這是為了確保兩個實例不會使用同一個FlexVol volume。
+
+
+
+=== 是否可以在 ContainerLinux（原 CoreOS）下安裝Trident ？
+
+Trident其實就是一個 Kubernetes pod，可以安裝在任何執行 Kubernetes 的地方。
+
+
+
+=== 我可以將Trident與NetApp Cloud Volumes ONTAP一起使用嗎？
+
+是的， Trident在 AWS、Google Cloud 和 Azure 上均受支援。
+
+
+
+=== Trident是否與 Cloud Volumes Services 相容？
+
+是的， Trident支援 Azure 中的Azure NetApp Files服務以及 GCP 中的Cloud Volumes Service。
+
+
+
+== 故障排除和支持
+
+
+
+=== NetApp是否支援Trident？
+
+雖然Trident是開源且免費提供的，但只要您的NetApp後端受支持， NetApp就會完全支援它。
+
+
+
+=== 我該如何提交支持申請？
+
+如需提出援助申請，請執行以下操作之一：
+
+. 請聯絡您的支援客戶經理，以取得協助以提交工單。
+. 請聯絡我們提交支援案例。 https://www.netapp.com/company/contact-us/support/["NetApp支援"^] 。
+
+
+
+
+=== 如何產生支援日誌包？
+
+您可以透過執行以下命令來建立支援包 `tridentctl logs -a`。除了捆綁包中捕獲的日誌外，還要捕獲 kubelet 日誌，以診斷 Kubernetes 端的掛載問題。取得 kubelet 日誌的說明會因 Kubernetes 的安裝方式而異。
+
+
+
+=== 如果我需要提出新功能請求，該怎麼辦？
+
+創建問題 https://github.com/NetApp/trident["Trident Github"^]並在問題的主題和描述中註明 *RFE*。
+
+
+
+=== 我應該在哪裡提交缺陷報告？
+
+創建問題 https://github.com/NetApp/trident["Trident Github"^]。請務必提供與問題相關的所有必要資訊和日誌。
+
+
+
+=== 如果我對Trident有個需要澄清的簡短問題，該怎麼辦？這裡有社群或論壇嗎？
+
+如果您有任何疑問、問題或請求，請透過我們的Trident與我們聯絡。link:https://discord.gg/NetApp["Discord 頻道"^]或者 GitHub。
+
+
+
+=== 我的儲存系統密碼已更改， Trident無法再工作，我該如何恢復？
+
+使用以下方式更新後端密碼 `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`。代替 `myBackend`例如，請使用您的後端名稱，並且 ``/path/to_new_backend.json`通往正確路徑 `backend.json`文件。
+
+
+
+=== Trident找不到我的Kubernetes節點。我該如何解決這個問題？
+
+Trident找不到 Kubernetes 節點可能有以下兩種情況。這可能是由於 Kubernetes 內部的網路問題或 DNS 問題引起的。在每個 Kubernetes 節點上執行的Trident節點守護程序集必須能夠與Trident控制器通信，以便將節點註冊到Trident。如果在Trident安裝後發生了網路變更，則只有在向叢集中新增的 Kubernetes 節點時才會遇到此問題。
+
+
+
+=== 如果Trident艙被摧毀，我會遺失資料嗎？
+
+即使Trident艙被摧毀，資料也不會遺失。 Trident元資料儲存在 CRD 物件中。所有由Trident提供的PV都將正常運作。
+
+
+
+== 升級Trident
+
+
+
+=== 我可以直接從舊版本升級到新版本（跳過幾個版本）嗎？
+
+NetApp支援將Trident從一個主要版本升級到下一個緊鄰的主要版本。您可以從 18.xx 版本升級到 19.xx 版本，從 19.xx 版本升級到 20.xx 版本，依此類推。在生產環境部署之前，應該在實驗室環境中測試升級。
+
+
+
+=== 是否可以將Trident降級到先前的版本？
+
+如果您需要修復升級後發現的錯誤、依賴關係問題或升級失敗/不完整，您應該link:trident-managing-k8s/uninstall-trident.html["解除安裝Trident"]然後按照該版本的具體說明重新安裝早期版本。這是降級到早期版本的唯一推薦方法。
+
+
+
+== 管理後端和卷
+
+
+
+=== 我是否需要在ONTAP後端定義檔中同時定義 ManagementLIF 和 DataLIF？
+
+管理層 LIF 是強制性的。  DataLIF 值各不相同：
+
+* ONTAP SAN：不要指定用於 iSCSI。Trident的使用link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP選擇性 LUN 地圖"^]發現建立多路徑會話所需的 iSCI LIF。如果出現以下情況，則會產生警告： `dataLIF`已明確定義。參考 link:trident-use/ontap-san-examples.html["ONTAP SAN 配置選項和範例"] 了解詳情。
+* ONTAP NAS： NetApp建議指定 `dataLIF`。如果未提供， Trident將從 SVM 取得 dataLIF。您可以指定一個完全限定網域名稱 (FQDN) 用於 NFS 掛載操作，從而建立輪詢 DNS 以在多個 dataLIF 之間進行負載平衡。請參閱link:trident-use/ontap-nas-examples.html["ONTAP NAS 設定選項和範例"]詳情請見
+
+
+
+
+=== Trident能否為ONTAP後端設定CHAP？
+
+是的。Trident支援ONTAP後端的雙向 CHAP。這需要設定 `useCHAP=true`在您的後端配置中。
+
+
+
+=== 如何使用Trident管理匯出策略？
+
+從 20.04 版本開始， Trident可以動態建立和管理匯出策略。這樣，儲存管理員就可以在其後端配置中提供一個或多個 CIDR 區塊，並讓Trident將落入這些範圍內的節點 IP 新增到它所建立的匯出策略中。透過這種方式， Trident可以自動管理給定 CIDR 內 IP 位址的節點的規則新增和刪除。
+
+
+
+=== IPv6 位址可以用於管理和資料 LIF 嗎？
+
+Trident支援為下列裝置定義 IPv6 位址：
+
+* `managementLIF`和 `dataLIF`適用於ONTAP NAS 後端。
+* `managementLIF`適用於ONTAP SAN 後端。您無法指定 `dataLIF`基於ONTAP SAN 後端。
+
+
+必須使用標誌安裝Trident 。 `--use-ipv6` （為了 `tridentctl`安裝）， `IPv6` （對於Trident操作員），或 `tridentTPv6`（用於 Helm 安裝）使其能夠透過 IPv6 運作。
+
+
+
+=== 是否可以在後端更新管理 LIF？
+
+是的，可以使用以下方式更新後端管理 LIF： `tridentctl update backend`命令。
+
+
+
+=== 是否可以在後端更新 DataLIF？
+
+您可以更新 DataLIF `ontap-nas`和 `ontap-nas-economy`僅有的。
+
+
+
+=== 我可以在Trident for Kubernetes 中建立多個後端嗎？
+
+Trident可以同時支援多個後端，既可以使用相同的驅動程序，也可以使用不同的驅動程式。
+
+
+
+=== Trident是如何儲存後端憑證的？
+
+Trident將後端憑證儲存為 Kubernetes Secrets。
+
+
+
+=== Trident是如何選擇特定後端的？
+
+如果後端屬性無法用於自動為類別選擇適當的連線池，則 `storagePools`和 `additionalStoragePools`參數用於選擇一組特定的池子。
+
+
+
+=== 如何確保Trident不會從特定的後端進行設定？
+
+這 `excludeStoragePools`此參數用於篩選Trident用於配置的池集，並將刪除任何符合的池。
+
+
+
+=== 如果存在多個相同類型的後端， Trident如何選擇使用哪個後端？
+
+如果配置了多個相同類型的後端， Trident會根據配置中的參數選擇適當的後端。 `StorageClass`和 `PersistentVolumeClaim`。例如，如果存在多個 ontap-nas 驅動程式後端， Trident會嘗試匹配參數。 `StorageClass`和 `PersistentVolumeClaim`結合併匹配一個能夠滿足所列要求的後端 `StorageClass`和 `PersistentVolumeClaim`。如果存在多個後端與請求匹配， Trident會隨機選擇其中一個。
+
+
+
+=== Trident是否支援與 Element/ SolidFire 的雙向 CHAP 協定？
+
+是的。
+
+
+
+=== Trident如何在ONTAP磁碟區部署 Qtree？單一磁碟區上最多可以部署多少個 Qtree？
+
+這 `ontap-nas-economy`驅動程式在同一個FlexVol volume中最多可建立 200 個 Qtree（可在 50 到 300 之間配置），每個叢集節點最多可建立 100,000 個 Qtree，每個叢集最多可建立 240 萬個 Qtree。當你進入一個新的 `PersistentVolumeClaim`如果由經濟型驅動程式提供服務，則該驅動程式會檢視是否已存在可為新的 Qtree 提供服務的FlexVol volume。如果不存在可以為 Qtree 提供服務的FlexVol volume，則會建立一個新的FlexVol volume。
+
+
+
+=== 如何為ONTAP NAS 上配置的磁碟區設定 Unix 權限？
+
+您可以透過在後端定義檔中設定參數，為Trident提供的磁碟區設定 Unix 權限。
+
+
+
+=== 在配置磁碟區時，如何配置一組明確的ONTAP NFS 掛載選項？
+
+預設情況下， Trident不會為 Kubernetes 設定任何掛載選項。若要在 Kubernetes 儲存類別中指定掛載選項，請依照給定的範例進行操作。link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["這裡"^] 。
+
+
+
+=== 如何將已配置的磁碟區設定為特定的匯出策略？
+
+若要允許對應的主機存取卷，請使用下列方法： `exportPolicy`在後端定義檔中配置的參數。
+
+
+
+=== 如何使用Trident和ONTAP設定磁碟區加密？
+
+您可以使用後端定義檔中的加密參數，對Trident提供的磁碟區設定加密。更多信息，請參閱：link:trident-reco/security-reco.html#use-trident-with-nve-and-nae["Trident如何與 NVE 和 NAE 協同工作"]
+
+
+
+=== 透過Trident為ONTAP實現 QoS 的最佳方法是什麼？
+
+使用 `StorageClasses`為ONTAP實作 QoS。
+
+
+
+=== 如何在Trident中指定精簡配置或厚配置？
+
+ONTAP驅動程式支援精簡配置或厚配置。 ONTAP驅動程式預設採用精簡配置。如果需要厚配置，則應配置後端定義檔或 `StorageClass`。如果兩者都已配置， `StorageClass`優先考慮。為ONTAP配置以下內容：
+
+. 在 `StorageClass`,設定 `provisioningType`屬性為厚。
+. 在後端定義檔中，透過設定啟用厚卷 `backend spaceReserve parameter`作為體積。
+
+
+
+
+=== 如何確保即使我不小心刪除了PVC，正在使用的捲也不會被刪除？
+
+從 Kubernetes 1.10 版本開始，PVC 保護功能會自動啟用。
+
+
+
+=== 我可以種植Trident生產的NFS PVC嗎？
+
+是的。您可以膨脹由Trident製造的 PVC。請注意，卷自動增長是ONTAP 的功能，不適用於Trident。
+
+
+
+=== 我可以在SnapMirror資料保護 (DP) 模式或離線模式下匯入磁碟區嗎？
+
+如果外部磁碟區處於 DP 模式或離線，則磁碟區匯入失敗。您收到以下錯誤訊息：
+
+[listing]
+----
+Error: could not import volume: volume import failed to get size of volume: volume <name> was not found (400 Bad Request) command terminated with exit code 1.
+Make sure to remove the DP mode or put the volume online before importing the volume.
+----
+
+
+=== 如何將資源配額轉換為NetApp叢集？
+
+只要NetApp儲存有足夠的容量，Kubernetes 儲存資源配額就應該能夠正常運作。當NetApp儲存因容量不足而無法滿足 Kubernetes 配額設定時， Trident會嘗試進行配置，但會出錯。
+
+
+
+=== 我可以使用Trident建立磁碟區快照嗎？
+
+是的。Trident支援建立按需磁碟區快照和從快照建立持久性磁碟區。若要從快照建立 PV，請確保 `VolumeSnapshotDataSource`功能門已啟用。
+
+
+
+=== 支援Trident磁碟區快照的驅動程式有哪些？
+
+截至今日，我們的產品已提供按需快照支援。 `ontap-nas` ， `ontap-nas-flexgroup` ， `ontap-san` ， `ontap-san-economy` ， `solidfire-san` ， `gcp-cvs` ， 和 `azure-netapp-files`後端驅動程式。
+
+
+
+=== 如何對透過Trident ONTAP配置的磁碟區進行快照備份？
+
+這可以在以下平台找到： `ontap-nas` ， `ontap-san` ， 和 `ontap-nas-flexgroup`司機。您也可以指定一個 `snapshotPolicy`對於 `ontap-san-economy`FlexVol等級的驅動。
+
+這也可以在以下平台找到： `ontap-nas-economy`驅動程序，但粒度是FlexVol volume級別，而不是 qtree 級別。若要啟用對Trident配置的磁碟區進行快照的功能，請設定後端參數選項 `snapshotPolicy`根據ONTAP後端定義的所需快照策略。  Trident無法獲知儲存控制器拍攝的任何快照。
+
+
+
+=== 我可以為透過Trident配置的磁碟區設定快照保留百分比嗎？
+
+是的，您可以透過Trident設定預留特定百分比的磁碟空間來儲存快照副本。 `snapshotReserve`後端定義檔中的屬性。如果您已配置 `snapshotPolicy`和 `snapshotReserve`在後端定義檔中，快照保留百分比是根據以下方式設定的： `snapshotReserve`後端文件中提到的百分比。如果 `snapshotReserve`沒有提及百分比數值， ONTAP預設將快照保留百分比設為 5%。如果 `snapshotPolicy`如果選項設為“無”，則快照保留百分比設定為 0。
+
+
+
+=== 我可以直接存取卷宗快照目錄並複製文件嗎？
+
+是的，您可以透過設定來存取Trident配置的磁碟區上的快照目錄。 `snapshotDir`後端定義檔中的參數。
+
+
+
+=== 我可以透過Trident為磁碟區設定SnapMirror嗎？
+
+目前， SnapMirror必須透過ONTAP CLI 或OnCommand System Manager在外部進行設定。
+
+
+
+=== 如何將持久性磁碟區還原到特定的ONTAP快照？
+
+若要將磁碟區還原到ONTAP快照，請執行下列步驟：
+
+. 使正在使用持久卷的應用程式 pod 靜默。
+. 透過ONTAP CLI 或OnCommand System Manager還原到所需的快照。
+. 重啟應用程式 pod。
+
+
+
+
+=== Trident能否在配置了負載平衡鏡像的 SVM 上設定磁碟區？
+
+可以為透過 NFS 提供資料的 SVM 的根磁碟區建立負載平衡鏡像。 ONTAP會自動更新Trident所建立的磁碟區的負載平衡鏡像。這可能會導致卷安裝延遲。使用Trident建立多個磁碟區時，磁碟區的配置取決於ONTAP更新負載平衡鏡像。
+
+
+
+=== 如何將每個客戶/租戶的儲存類別使用情況分開統計？
+
+Kubernetes 不允許在命名空間中使用儲存類別。但是，您可以使用 Kubernetes 透過使用儲存資源配額（每個命名空間一個配額）來限制每個命名空間中特定儲存類別的使用量。若要拒絕特定命名空間對特定儲存的訪問，請將該儲存類別的資源配額設為 0。

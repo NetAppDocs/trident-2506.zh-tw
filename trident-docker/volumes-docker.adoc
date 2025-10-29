@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/volumes-docker.html 
+keywords: create volumes, Trident, trident for docker, docker, docker volume 
+summary: '若要建立卷，請使用標準 `docker volume`需要時，請使用指定Trident驅動程式名稱的指令。' 
+---
+= 使用卷
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用標準方法輕鬆建立、複製和刪除卷 `docker volume`需要時，請使用指定Trident驅動程式名稱的指令。
+
+
+
+== 創建卷
+
+* 使用預設名稱建立帶有驅動程式的磁碟區：
++
+[source, console]
+----
+docker volume create -d netapp --name firstVolume
+----
+* 建立包含特定Trident實例的磁碟區：
++
+[source, console]
+----
+docker volume create -d ntap_bronze --name bronzeVolume
+----
++
+
+NOTE: 如果您沒有指定任何內容link:volume-driver-options.html["選項"^]使用的是驅動程式的預設設定。
+
+* 覆蓋預設卷大小。請參閱以下範例，使用驅動程式建立 20 GiB 的磁碟區：
++
+[source, console]
+----
+docker volume create -d netapp --name my_vol --opt size=20G
+----
++
+
+TIP: 磁碟區大小以字串形式表示，其中包含一個整數值，單位可選（例如：10G、20GB、3TiB）。如果沒有指定單位，則預設值為 G。大小單位可以表示為 2 的冪（B、KiB、MiB、GiB、TiB）或 10 的冪（B、KB、MB、GB、TB）。簡寫單位使用 2 的冪（G = GiB，T = TiB，…）。
+
+
+
+
+
+== 移除音量
+
+* 刪除該磁碟區的方式與其他 Docker 磁碟區一樣：
++
+[source, console]
+----
+docker volume rm firstVolume
+----
++
+
+IMPORTANT: 使用時 `solidfire-san`上述驅動程式範例刪除並清除磁碟區。
+
+
+
+請依照下列步驟升級Trident for Docker。
+
+
+
+== 複製卷
+
+使用時 `ontap-nas`， `ontap-san` ， `solidfire-san` ， 和 `gcp-cvs storage drivers`Trident可以克隆卷。使用時 `ontap-nas-flexgroup`或者 `ontap-nas-economy`驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。
+
+* 檢查磁碟區以列舉快照：
++
+[source, console]
+----
+docker volume inspect <volume_name>
+----
+* 從現有磁碟區建立新磁碟區。這將導致創建一個新的快照：
++
+[source, console]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume>
+----
+* 從現有磁碟區上的快照建立新磁碟區。這不會創建新的快照：
++
+[source, console]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume> -o fromSnapshot=<source_snap_name>
+----
+
+
+
+
+=== 例子
+
+[source, console]
+----
+docker volume inspect firstVolume
+
+[
+  {
+    "Driver": "ontap-nas",
+    "Labels": null,
+    "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
+    "Name": "firstVolume",
+    "Options": {},
+    "Scope": "global",
+    "Status": {
+      "Snapshots": [
+        {
+          "Created": "2017-02-10T19:05:00Z",
+          "Name": "hourly.2017-02-10_1505"
+        }
+      ]
+    }
+  }
+]
+
+docker volume create -d ontap-nas --name clonedVolume -o from=firstVolume
+clonedVolume
+
+docker volume rm clonedVolume
+docker volume create -d ontap-nas --name volFromSnap -o from=firstVolume -o fromSnapshot=hourly.2017-02-10_1505
+volFromSnap
+
+docker volume rm volFromSnap
+----
+
+
+== 存取外部建立的捲
+
+只有當外部建立的區塊裝置（或其複製）沒有分割且其檔案系統受Trident支援時（例如：一個），容器才能使用Trident存取這些區塊裝置（或其複製）。 `ext4`格式化 `/dev/sdc1`無法透過Trident訪問）。

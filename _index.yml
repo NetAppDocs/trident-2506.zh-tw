@@ -1,0 +1,62 @@
+---
+indexpage:
+  lead: Trident是由NetApp維護的開源儲存配置器和編排器。它允許您為由 Docker 和 Kubernetes 管理的容器化應用程式建立儲存磁碟區。
+  tiles:
+  - title: 發行說明
+    links:
+    - title: 什麼是新的
+      url: trident-rn.html
+    - title: 早期版本
+      url: "/earlier-versions.html"
+  - title: 開始
+    links:
+    - title: 了解Trident
+      url: "/trident-get-started/intro.html"
+    - title: 要求
+      url: "/trident-get-started/requirements.html"
+    - title: 快速啟動
+      url: "/trident-get-started/quickstart.html"
+  - title: 部署Trident
+    links:
+    - title: 使用Trident操作員進行部署
+      url: "/trident-get-started/kubernetes-deploy-operator.html"
+    - title: 使用 tridentctl 進行部署
+      url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+    - title: 部署適用於 Docker 的Trident
+      url: "/trident-docker/deploy-docker.html"
+  - title: 升級Trident
+    links:
+    - title: 使用Trident運營商進行升級
+      url: "/trident-managing-k8s/upgrade-operator.html"
+    - title: 使用 tridentctl 進行升級
+      url: "/trident-managing-k8s/upgrade-tridentctl.html"
+  - title: 使用Trident
+    links:
+    - title: 準備工作節點
+      url: "/trident-use/worker-node-prep.html"
+    - title: 配置後端
+      url: "/trident-use/backends.html"
+    - title: 管理儲存類別
+      url: "/trident-use/manage-stor-class.html"
+    - title: 執行批次操作
+      url: "/trident-use/vol-operations.html"
+  - title: 進階資料管理和保護
+    links:
+    - title: 使用Trident Protect 進行進階資料保護
+      url: "/trident-protect/learn-about-trident-protect.html"
+    - title: 部署Trident保護
+      url: "/trident-protect/trident-protect-installation.html"
+    - title: 升級Trident保護
+      url: "/trident-protect/trident-protect-upgrade.html"
+  - title: 演示和教程
+    links:
+    - title: Trident視頻
+      url: https://media.netapp.com/video-detail/c5bebae0-aab6-5fed-ae16-df6a3a8b260d/netapp-trident-advanced-data-protection-for-kubernetes-applications
+  - title: 部落格和社區
+    links:
+    - title: Trident和Trident保護博客
+      url: "/blog-posts.html"
+    - title: NetApp
+      url: https://netapp.io/
+    - title: 不和諧
+      url: https://discord.gg/NetApp

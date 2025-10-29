@@ -1,0 +1,129 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-custom-name.html 
+keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
+summary: Trident支援為建立的磁碟區指派有意義的名稱和標籤，以便更容易識別、監控和管理卷，並輕鬆地將磁碟區對應到對應的 Kubernetes 資源（PVC）。 
+---
+= 自訂磁碟區名稱和標籤
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用Trident，您可以為建立的磁碟區指派有意義的名稱和標籤。這可以幫助您識別磁碟區並將其輕鬆對應到各自的 Kubernetes 資源（PVC）。您也可以在後端層級定義模板，以建立自訂磁碟區名稱和自訂標籤；您建立、匯入或複製的任何磁碟區都會遵循這些模板。
+
+
+
+== 開始之前
+
+支援自訂磁碟區名稱和標籤：
+
+. 磁碟區建立、匯入和克隆操作。
+. 對於 ontap-nas-economy 驅動程序，只有 Qtree 磁碟區的名稱符合名稱範本。
+. 對於 ontap-san-economy 驅動程序，只有 LUN 名稱符合名稱範本。
+
+
+
+
+== 限制
+
+. 可自訂磁碟區名稱僅與ONTAP本機驅動程式相容。
+. 可自訂的磁碟區名稱不適用於現有磁碟區。
+
+
+
+
+== 可自訂磁碟區名稱的關鍵行為
+
+. 如果由於名稱範本中的語法無效而導致失敗，則後端建立將失敗。但是，如果範本套用失敗，則磁碟區將按照現有的命名約定命名。
+. 當使用後端配置中的名稱模板命名磁碟區時，儲存前綴不適用。可以直接在模板中加入任何所需的前綴值。
+
+
+
+
+== 後端設定範例，包含名稱範本和標籤
+
+可以在根層級和/或池層級定義自訂名稱範本。
+
+.根級別範例
+[source, json]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "ontap-nfs-backend",
+  "managementLIF": "<ip address>",
+  "svm": "svm0",
+  "username": "<admin>",
+  "password": "<password>",
+  "defaults": {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+  },
+  "labels": {
+    "cluster": "ClusterA",
+    "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"
+  }
+}
+----
+.池級範例
+[source, json]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "ontap-nfs-backend",
+  "managementLIF": "<ip address>",
+  "svm": "svm0",
+  "username": "<admin>",
+  "password": "<password>",
+  "useREST": true,
+  "storage": [
+    {
+      "labels": {
+        "labelname": "label1",
+        "name": "{{ .volume.Name }}"
+      },
+      "defaults": {
+        "nameTemplate": "pool01_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+      }
+    },
+    {
+      "labels": {
+        "cluster": "label2",
+        "name": "{{ .volume.Name }}"
+      },
+      "defaults": {
+        "nameTemplate": "pool02_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+      }
+    }
+  ]
+}
+----
+
+
+== 名稱範本範例
+
+*範例 1*：
+
+[listing]
+----
+"nameTemplate": "{{ .config.StoragePrefix }}_{{ .volume.Name }}_{{ .config.BackendName }}"
+----
+*範例 2*：
+
+[listing]
+----
+"nameTemplate": "pool_{{ .config.StoragePrefix }}_{{ .volume.Name }}_{{ slice .volume.RequestName 1 5 }}""
+----
+
+
+== 需要考慮的幾點
+
+. 對於磁碟區匯入，只有當現有磁碟區具有特定格式的標籤時，才會更新標籤。例如： `{"provisioning":{"Cluster":"ClusterA", "PVC": "pvcname"}}` 。
+. 對於託管磁碟區匯入，磁碟區名稱遵循後端定義根層級定義的名稱範本。
+. Trident不支援將切片運算子與儲存前綴一起使用。
+. 如果模板無法產生唯一的磁碟區名稱， Trident將添加一些隨機字元來建立唯一的磁碟區名稱。
+. 如果 NAS 經濟型磁碟區的自訂名稱長度超過 64 個字符， Trident將依照現有的命名約定為磁碟區命名。對於所有其他ONTAP驅動程序，如果磁碟區名稱超過名稱限制，則磁碟區建立程序將會失敗。
+

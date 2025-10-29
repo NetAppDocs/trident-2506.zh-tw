@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: trident-use/create-stor-class.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
+summary: 您可以設計一個 Kubernetes StorageClass 文件，並建立 StorageClass 來指示Trident如何設定磁碟區。 
+---
+= 建立儲存類別
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+配置 Kubernetes StorageClass 物件並建立儲存類，以指示Trident如何設定磁碟區。
+
+
+
+== 設定 Kubernetes StorageClass 對象
+
+這 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass 對象"^]識別Trident作為該類別使用的配置器，並指示Trident如何配置磁碟區。例如：
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+mountOptions:
+  - nfsvers=3
+  - nolock
+parameters:
+  backendType: "ontap-nas"
+  media: "ssd"
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+----
+請參閱link:../trident-reference/objects.html["Kubernetes 和Trident對象"]有關存儲類如何與…交互的詳細信息 `PersistentVolumeClaim`以及控制Trident如何分配容量的參數。
+
+
+
+== 建立儲存類別
+
+建立 StorageClass 物件後，即可建立儲存類別。<<儲存類別範例>>提供一些您可以使用或修改的基本範例。
+
+.步驟
+. 這是一個 Kubernetes 對象，所以請使用 `kubectl`在 Kubernetes 中創建它。
++
+[listing]
+----
+kubectl create -f sample-input/storage-class-basic-csi.yaml
+----
+. 現在您應該在 Kubernetes 和Trident中都看到 *basic-csi* 儲存類，並且Trident應該已經發現了後端上的儲存池。
++
+[source, console]
+----
+kubectl get sc basic-csi
+----
+
+
+[listing]
+----
+NAME         PROVISIONER             AGE
+basic-csi    csi.trident.netapp.io   15h
+----
+[source, console]
+----
+./tridentctl -n trident get storageclass basic-csi -o json
+----
+[source, json]
+----
+{
+  "items": [
+    {
+      "Config": {
+        "version": "1",
+        "name": "basic-csi",
+        "attributes": {
+          "backendType": "ontap-nas"
+        },
+        "storagePools": null,
+        "additionalStoragePools": null
+      },
+      "storage": {
+        "ontapnas_10.0.0.1": [
+          "aggr1",
+          "aggr2",
+          "aggr3",
+          "aggr4"
+        ]
+      }
+    }
+  ]
+}
+----
+
+
+=== 儲存類別範例
+
+Trident提供 https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["針對特定後端的簡單儲存類別定義"^]。
+
+或者，您可以編輯 `sample-input/storage-class-csi.yaml.templ`安裝程式隨附的檔案並替換 `__BACKEND_TYPE__`使用儲存驅動程式名稱。
+
+[listing]
+----
+./tridentctl -n trident get backend
++-------------+----------------+--------------------------------------+--------+---------+
+|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------+----------------+--------------------------------------+--------+---------+
+| nas-backend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       0 |
++-------------+----------------+--------------------------------------+--------+---------+
+
+cp sample-input/storage-class-csi.yaml.templ sample-input/storage-class-basic-csi.yaml
+
+# Modify __BACKEND_TYPE__ with the storage driver field above (e.g., ontap-nas)
+vi sample-input/storage-class-basic-csi.yaml
+----

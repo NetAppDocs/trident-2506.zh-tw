@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.開始之前
+確保 AWS 會話令牌的過期時間足以滿足任何長時間運行的 S3 復原操作。如果在恢復操作期間令牌過期，則操作可能會失敗。
+
+* 請參閱 https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API 文件"^]有關檢查當前會話令牌過期時間的詳細資訊。
+* 請參閱 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM 文件"^]有關 AWS 資源憑證的詳細資訊。
+

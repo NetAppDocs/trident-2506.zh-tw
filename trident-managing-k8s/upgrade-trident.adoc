@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-trident.html 
+keywords: upgrade, trident, methods, operator, tridentctl, helm 
+summary: Trident遵循四個月的發布節奏，每年發布三個主要版本。每個新版本都是在前一個版本的基礎上開發的，提供新功能和效能增強，以及錯誤修復和改進。我們鼓勵您至少每年升級一次，以充分利用Trident的新功能。 
+---
+= 升級Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+從 24.02 版本開始， Trident遵循四個月的發布節奏，每年發布三個主要版本。每個新版本都以先前的版本為基礎，並提供新功能、效能增強、錯誤修復和改進。我們建議您至少每年升級一次，以充分利用Trident的新功能。
+
+
+
+== 升級前的注意事項
+
+升級至最新版Trident時，請注意以下事項：
+
+* 在給定的 Kubernetes 叢集的所有命名空間中，應該只安裝一個Trident實例。
+* Trident 23.07 及更高版本需要 v1 卷快照，不再支援 alpha 或 beta 快照。
+* 如果您在 Google Cloud 中建立了Cloud Volumes Service，link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS 服務類型"]您必須更新後端配置才能使用 `standardsw`或者 `zoneredundantstandardsw`從Trident 23.01 升級時的服務等級。未能更新 `serviceLevel`後端故障可能導致磁碟區故障。參考 link:../trident-use/gcp.html#cvs-service-type-examples["CVS 服務類型範例"] 了解詳情。
+* 升級時，請務必提供以下信息 `parameter.fsType`在 `StorageClasses`由Trident使用。您可以刪除並重新創建 `StorageClasses`在不影響原有流量的情況下。
++
+** 這是強制執行的**要求** https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["安全情境"^]適用於 SAN 卷。
+** https://github.com/NetApp/trident/tree/master/trident-installer/sample-input [範例輸入^] 目錄包含範例，例如https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ[`storage-class-basic.yaml.templ` ^] 與連結： https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml` ^]。
+** 更多信息，請參閱link:../trident-rn.html["已知問題"]。
+
+
+
+
+
+
+== 步驟 1：選擇版本
+
+Trident 的版本遵循基於日期的命名規則。 `YY.MM`命名規則中，「YY」是年份的最後兩位數字，「MM」是月份。 Dot 版本遵循 `YY.MM.X`按照慣例，其中“X”是補丁等級。您需要根據目前版本選擇要升級到的版本。
+
+* 您可以直接升級到與已安裝版本相差不超過四個版本視窗內的任何目標版本。例如，您可以直接從 24.06（或任何 24.06 的小版本）升級到 25.06。
+* 如果您要從四個版本視窗以外的版本升級，請執行多步驟升級。請依照升級說明進行操作。link:../earlier-versions.html["早期版本"]您正在從目前版本升級到符合四版本發布視窗的最新版本。例如，如果您目前運行的是 23.07 版本，並且想要升級到 25.06 版本：
++
+.. 首次升級從 23.07 升級到 24.06。
+.. 然後從 24.06 升級到 25.06。
+
+
+
+
+
+NOTE: 在 OpenShift 容器平台上使用Trident運算子進行升級時，應升級至Trident 21.01.1 或更高版本。隨 21.01.0 版本發布的Trident操作符存在一個已知問題，該問題已在 21.01.1 版本中修復。更多詳情請參閱… https://github.com/NetApp/trident/issues/517["GitHub 上的問題詳情"^] 。
+
+
+
+== 步驟二：確定原始安裝方法
+
+若要確定您最初安裝Trident時所使用的版本：
+
+. 使用 `kubectl get pods -n trident`檢查豆莢。
++
+** 如果沒有操作員艙，Trident是透過以下方式安裝的： `tridentctl` 。
+** 如果存在 operator pod，則Trident是透過Trident operator 手動安裝的，或使用 Helm 安裝的。
+
+
+. 如果有操作員艙，請使用 `kubectl describe torc`確定Trident是否使用 Helm 安裝。
++
+** 如果有 Helm 標籤，表示Trident是使用 Helm 安裝的。
+** 如果沒有 Helm 標籤，則表示Trident是使用Trident操作員手動安裝的。
+
+
+
+
+
+
+== 步驟 3：選擇升級方式
+
+通常情況下，您應該使用與初始安裝相同的方法進行升級，但是您也可以…link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["安裝方法之間的轉換"] 。升級Trident有兩種選擇。
+
+* link:upgrade-operator.html["使用Trident操作員進行升級"]
++
+
+TIP: 我們建議您查看link:upgrade-operator-overview.html["了解操作員升級工作流程"]在與運營商升級之前。
+
+* 
+

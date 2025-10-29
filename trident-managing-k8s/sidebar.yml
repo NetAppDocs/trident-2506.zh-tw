@@ -1,0 +1,22 @@
+---
+section: trident-managing-k8s
+title: 管理與監控Trident
+entries:
+- title: 升級Trident
+  entries:
+  - title: 升級概述
+    url: "/trident-managing-k8s/upgrade-trident.html"
+  - title: 透過營運商進行升級
+    entries:
+    - title: 了解操作員升級工作流程
+      url: "/trident-managing-k8s/upgrade-operator-overview.html"
+    - title: 透過營運商進行升級
+      url: "/trident-managing-k8s/upgrade-operator.html"
+  - title: 使用 tridentctl 進行升級
+    url: "/trident-managing-k8s/upgrade-tridentctl.html"
+- title: 使用 tridentctl 管理Trident
+  url: "/trident-managing-k8s/tridentctl.html"
+- title: 監視Trident
+  url: "/trident-use/monitor-trident.html"
+- title: 解除安裝Trident
+  url: "/trident-managing-k8s/uninstall-trident.html"

@@ -1,0 +1,108 @@
+---
+sidebar: sidebar 
+permalink: get-help.html 
+keywords: get help, get support, knowledgebase, discord, phone, web, ticket, contact support, support ticket 
+summary: 'NetApp以多種方式為Trident提供支援。我們提供全天候 (24x7) 的豐富免費自助支援選項，例如 Discord 頻道。' 
+---
+= 支援
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp以多種方式為Trident提供支援。我們提供全天候 (24x7) 的豐富免費自助支援選項，例如知識庫 (KB) 文章和 Discord 頻道。
+
+
+
+== Trident支持
+
+Trident根據您的版本提供三個等級的支援。參考link:https://mysupport.netapp.com/site/info/version-support["NetApp軟體版本對定義的支持"^]。
+
+全力支持:: Trident自發布之日起提供十二個月的全面支援。
+有限的支持:: Trident在發布日期後的第 13 至 24 個月提供有限的支援。
+自給自足:: Trident 的文件可在發布日期後的第 25 個月至第 36 個月內查閱。
+
+
+[cols="1, 1, 1, 1"]
+|===
+
+
+| 版本 | 全力支持 | 有限的支持 | 自給自足 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident/index.html["25.06"^]
+| 2026年6月 | 2027年6月 | 2028年6月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2502/index.html["25.02"^]
+| 2026年2月 | 2027年2月 | 2028年2月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2410/index.html["24.10"^]
+| 2025年10月 | 2026年10月 | 2027年10月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2406/index.html["24.06"^]
+| 2025年6月 | 2026年6月 | 2027年6月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2402/index.html["24.02"^]
+| 2025年2月 | 2026年2月 | 2027年2月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2310/index.html["23.10"^]
+| -- | 2025年10月 | 2026年10月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2307/index.html["23.07"^]
+| -- | 2025年7月 | 2026年7月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2304/index.html["23.04"^]
+| -- | 2025年4月 | 2026年4月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
+| -- | -- | 2026年1月 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2210/index.html["22.10"^]
+| -- | -- | 2025年10月 
+|===
+
+
+== 自給自足
+
+如需查看完整的故障排除文章列表，請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp知識庫（需要登入）"^]。
+
+
+
+== 社區支持
+
+我們的平台上有一個活躍的容器使用者公共社群（包括Trident開發人員）。link:https://discord.gg/NetApp["Discord 頻道"^] 。這裡是詢問有關專案的一般性問題並與志同道合的同行討論相關主題的好地方。
+
+
+
+== NetApp技術支持
+
+如需Trident的協助，請使用下列指令建立支援包 `tridentctl logs -a -n trident`並將其發送至 `NetApp Support <Getting Help>`。
+
+
+
+== 更多資訊
+
+* link:https://github.com/NetApp/trident["Trident資源"^]
+* link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
+

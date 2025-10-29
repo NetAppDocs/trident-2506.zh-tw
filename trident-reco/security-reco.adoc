@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/security-reco.html 
+keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
+summary: 請按照此處列出的建議，確保您的Trident安裝安全可靠。 
+---
+= 安全
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+請按照此處列出的建議，確保您的Trident安裝安全可靠。
+
+
+
+== 在Trident自身的命名空間中運行它
+
+防止應用程式、應用程式管理員、使用者和管理應用程式存取Trident物件定義或 pod 非常重要，以確保可靠的儲存並封鎖潛在的惡意活動。
+
+為了將其他應用程式和使用者與Trident隔離，請務必將Trident安裝在其自身的 Kubernetes 命名空間中。(`trident` ）。將Trident放在自己的命名空間中，可以確保只有 Kubernetes 管理員才能存取Trident pod 和儲存在命名空間 CRD 物件中的工件（例如後端和 CHAP 金鑰，如果適用）。您應該確保只允許管理員存取Trident命名空間，從而獲得存取權限。 `tridentctl`應用。
+
+
+
+== 使用 CHAP 驗證與ONTAP SAN 後端配合使用
+
+Trident支援基於 CHAP 的ONTAP SAN 工作負載驗證（使用 `ontap-san`和 `ontap-san-economy`司機）。  NetApp建議使用Trident的雙向 CHAP 進行主機與儲存後端之間的驗證。
+
+對於使用 SAN 儲存驅動程式的ONTAP後端， Trident可以透過以下方式設定雙向 CHAP 並管理 CHAP 使用者名稱和金鑰： `tridentctl` 。請參閱link:../trident-use/ontap-san-prep.html["準備配置後端ONTAP SAN 驅動程式"^]了解Trident如何在ONTAP後端設定 CHAP。
+
+
+
+== 使用 CHAP 驗證連線NetApp HCI和SolidFire後端
+
+NetApp建議部署雙向 CHAP，以確保主機與NetApp HCI和SolidFire後端之間的驗證。 Trident使用一個包含每個租用戶兩個 CHAP 密碼的秘密物件。安裝Trident後，它會管理 CHAP 金鑰並將其儲存在一個位置。 `tridentvolume`對應 PV 的 CR 物件。在建立 PV 時， Trident使用 CHAP 金鑰啟動 iSCSI 會話，並透過 CHAP 與NetApp HCI和SolidFire系統通訊。
+
+
+NOTE: Trident建立的磁碟區不會與任何磁碟區存取群組關聯。
+
+
+
+== 將Trident與 NVE 和 NAE 結合使用
+
+NetApp ONTAP提供靜態資料加密，以保護敏感數據，防止磁碟被盜、退回或重新利用。有關詳細信息，請參閱link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["配置NetApp卷加密概述"^]。
+
+* 如果後端啟用了 NAE，則在Trident中配置的任何磁碟區都會啟用 NAE。
++
+** 您可以將 NVE 加密標誌設定為 `""`建立支援 NAE 的磁碟區。
+
+
+* 如果後端未啟用 NAE，則在Trident中配置的任何磁碟區都會啟用 NVE，除非 NVE 加密標誌設為 。 `false` （後端配置中的預設值）。
+
+
+[NOTE]
+====
+在啟用 NAE 的後端上使用Trident建立的磁碟區必須使用 NVE 或 NAE 加密。
+
+* 您可以將 NVE 加密標誌設定為 `true`在Trident後端設定中，可以覆蓋 NAE 加密，並按磁碟區使用特定的加密金鑰。
+* 將 NVE 加密標誌設為 `false`在啟用 NAE 的後端上建立啟用 NAE 的磁碟區。您無法透過將 NVE 加密標誌設為 來停用 NAE 加密。 `false` 。
+
+
+====
+* 您可以透過明確設定 NVE 加密標誌，在Trident中手動建立 NVE 磁碟區。 `true` 。
+
+
+有關後端配置選項的更多信息，請參閱：
+
+* link:../trident-use/ontap-san-examples.html["ONTAP SAN 配置選項"]
+* link:../trident-use/ontap-nas-examples.html["ONTAP NAS 設定選項"]
+

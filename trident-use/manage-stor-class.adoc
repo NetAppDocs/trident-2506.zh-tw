@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: trident-use/manage-stor-class.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
+summary: 您可以查看現有儲存類別、設定預設儲存類別、識別儲存類別後端以及刪除儲存類別。 
+---
+= 管理儲存類別
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看現有儲存類別、設定預設儲存類別、識別儲存類別後端以及刪除儲存類別。
+
+
+
+== 查看現有儲存類
+
+* 若要查看現有的 Kubernetes 儲存類，請執行下列命令：
+
+
+[listing]
+----
+kubectl get storageclass
+----
+* 要查看 Kubernetes 儲存類別詳細信息，請執行以下命令：
+
+
+[listing]
+----
+kubectl get storageclass <storage-class> -o json
+----
+* 若要查看 Trident 的同步儲存類，請執行下列命令：
+
+
+[listing]
+----
+tridentctl get storageclass
+----
+* 要查看 Trident 的同步儲存類別詳細信息，請執行以下命令：
+
+
+[listing]
+----
+tridentctl get storageclass <storage-class> -o json
+----
+
+
+== 設定預設儲存類
+
+Kubernetes 1.6 增加了設定預設儲存類別的功能。如果使用者未在持久性磁碟區宣告 (PVC) 中指定持久卷，則將使用此儲存類別來設定持久性磁碟區。
+
+* 透過設定註解來定義預設儲存類 `storageclass.kubernetes.io/is-default-class`在儲存類別定義中設定為 true。根據規範，任何其他值或缺少註釋均被解釋為錯誤。
+* 您可以使用下列命令將現有儲存類別配置為預設儲存類別：
+
+
+[listing]
+----
+kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+----
+* 同樣，您可以使用以下命令移除預設的儲存類別註解：
+
+
+[listing]
+----
+kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+----
+Trident安裝程式包中也有一些包含此註解的範例。
+
+
+NOTE: 叢集中一次只能存在一個預設儲存類別。從技術上講，Kubernetes 不會阻止你擁有多個預設儲存類，但它的行為就好像根本沒有預設儲存類別一樣。
+
+
+
+== 確定儲存類別的後端
+
+這是一個您可以使用 JSON 回答的問題範例： `tridentctl` Trident後端物件的輸出。這使用 `jq`您可能需要先安裝該實用程式。
+
+[listing]
+----
+tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.name, backends: [.storage]|unique}]'
+----
+
+
+== 刪除儲存類
+
+若要從 Kubernetes 中刪除儲存類，請執行以下命令：
+
+[listing]
+----
+kubectl delete storageclass <storage-class>
+----
+`<storage-class>`應該替換成你的儲存類別。
+
+透過此儲存類別建立的任何持久性磁碟區都將保持不變， Trident將繼續管理它們。
+
+
+NOTE: Trident強制執行空白 `fsType`因為它創造了大量的銷售。對於 iSCSI 後端，建議強制執行 `parameters.fsType`在儲存類別中。您應該刪除現有的 StorageClasses 並重新建立它們。 `parameters.fsType`指定的。

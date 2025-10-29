@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: trident-use/gcnv-prep.html 
+keywords: trident backend, google cloud netapp volumes, smb volumes, active directory, csi proxy, aks, cloud identity 
+summary: 在設定Google Cloud NetApp Volumes後端之前，您需要確保符合下列要求。 
+---
+= 準備設定Google Cloud NetApp Volumes後端
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在設定Google Cloud NetApp Volumes後端之前，您需要確保符合下列要求。
+
+
+
+== NFS 磁碟區的先決條件
+
+如果您是第一次使用Google Cloud NetApp Volumes或在新的位置使用，則需要進行一些初始設定來設定Google Cloud NetApp Volumes並建立 NFS 磁碟區。參考link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["開始之前"^]。
+
+在設定Google Cloud NetApp Volumes後端之前，請確保您已具備以下條件：
+
+* 已設定Google Cloud NetApp Volumes服務的 Google Cloud 帳戶。參考link:https://cloud.google.com/netapp-volumes["Google Cloud NetApp Volumes"^]。
+* 您的 Google Cloud 帳戶項目編號。參考link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["確定項目"^]。
+* 擁有NetApp Volumes 管理員權限的 Google Cloud 服務帳戶(`roles/netapp.admin`） 角色。參考link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["身分和存取管理角色和權限"^]。
+* GCNV帳戶的API金鑰檔案。請參閱link:https://cloud.google.com/iam/docs/keys-create-delete#creating["建立服務帳戶金鑰"^]
+* 儲水池。參考link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["儲存池概覽"^]。
+
+
+有關如何設定對Google Cloud NetApp Volumes 的存取權限的更多信息，請參閱：link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/workflow#before_you_begin["設定對Google Cloud NetApp Volumes 的存取權限"^] 。

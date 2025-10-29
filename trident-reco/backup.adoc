@@ -1,0 +1,128 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/backup.html 
+keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
+summary: 了解Trident的保護和復原選項以及使用Trident建立的磁碟區。對於每個有持久化需求的應用程序，都應該制定資料保護和復原策略。 
+---
+= 資料保護和災難復原
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+了解Trident的保護和復原選項以及使用Trident建立的磁碟區。對於每個有持久化需求的應用程序，都應該制定資料保護和復原策略。
+
+
+
+== Trident複製與恢復
+
+您可以建立備份，以便在災難發生時還原Trident 。
+
+
+
+=== Trident複製
+
+Trident使用 Kubernetes CRD 來儲存和管理自己的狀態，並使用 Kubernetes 叢集 etcd 來儲存其元資料。
+
+.步驟
+. 使用以下指令備份 Kubernetes 叢集 etcdlink:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes：備份 etcd 集群"^] 。
+. 將備份檔案放置在FlexVol volume上
++
+
+NOTE: NetApp建議您使用SnapMirror關係式將FlexVol所在的 SVM 與其他 SVM 連接起來，從而保護該 SVM。
+
+
+
+
+
+=== Trident恢復
+
+使用 Kubernetes CRD 和 Kubernetes 叢集 etcd 快照，您可以還原Trident。
+
+.步驟
+. 從目標 SVM 上，將包含 Kubernetes etcd 資料檔案和憑證的磁碟區掛載到將要設定為主節點的主機上。
+. 複製 Kubernetes 叢集所需的所有憑證。 `/etc/kubernetes/pki`以及 etcd 成員文件 `/var/lib/etcd`。
+. 使用 etcd 備份還原 Kubernetes 集群link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#restoring-an-etcd-cluster["Kubernetes：恢復 etcd 集群"^]。
+. 跑步 `kubectl get crd`驗證所有Trident自訂資源是否已啟動，並擷取Trident物件以驗證所有資料是否可用。
+
+
+
+
+== SVM複製與復原
+
+Trident無法設定複製關係，但儲存管理員可以使用 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["ONTAP SnapMirror"^]複製 SVM。
+
+發生災難時，您可以啟動SnapMirror目標 SVM 開始提供資料服務。系統恢復後，您可以切換回主伺服器。
+
+.關於此任務
+使用SnapMirror SVM 複製功能時，請考慮以下事項：
+
+* 對於啟用了 SVM-DR 的每個 SVM，您應該建立一個獨立的後端。
+* 配置儲存類，僅在需要時選擇複製後端，以避免將不需要複製的磁碟區配置到支援 SVM-DR 的後端上。
+* 應用程式管理員應了解複製帶來的額外成本和複雜性，並在開始此過程之前仔細考慮其恢復計劃。
+
+
+
+
+=== SVM複製
+
+您可以使用link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-workflow-concept.html["ONTAP： SnapMirror SVM 複製"^]建立 SVM 複製關係。
+
+SnapMirror可讓您設定選項來控制要複製的內容。您需要知道您在執行操作時選擇了哪些選項。<<使用Trident進行 SVM 恢復>> 。
+
+* link:https://docs.netapp.com/us-en/ontap/data-protection/replicate-entire-svm-config-task.html["-identity-preserve true"^]複製整個 SVM 配置。
+* link:https://docs.netapp.com/us-en/ontap/data-protection/exclude-lifs-svm-replication-task.html["-丟棄網路配置"^]不包括 LIF 和相關網路設定。
+* link:https://docs.netapp.com/us-en/ontap/data-protection/exclude-network-name-service-svm-replication-task.html["-identity-preserve false"^]僅複製捲和安全性配置。
+
+
+
+
+=== 使用Trident進行 SVM 恢復
+
+Trident無法自動偵測 SVM 故障。如果發生災難，管理員可以手動啟動Trident故障轉移到新的 SVM。
+
+.步驟
+. 取消已排程和正在進行的SnapMirror傳輸，斷開複製關係，停止來源 SVM，然後啟動SnapMirror目標 SVM。
+. 如果您指定 `-identity-preserve false`或者 `-discard-config network`配置 SVM 複製時，請更新以下內容： `managementLIF`和 `dataLIF`在Trident後端定義檔中。
+. 確認 `storagePrefix`存在於Trident後端定義檔中。此參數無法變更。省略 `storagePrefix`這將導致後端更新失敗。
+. 使用下列命令更新所有必要的後端，以反映新的目標 SVM 名稱：
++
+[listing]
+----
+./tridentctl update backend <backend-name> -f <backend-json-file> -n <namespace>
+----
+. 如果您指定 `-identity-preserve false`或者 `discard-config network`您必須重新啟動所有應用程式 pod。
++
+
+NOTE: 如果您指定 `-identity-preserve true`當目標 SVM 啟動時， Trident提供的所有磁碟區開始提供資料服務。
+
+
+
+
+
+== 磁碟區複製和恢復
+
+Trident無法設定SnapMirror複製關係，但儲存管理員可以使用link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["ONTAP SnapMirror複製與恢復"^]複製Trident建立的磁碟區。
+
+然後，您可以使用下列方法將復原的磁碟區匯入到Trident ：link:../trident-use/vol-import.html["tridentctl 磁碟區導入"] 。
+
+
+NOTE: 不支援導入 `ontap-nas-economy`， `ontap-san-economy` ， 或者 `ontap-flexgroup-economy`司機。
+
+
+
+== 快照資料保護
+
+您可以使用以下方法保護和復原資料：
+
+* 外部快照控制器和 CRD 用於建立持久磁碟區 (PV) 的 Kubernetes 磁碟區快照。
++
+link:../trident-use/vol-snapshots.html["卷快照"]
+
+* ONTAP快照用於還原磁碟區的全部內容，或還原單一檔案或 LUN。
++
+link:https://docs.netapp.com/us-en/ontap/data-protection/manage-local-snapshot-copies-concept.html["ONTAP快照"^]
+
+
