@@ -12,14 +12,8 @@
   <block id="c2b7f24f4ddbaedb4e3d9e19f77eebac" category="paragraph">您可以在 YAML 檔案中使用此註解，如下所示：</block>
   <block id="14a0e26cbe187a4754f8b523ffba6073" category="paragraph">在這個例子中，註解失敗了。<block ref="ec2a2895b09b6030ec8cc1b3c43ddc4d" prefix=" " category="inline-code"></block>如果在恢復操作中 2 秒內沒有進展，則執行操作。</block>
   <block id="c49aaf233c16f1193a8d683c17866eea" category="admonition">如果註解值小於或等於 0，則操作將立即失敗。</block>
-  <block id="26ff92fc2410a19d125f3783f36a21f5" category="paragraph">Trident Protect 24.10 和 24.10.1 及更高版本在保護運行在 KubeVirt VM 上的應用程式時表現出不同的行為。對於這兩個版本，您都可以在資料保護操作期間啟用或停用檔案系統凍結和解凍。</block>
   <block id="5ac5b84505fffb8149e9d0cb84ddedbe" category="admonition">在恢復操作期間，任何<block ref="890b633d48ac6398f14ae722463da08b" prefix=" " category="inline-code"></block>為虛擬機器 (VM) 建立的設定檔無法復原。</block>
-  <block id="4d2e55f1e0d6587dd3b63700ee1065af" category="paragraph-title">Trident保護 24.10</block>
-  <block id="2d261bce9a1e151a31ff22788033f212" category="paragraph">Trident protect 24.10 在資料保護作業期間不會自動確保 KubeVirt VM 檔案系統的一致性狀態。如果您想使用Trident Protect 24.10 保護您的 KubeVirt VM 數據，則需要在執行資料保護作業之前手動啟用檔案系統的凍結/解凍功能。這樣可以確保檔案系統處於一致狀態。</block>
   <block id="acb14ba5b70eb330a1d4de9c6b7a325d" category="inline-link-macro">配置虛擬化</block>
-  <block id="74c1cc067621b7ea2ccf9f91b4595bd8" category="paragraph">您可以設定Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結與解凍。<block ref="e0dd4c4b8aa16596df6c3f5cb36d3cdc" category="inline-link-macro-rx"></block>然後使用以下命令：</block>
-  <block id="72768e0f0d0f990d0abd53363fda4696" category="paragraph-title">Trident Protect 24.10.1 及更高版本</block>
-  <block id="42a2550b14037192e0c3252e7666ec4d" category="paragraph">從Trident protect 24.10.1 開始， Trident protect 會在資料保護作業期間自動凍結和解凍 KubeVirt 檔案系統。您也可以使用以下命令停用此自動行為：</block>
   <block id="cedf2576eebff15fc6b30d5a7109eb6b" category="doc">復原和故障轉移操作期間的命名空間註釋和標籤</block>
   <block id="131ff34387be167411ffda7d60b577e7" category="paragraph">在復原和故障轉移操作期間，目標命名空間中的標籤和註釋將與來源命名空間中的標籤和註釋相符。來源命名空間中不存在的目標命名空間中的標籤或註釋將被添加，並且任何已存在的標籤或註釋都將被覆蓋以匹配來源命名空間中的值。僅存在於目標命名空間中的標籤或註解保持不變。</block>
   <block id="20f40e0b9308901dac07ce8a8efb3350" category="inline-link">OpenShift 安全上下文約束文檔</block>
@@ -27,7 +21,6 @@
   <block id="6c83555d4261acb08ebbc5f24823dc7b" category="paragraph">您可以透過設定 Kubernetes 環境變數來防止目標命名空間中的特定註解被覆蓋。<block ref="1580ff61f204e9d56cd5324c7e9221ba" prefix=" " category="inline-code"></block>在執行復原或故障轉移操作之前。例如：</block>
   <block id="8238f7162d9219360737b28886d1e81e" category="inline-link-macro">配置AutoSupport和命名空間過濾選項</block>
   <block id="f674ee7017be04f3990c16ce1e52c071" category="admonition">執行復原或故障轉移操作時，任何命名空間註解和標籤都將生效。<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block> 和<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block> 不參與恢復或故障轉移操作。確保在初始 Helm 安裝期間配置這些設定。欲了解更多信息，請參閱 <block ref="be04583f34cff5b6411cf18afbc58993" category="inline-link-macro-rx"></block>。</block>
-  <block id="11a75e55f9a91a12e7d31886a76ff312" category="paragraph">如果您使用 Helm 安裝了來源應用程序，<block ref="cc1f5c1d16e33b8463c9ee27295cd5df" prefix=" " category="inline-code"></block>國旗，給予特殊待遇<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>標籤鍵。在復原或故障轉移過程中， Trident Protect 會將此標籤複製到目標命名空間，但如果來源命名空間的值與來源命名空間的值匹配，則會將值更新為目標命名空間的值。如果此值與來源命名空間不匹配，則會將其複製到目標命名空間，而不做任何變更。</block>
   <block id="0a52730597fb4ffa01fc117d9e71e3a9" category="section-title">例子</block>
   <block id="1280c48f074ec68fd2281266662c9a3f" category="paragraph">以下範例展示了來源命名空間和目標命名空間，每個命名空間都有不同的註解和標籤。您可以查看操作前後目標命名空間的狀態，以及目標命名空間中的註解和標籤是如何組合或覆蓋的。</block>
   <block id="2cfe257f724ed59a07ab01918c828fb5" category="section-title">在恢復或故障轉移操作之前</block>
@@ -49,7 +42,6 @@
   <block id="15d6567aa33ad00e352de9164a741b8b" category="paragraph">下表說明了復原或故障轉移作業後範例目標命名空間的狀態。有些按鍵已被添加，有些按鍵已被覆蓋，並且<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>標籤已更新，以符合目標命名空間：</block>
   <block id="a8306d4d1af4239dba9a6bcfd799eba7" category="list-text">名稱=ns-2</block>
   <block id="a5085953f7b15a312b4e12827abc66e5" category="list-text">（可選）如果您只需要選擇應用程式中的某些資源進行恢復，請新增篩選條件，以包含或排除帶有特定標籤的資源：</block>
-  <block id="792d490e884279c961aba837ccd9b67a" category="admonition">Trident Protect 會自動選擇一些資源，因為它們與您選擇的資源有關聯。例如，如果您選擇持久性磁碟區宣告資源且它有一個關聯的 pod， Trident Protect 也會還原關聯的 pod。</block>
   <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*resourceFilter.resourceSelectionCriteria*：（篩選時必備）使用<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block>或者<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block>包含或排除 resourceMatchers 中定義的資源。新增以下 resourceMatchers 參數以定義要包含或排除的資源：</block>
   <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*resourceFilter.resourceMatchers*：resourceMatcher 物件陣列。如果在該數組中定義多個元素，則它們之間按 OR 運算匹配，每個元素內的字段（組、種類、版本）之間按 AND 運算匹配。</block>
   <block id="be16b6e14200639734fb9694e3c0f655" category="list-text">*resourceMatchers[].group*: (_可選_) 要篩選的資源群組。</block>
@@ -61,9 +53,6 @@
   <block id="cb4354b08a6a88b3c12671390a85c520" category="list-text">*resourceMatchers[].labelSelectors*: (_可選_) 資源的 Kubernetes 元資料.name 欄位中的標籤選擇器字串，如在下列位置定義：<block ref="d4ce3da8407a7d8e148bb1287288e778" category="inline-link-rx"></block> 。例如：<block ref="6ea45baf659f1f35e51c8dc9005eac03" prefix=" " category="inline-code"></block> 。</block>
   <block id="506c2c0c7f5b70af3df68c45c46f45a7" category="paragraph">例如：</block>
   <block id="00d3f03654bed141c3478449f1760762" category="paragraph">確保 AWS 會話令牌的過期時間足以滿足任何長時間運行的 S3 復原操作。如果在恢復操作期間令牌過期，則操作可能會失敗。</block>
-  <block id="1906137ea73af1894fec1becb00e0aee" category="summary">您可以找到一些很棒的NetApp Trident和Trident Protect 部落格。</block>
-  <block id="0db80d8cadbd011f12ade006191e47b0" category="doc">Trident和Trident保護博客</block>
-  <block id="c5497cf98d8e6141ba38e1421502c2d4" category="paragraph">您可以在這裡找到一些很棒的NetApp Trident和Trident Protect 部落格：</block>
   <block id="40d95260a6bcacc40a23df4576b97ec8" category="section-title">Trident部落格</block>
   <block id="4d1a32c0e466ff9011c60655b98dbf71" category="inline-link-macro">使用 Amazon EKS 外掛程式為 FSx for ONTAP自動設定Trident後端</block>
   <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">2025年5月9日：<block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
@@ -99,15 +88,8 @@
   <block id="1c3ec9ce23b462e81e392f144f8c6527" category="list-text">2024年7月1日：<block ref="48908e9b9a4cb59db7244b631bf66632" category="inline-link-macro-rx"></block></block>
   <block id="c0575ecf088b36655f7a582773399ba0" category="inline-link-macro">ONTAP作為 OpenShift 中整合映像註冊表的後端存儲</block>
   <block id="fa465e5731c44ee6dc77398eecb4493d" category="list-text">2024年6月11日：<block ref="99a2855a4f47b1b3fc2dd744ecb3c177" category="inline-link-macro-rx"></block></block>
-  <block id="767cfc132547de728a22c9fa992eabfc" category="section-title">Trident保護部落格</block>
-  <block id="a35665637b8d8bcebbf303a7e9950cf2" category="inline-link-macro">使用Trident Protect 的復原後鉤子自動執行登錄機碼故障轉移以實現災難復原</block>
-  <block id="9eef003e4e8a5cd2654642dbf1806c35" category="list-text">2025年5月16日：<block ref="9c69f3b57e4c9e30a2d1dd0bbfc81eb9" category="inline-link-macro-rx"></block></block>
   <block id="351257ff03e16ff522106900a9f35e9e" category="inline-link-macro">使用NetApp Trident Protect 進行 OpenShift 虛擬化災難復原</block>
   <block id="cc48e904c9802b69a8760ed8f894b251" category="list-text">2025年5月16日：<block ref="a57e639cf15650353686ed7219eb274b" category="inline-link-macro-rx"></block></block>
-  <block id="a3bed2eca17a542318eff49566e65560" category="inline-link-macro">使用Trident進行儲存類別遷移以保護備份和復原</block>
-  <block id="95d102ffaff20709e445a0302dc9209b" category="list-text">2025年5月13日：<block ref="9965527798b3d27a2b7fb71617212405" category="inline-link-macro-rx"></block></block>
-  <block id="c00f8563a4e3023d2ff83b5b26a91edc" category="inline-link-macro">使用Trident保護恢復後鉤子重新擴展 Kubernetes 應用程式</block>
-  <block id="a3ca851cebfd3307178076015c1cb876" category="list-text">2025年5月9日：<block ref="ee88df603de21180a12f2f1bbd1e61b2" category="inline-link-macro-rx"></block></block>
   <block id="8f18e786e2a2dd5d70390afe4c75e024" category="inline-link-macro">Trident Protect 升級：Kubernetes 複製保護與災難復原</block>
   <block id="ae7986fef0bfa9c9a4f730ee6bb5e0ac" category="list-text">2025年4月3日：<block ref="4ca932fa6234c864106756a287da48ac" category="inline-link-macro-rx"></block></block>
   <block id="a706b02fe1ef4870ecc8b588cbe37989" category="inline-link-macro">OpenShift虛擬化虛擬機器的崩潰一致性備份與復原作業</block>
@@ -116,12 +98,6 @@
   <block id="ccd722b2b8950bc9aa2b92826dcc4664" category="list-text">2025年3月11日：<block ref="751073ae4d07c4adc8a15e872b137421" category="inline-link-macro-rx"></block></block>
   <block id="bc057a27d4d8047073d6f5fa802c9c2b" category="inline-link-macro">Trident 25.02：透過令人興奮的新功能提升 Red Hat OpenShift 體驗</block>
   <block id="fb68b473f5b70bc40e206ef882be4c63" category="list-text">2025年3月3日：<block ref="ce0fc75766d0530b76aaabf87dc1b463" category="inline-link-macro-rx"></block></block>
-  <block id="62ca59fefb174e2cae471bd3ff034f37" category="inline-link-macro">隆重介紹Trident Protect 基於角色的存取控制</block>
-  <block id="2471f7ea5ea7dad7f60b4ece1fab4a9f" category="list-text">2025年1月15日：<block ref="685287f953e60833f62fba2c623c4cb9" category="inline-link-macro-rx"></block></block>
-  <block id="4a685524952a84cef8685a87bb60f47a" category="inline-link">隆重介紹 tridentctl protect： Trident protect 的強大命令列介面</block>
-  <block id="281486a8e7fd8f1c6bd6cf0c6bc7eba0" category="list-text">2024年11月11日：<block ref="b1528afdd7be1e71d2c311686269cf66" category="inline-link-rx"></block></block>
-  <block id="c0d721f6d5aa4d159e2f9890fab5bbee" category="inline-link-macro">Kubernetes驅動的資料管理： Trident Protect開啟新時代</block>
-  <block id="78ec91ade28d11ab9c3f53f543bba8d3" category="list-text">2024年11月11日：<block ref="46b2057fd4479a7d4462fb82adc6f54b" category="inline-link-macro-rx"></block></block>
   <block id="17c5eeb01739643b5aef94fe18b6c849" category="summary">您可以使用版本選擇器在最新版本和前四個版本之間導航，或使用下面的連結。</block>
   <block id="ba09ee47d11962c1ccd13d7e1f10e6c5" category="doc">早期版本的文檔</block>
   <block id="472039bf3422ff2697dba6fc9fdd57d8" category="inline-link-macro">Trident支援生命週期</block>
@@ -362,8 +338,6 @@
   <block id="34515f1d88b10d0db0a78eba6c533394" category="paragraph">已知問題指明了可能會阻止您成功使用此版本產品的問題。</block>
   <block id="825cc355a6b503245e0d84d26f0e16d1" category="paragraph">以下已知問題會影響目前版本：</block>
   <block id="dd298b4e9bfcd54db2048c92819679ad" category="section-title">恢復 Restic 備份的大檔案可能會失敗</block>
-  <block id="8686ed080978191a10848ee52cd0c87a" category="inline-link">使用Trident Protect 保護應用程式</block>
-  <block id="beca1b1ae9141eb4cf9a371088911e0f" category="paragraph">從使用 Restic 建立的 Amazon S3 備份中還原 30GB 或更大的檔案時，復原作業可能會失敗。作為變通方法，可以使用 Kopia 作為資料移動工具備份資料（Kopia 是備份的預設資料移動工具）。請參閱<block ref="1e108e5c10b0ba51ea4cfaf507765efb" category="inline-link-rx"></block>以取得說明。</block>
   <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">法律聲明提供對版權聲明、商標、專利等的存取。</block>
   <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">法律聲明</block>
   <block id="6016a2b341113bf496b719905398ecd2" category="section-title">版權</block>
@@ -1742,21 +1716,9 @@
   <block id="3777d5420fb2ef4c5e434cd5af97d73d" category="inline-link-macro">使用 tridentctl 安裝Trident</block>
   <block id="23d4814be45e57b94df46ce2ee2a19f6" category="list-text">重新安裝Trident。參考<block ref="6fa1b6e43e706a69762bd9a319950a21" category="inline-link-macro-rx"></block>。</block>
   <block id="1d2d1200e759d67b259f843be2270f71" category="admonition">請勿中斷升級過程。確保安裝程式運行完成。</block>
-  <block id="579198c91fea423d4b79c97828ac3da4" category="summary">Trident Protect 讓您能夠使用Trident保護您的應用程式和應用程式資料。</block>
-  <block id="a53f4cc048a3d0227206b8b6182e67dc" category="doc">了解Trident保護</block>
-  <block id="6d8d3279a9b2226029d9af309058363b" category="paragraph">NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存設定器支援的有狀態 Kubernetes 應用程式的功能和可用性。Trident Protect 簡化了跨公有雲和本地環境的容器化工作負載的管理、保護和移動。它還透過其 API 和 CLI 提供自動化功能。</block>
-  <block id="6a945469c2d9fdc27b0cb844d066c984" category="paragraph">您可以透過建立自訂資源 (CR) 或使用Trident Protect CLI 來使用Trident Protect 保護應用程式。</block>
-  <block id="7e6f9558ca98ca29afd74d0bbb0b2bce" category="paragraph">在安裝Trident Protect 之前，您可以先了解其相關需求：</block>
-  <block id="a0a1eb9fbd2b7284352e6b610999f841" category="inline-link-macro">Trident保護要求</block>
-  <block id="8d806bd87636d4fd0eecab0333057f10" category="list-text"><block ref="8d806bd87636d4fd0eecab0333057f10" category="inline-link-macro-rx"></block></block>
-  <block id="af68364761ed4114c192b6bb2962467b" category="summary">Trident Protect 使用基於角色的存取控制 (RBAC) 的 Kubernetes 模型。您可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源的存取。</block>
-  <block id="0cc310db20eaee9161e8ef937010b536" category="doc">管理Trident Protect 的授權和存取控制</block>
-  <block id="9991f5d4b3aa4ae5a36fb2ad6a637d73" category="paragraph">Trident Protect 使用基於角色的存取控制 (RBAC) 的 Kubernetes 模型。預設情況下， Trident Protect 提供一個系統命名空間及其關聯的預設服務帳戶。如果您的組織擁有許多使用者或特定的安全需求，您可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源和命名空間的存取。</block>
   <block id="a22c0a4dfca95968d88392eb0bbb2dcf" category="paragraph">叢集管理員始終擁有對預設資源的存取權限。<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>命名空間，並且可以存取所有其他命名空間中的資源。要控制對資源和應用程式的訪問，您需要建立額外的命名空間，並將資源和應用程式新增至這些命名空間。</block>
   <block id="661e3b2b32de1ab85fb426b5abec28f3" category="paragraph">請注意，預設情況下，任何使用者都無法建立應用程式資料管理變更請求 (CR)。<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>命名空間。您需要在應用程式命名空間中建立應用程式資料管理 CR（最佳實踐是在與其關聯的應用程式相同的命名空間中建立應用程式資料管理 CR）。</block>
-  <block id="b1f69b20762545a6c94e024888638df8" category="paragraph">只有管​​理員才能存取受Trident Protect 保護的特權自訂資源對象，其中包括：</block>
   <block id="4516bb1529fba64216073cc95812839c" category="list-text">*AppVault*：需要儲存桶憑證數據</block>
-  <block id="984eb0d94901a4b5f9105f96d4d2b4a9" category="list-text">*AutoSupportBundle*：收集指標、日誌和其他敏感的Trident保護數據</block>
   <block id="10e6811ca4c78900349b612176a3233b" category="list-text">*AutoSupportBundleSchedule*：管理日誌收集計劃</block>
   <block id="7cfd5c25f0cd486a1157966cad4acba7" category="paragraph">最佳實踐是使用基於角色的存取控制 (RBAC) 將對特權物件的存取限制在管理員範圍內。</block>
   <block id="407b2fe2d3bbcc55c8ae895a2fd8263c" category="inline-link">Kubernetes RBAC 文檔</block>
@@ -1778,7 +1740,6 @@
   <block id="78a7dfb4e5b60d84d3c54ec150be8a80" category="list-text">為工程服務帳戶建立一個金鑰：</block>
   <block id="b098f513abca683a5e1c36cbc8b244db" category="list-text">為行銷服務帳戶建立一個金鑰：</block>
   <block id="d1732b3423240a19064951afa9a3266a" category="section-title">步驟 4：建立 RoleBinding 對象，將 ClusterRole 物件綁定到每個新的服務帳戶。</block>
-  <block id="720de81bb5619bda23df5ae99eb9ebcb" category="paragraph">安裝Trident Protect 時會建立一個預設的 ClusterRole 物件。您可以透過建立和套用 RoleBinding 物件將此 ClusterRole 綁定到服務帳戶。</block>
   <block id="067d8d99affb5418a3d899eba8658cc4" category="list-text">將叢集角色綁定到工程服務帳戶：</block>
   <block id="b25ecd55b23c424058fdad947fe23b13" category="list-text">將群集角色綁定到行銷服務帳戶：</block>
   <block id="574c7934280b498080dfc2272c570f69" category="section-title">步驟 5：測試權限</block>
@@ -1796,11 +1757,6 @@
   <block id="07337191562a62a775a853d9901903a6" category="list-text">測試用戶是否可以獲得他們現在有權訪問的 AppVault 資訊：</block>
   <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">結果</block>
   <block id="e7165fc51f62031fcae1d793899febaa" category="paragraph">您授予 AppVault 權限的使用者應該能夠使用授權的 AppVault 物件進行應用程式資料管理操作，並且不應該能夠存取指派的命名空間之外的任何資源，或建立他們無權存取的新資源。</block>
-  <block id="b00fc94596cde685c68e0bedddb72ec6" category="summary">您可以使用 kube-state-metrics 和 Prometheus 監控Trident Protect 資源的狀態。這可以為您提供有關部署、節點和 Pod 的運作狀況資訊。</block>
-  <block id="9f496d568415fb10daa1a69c18a27d52" category="doc">監控Trident保護資源</block>
-  <block id="c3815bcedc348a572c0e7310d70e426d" category="paragraph">您可以使用 kube-state-metrics、Prometheus 和 Alertmanager 開源工具來監控Trident Protect 保護的資源的健康狀況。</block>
-  <block id="57d16d79ebb62eb467b490200f5f3191" category="paragraph">kube-state-metrics 服務從 Kubernetes API 通訊產生指標。將其與Trident Protect 結合使用，可以顯示有關環境中資源狀態的有用資訊。</block>
-  <block id="0e68741139605975f01bc532098ea92c" category="paragraph">Prometheus 是一個工具包，它可以接收 kube-state-metrics 產生的數據，並將其呈現為關於這些物件的易於閱讀的資訊。  kube-state-metrics 和 Prometheus 共同提供了一種方法，讓您可以監控使用Trident Protect 管理的資源的健康狀況和狀態。</block>
   <block id="6d0450323deb4880d88d2da4155d7c76" category="paragraph">Alertmanager 是一項服務，它可以接收 Prometheus 等工具發送的警報，並將它們路由到您配置的目標位置。</block>
   <block id="45501c075fe75338b712d61db6d82f54" category="paragraph">這些步驟中包含的配置和指導僅供參考；您需要根據自己的環境進行自訂。請參閱以下官方文件以取得具體說明和支援：</block>
   <block id="d9bdb1d7869cec3eaa75aaa48b414845" category="inline-link">kube-state-metrics 文檔</block>
@@ -1810,7 +1766,6 @@
   <block id="853d2b8407eda505e00a8014afdb0ddf" category="inline-link">Alertmanager 文檔</block>
   <block id="e23d8cb1d9d009a1aa298e95526efcd3" category="list-text"><block ref="e23d8cb1d9d009a1aa298e95526efcd3" category="inline-link-rx"></block></block>
   <block id="b246a1443f359b6da345c33e0b25f47a" category="section-title">步驟 1：安裝監控工具</block>
-  <block id="08d75478cbb19385a09620acc4f7a148" category="paragraph">要在Trident Protect 中啟用資源監控，您需要安裝和設定 kube-state-metrics、Promethus 和 Alertmanager。</block>
   <block id="2a2c51a8db12ee75c90da4a3fb0e1a0b" category="section-title">安裝 kube-state-metrics</block>
   <block id="016aa0f0550f5a0506cb61b61568e043" category="paragraph">您可以使用 Helm 安裝 kube-state-metrics。</block>
   <block id="ea6a84ebff4515f07a0f260b7cce7b83" category="list-text">新增 kube-state-metrics Helm chart。例如：</block>
@@ -1819,7 +1774,6 @@
   <block id="cf5cf09f9422112814f7fa967e303283" category="listing-title">metrics-config.yaml：kube-state-metrics Helm chart 配置</block>
   <block id="eca99dda7e2a747b75c232f5c3e314a0" category="list-text">透過部署 Helm chart 來安裝 kube-state-metrics。例如：</block>
   <block id="1b61aa1e4c2991758aa9c5bea0047156" category="inline-link">kube-state-metrics 自訂資源文檔</block>
-  <block id="6c21207c2c29ab5841100bb2ca67480f" category="list-text">請依照下列說明配置 kube-state-metrics，以產生Trident Protect 使用的自訂資源的指標：<block ref="0c2d96c77ebc80eb4f9df846c2904f4c" category="inline-link-rx"></block> 。</block>
   <block id="88b8613d339947a37e41b1f514dcc42c" category="section-title">安裝 Prometheus</block>
   <block id="6cfabcb4c640f9570382e21ec242a3c0" category="paragraph">您可以按照以下說明安裝 Prometheus：<block ref="9c3dd7b31d363d10addc1dc55a338e01" category="inline-link-rx"></block> 。</block>
   <block id="7d512717b3f318d83bbce6f09e891a6f" category="section-title">安裝 Alertmanager</block>
@@ -1840,19 +1794,12 @@
   <block id="70694773feb2b23c45e7ff7a6a3c3c8b" category="paragraph">您可以設定 Alertmanager，使其將通知傳送到其他管道，例如電子郵件、PagerDuty、Microsoft Teams 或其他通知服務，只需在設定檔中指定相應的配置即可。<block ref="9001eaececb0884cbeb80659e81340ad" prefix=" " category="inline-code"></block>文件。</block>
   <block id="c9272f0d68fac2055ba2d71be6c87b1b" category="paragraph">以下範例配置 Alertmanager 向 Slack 頻道發送通知。若要根據您的環境自訂此範例，請取代以下值：<block ref="aa8106611bcfe43fec48e6d1d371de52" prefix=" " category="inline-code"></block>金鑰包含您環境中使用的 Slack webhook URL：</block>
   <block id="965357e3c90ccf3fba01174c6508d562" category="listing-title">alertmanager.yaml：向 Slack 頻道發送警報</block>
-  <block id="1317a4b523ecc5ea298adec08e7ba407" category="summary">Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。  AppVault 是儲存桶的聲明式 Kubernetes 工作流程表示。</block>
-  <block id="97f3fa7a4bb86197f0db69aa160c73e9" category="doc">使用Trident Protect AppVault 物件來管理儲存桶。</block>
-  <block id="f39726752bf5b117fe78f8c383e31cdd" category="paragraph">Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。AppVault 物件是儲存桶的聲明性 Kubernetes 工作流程表示。AppVault CR 包含儲存桶在保護作業（例如備份、快照、復原作業和SnapMirror複製）中所使用的必要配置。只有管​​理員才能建立應用保險庫。</block>
   <block id="9c292a7d893942317e3d566cb6f6776c" category="paragraph">在應用程式上執行資料保護操作時，您需要手動或從命令列建立 AppVault CR。 AppVaultCR 特定於您的環境，您可以使用本頁上的範例作為建立 AppVault CR 的指南。</block>
-  <block id="e83cbbd4be53e68f06264e1522860ce6" category="admonition">確保 AppVault CR 位於安裝了Trident Protect 的叢集上。如果 AppVault CR 不存在或您無法訪問，命令列將顯示錯誤。</block>
   <block id="7fc5875d06887df5109a87a0ada90eca" category="section-title">配置 AppVault 身份驗證和密碼</block>
   <block id="05e673132e6ddc1f638835fcde244ff1" category="paragraph">在建立 AppVault CR 之前，請確保您選擇的 AppVault 和資料移動器可以向提供者和任何相關資源進行驗證。</block>
   <block id="8e2c4d33f50c044b257a84cd65ff1c79" category="section-title">資料遷移儲存庫密碼</block>
-  <block id="2c2d23c6647059f96e585a1174a5c975" category="paragraph">使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以指定 Kubernetes 金鑰，並使用自訂密碼進行 Restic 和 Kopia 加密。如果您未指定金鑰， Trident Protect 將使用預設密碼。</block>
   <block id="02c19b7bc038d2af238bbd729bc3d9c4" category="list-text">手動建立 AppVault CR 時，請使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。</block>
-  <block id="0a636ed0406fe1d7ddf9db59b32011b3" category="list-text">使用Trident Protect CLI 建立 AppVault 物件時，請使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>用於指定密鑰的參數。</block>
   <block id="e64d157c7a9e337d525d51f62d9d0809" category="section-title">建立資料遷移儲存庫密碼金鑰</block>
-  <block id="fc114cb2ee6c7bff559d58e2a7454cab" category="paragraph">請參考以下範例建立密碼密鑰。建立 AppVault 物件時，您可以指示Trident Protect 使用此金鑰向資料移動器儲存庫進行驗證。</block>
   <block id="4fc9faf161c64ed80d0fb8ca9aa0882e" category="list-text">根據您使用的資料傳輸工具，您只需輸入該資料傳輸工具對應的密碼即可。例如，如果您正在使用 Restic 並且將來不打算使用 Kopia，則在建立金鑰時，您可以只包含 Restic 密碼。</block>
   <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">請將密碼保存在安全的地方。您將需要它來還原同一叢集或其他叢集上的資料。如果集群或<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>命名空間已被刪除，沒有密碼您將無法還原備份或快照。</block>
   <block id="5a3a68cc2fb27d13057472b4869353f1" category="open-title">使用 CR</block>
@@ -1860,16 +1807,11 @@
   <block id="d2a7dc5804ec844f3f7bfb903e97693f" category="section-title">S3 相容於儲存 IAM 權限</block>
   <block id="79832d443dadeb6d3b0637941d6ac067" category="inline-link">StorageGrid S3</block>
   <block id="1716834171e243de0f898a67621b6624" category="inline-link">ONTAP S3</block>
-  <block id="48f73146a4944adc8ee8fb44ba954d59" category="paragraph">當您存取與 S3 相容的儲存空間（例如 Amazon S3、通用 S3）時，<block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> ， 或者<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block>使用Trident Protect 時，您需要確保提供的使用者憑證具有存取儲存桶的必要權限。以下是授予使用Trident Protect 進行存取所需的最低權限的政策範例。您可以將此策略套用至管理 S3 相容儲存桶策略的使用者。</block>
   <block id="d9b7f314625fb7dcf35c741afe65b676" category="inline-link">Amazon S3 文檔</block>
   <block id="bc08c4a5eed12311fe8187fb000dd58a" category="paragraph">有關 Amazon S3 策略的更多信息，請參閱以下範例：<block ref="61017e44ea21b481e69f04f8ac510768" category="inline-link-rx"></block> 。</block>
   <block id="955d6e7ec20d5d3fcf83f82552f7d6e0" category="section-title">用於 Amazon S3（AWS）驗證的 EKS Pod Identity</block>
-  <block id="67165804f666601e4155d69a62d46a7d" category="paragraph">Trident Protect 支援 EKS Pod Identity 進行 Kopia 資料移動器操作。此功能可實現對 S3 儲存桶的安全訪問，而無需將 AWS 憑證儲存在 Kubernetes 機密中。</block>
-  <block id="3c0f2c9a4c9b9d63ff7db27d3c3732d2" category="paragraph">*帶有Trident保護的 EKS Pod Identity 的要求*</block>
-  <block id="e674398aa14fe057d6f89aae4be1955a" category="paragraph">在使用具有Trident保護的 EKS Pod Identity 之前，請確保以下事項：</block>
   <block id="6aa9f6ea95e8a0a226da6a3727f18bb1" category="list-text">您的 EKS 叢集已啟用 Pod Identity。</block>
   <block id="ecadca4297640c38809298ae5d418fff" category="list-text">您已建立具有必要的 S3 儲存桶權限的 IAM 角色。欲了解更多信息，請參閱 <block ref="d40f70e9b63b2ee09271e4f02ea6bf6d" category="inline-link-macro-rx"></block>。</block>
-  <block id="af030ad9c72e341fd6b3331215a88c19" category="list-text">IAM 角色與下列Trident保護服務帳戶相關聯：</block>
   <block id="5b71e41c96f404db1afa2e12eecd6500" category="list-text"><block ref="91bb592c84ad55997a90ac08be4392a4" prefix="" category="inline-code"></block></block>
   <block id="1aa00347a52b15ca93b318123bc06e86" category="list-text"><block ref="f7466ebc5710cc1f7aebdb3c2347f9e6" prefix="" category="inline-code"></block></block>
   <block id="7a9c1f2789b528ff73c69693fde3ecba" category="list-text"><block ref="12cb7c67caac3126c1f43145ffe66ca6" prefix="" category="inline-code"></block></block>
@@ -1891,28 +1833,20 @@
   <block id="7491b3d3a4aa89a2dd6445477c6b6e0a" category="list-text">對於 Amazon S3 (AWS) AppVault 對象，您可以選擇性地指定 sessionToken，如果您使用單一登入 (SSO) 進行驗證，這將非常有用。當您為提供者產生金鑰時，將建立此令牌。<block ref="cd932e77bb3df9634d58b2fd34398b6f" category="inline-xref-macro-rx"></block> 。</block>
   <block id="2b7c7776f596f179d63bae82e841e9fe" category="list-text">對於 S3 AppVault 對象，您可以選擇性地使用下列方式指定出站 S3 流量的出口代理 URL：<block ref="ea739eb21b9424ad95fb5cd1b3ee7d1c" prefix=" " category="inline-code"></block>鑰匙。</block>
   <block id="0d96febdd171c11830ca8b96c7a4f8e4" category="admonition">對於使用 Pod Identity 和 Kopia 資料移動器的 EKS 環境，您可以移除<block ref="84695890ad88faf0bb2d6cdae8c01d51" prefix=" " category="inline-code"></block>部分並添加<block ref="df9bc6a254da3cea83fc8b7c71c71ea9" prefix=" " category="inline-code"></block>在<block ref="c0828e0381730befd1f7a025057c74fb" prefix=" " category="inline-code"></block>改為配置。</block>
-  <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">使用Trident Protect CLI 建立 AppVault 的範例</block>
   <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">您可以使用以下 CLI 命令範例為每個提供者建立 AppVault CR。</block>
   <block id="99313bdb05c30c161eb80ae8dc89265f" category="list-text">對於 S3 AppVault 對象，您可以選擇性地使用下列方式指定出站 S3 流量的出口代理 URL：<block ref="c0b36cdbc2185c1fe6ee0b0c177312da" prefix=" " category="inline-code"></block>爭論。</block>
   <block id="aafdbe511f8dcfce152fe32eec4b84a8" category="section-title">查看 AppVault 訊息</block>
-  <block id="fe7f61a858dc37b884e97617cd26e1da" category="paragraph">您可以使用Trident Protect CLI 外掛程式查看有關您在叢集上建立的 AppVault 物件的資訊。</block>
   <block id="485573baf8bfa9487485deb07780d89f" category="list-text">查看 AppVault 物件的內容：</block>
   <block id="10dce9030ad8783afd2b4e831da49b7f" category="paragraph">*範例輸出*：</block>
   <block id="72444a17ff17655124f96b02602fe90f" category="list-text">（可選）若要查看每個資源的 AppVaultPath，請使用該標誌<block ref="a9b1c03a99224cbb5c6773ccbe51d4fb" prefix=" " category="inline-code"></block>。</block>
-  <block id="caef5be37857b92378c0054db6bc8696" category="paragraph">只有在Trident Protect Helm 安裝中指定了叢集名稱時，表格第一列中的叢集名稱才可用。例如：<block ref="b84d46473a6782105f40ea4fa2bc2964" prefix=" " category="inline-code"></block> 。</block>
   <block id="eb5dcb495342ee5285be31fb17267ccc" category="section-title">移除 AppVault</block>
   <block id="086d4622dbc50dc37c51fc80568681a2" category="paragraph">您可以隨時刪除 AppVault 物件。</block>
   <block id="79f2a1cdb1287644a5d3176157cc43c4" category="admonition">不要移除<block ref="276c63528ef3085f91fb1bc80a3febc0" prefix=" " category="inline-code"></block>在刪除 AppVault 物件之前，請在 AppVault CR 中輸入金鑰。這樣做可能會導致 AppVault 儲存桶中殘留數據，以及叢集中出現孤立資源。</block>
   <block id="6a346946ba0777d650b6e41a4c30c7b6" category="paragraph">請確保您已刪除要刪除的 AppVault 所使用的所有快照和備份 CR。</block>
   <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">使用 Kubernetes CLI 刪除 AppVault</block>
   <block id="620026f954fdad541c9d19554476345c" category="list-text">移除 AppVault 對象，並替換<block ref="bf09cf3bd2a9288a0bdf3d1b89b770a1" prefix=" " category="inline-code"></block>要刪除的 AppVault 物件的名稱：</block>
-  <block id="a4af4e386bb379977acdb5a465780149" category="open-title">使用Trident Protect CLI 刪除 AppVault</block>
-  <block id="6c4ae71603666b23d3e05193118a3147" category="summary">您可以使用 protectctl 指令建立和操作Trident Protect 自訂資源。</block>
-  <block id="40e0842217cf3fc8b760cbd68cc14a76" category="doc">安裝Trident Protect CLI 插件</block>
-  <block id="bd0df34f0c12fe6faae3a05dde47f3a9" category="paragraph">您可以使用Trident Protect 命令列插件，它是Trident的一個擴充。<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>實用程序，用於建立和與Trident Protect 自訂資源 (CR) 進行互動。</block>
   <block id="2b1100a071932a4cb5f33e22121f48fa" category="paragraph">在使用命令列實用程式之前，需要將其安裝在用於存取叢集的電腦上。根據您的機器使用的是 x64 還是ARM CPU，請依照以下步驟操作。</block>
   <block id="852f04e90409df288c69ca8f37453383" category="open-title">下載適用於 Linux AMD64 CPU 的插件</block>
-  <block id="567471047b313eb49e48a17b4213a1d1" category="list-text">下載Trident Protect CLI 外掛：</block>
   <block id="b64b2077b896969e7810dbb0a2de2f1a" category="open-title">下載適用於 Linux ARM64 CPU 的插件</block>
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">下載適用於 Mac AMD64 CPU 的插件</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">下載適用於 Mac ARM64 CPU 的插件</block>
@@ -1924,7 +1858,6 @@
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">您可以使用插件內建的幫助功能來獲得有關插件功能的詳細幫助：</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">使用幫助功能查看使用指南：</block>
   <block id="da9d072bec5b191d5b5120761a2094e5" category="section-title">啟用指令自動補全</block>
-  <block id="2994879f05c105b10427c87890d6ce6a" category="paragraph">安裝Trident Protect CLI 外掛程式後，您可以為某些指令啟用自動補全功能。</block>
   <block id="df7d0aa2cf46fe870b9bba130ea4d964" category="open-title">為 Bash shell 啟用自動補全功能</block>
   <block id="dc8d08efd37c5c2cd13f1da4b74b2004" category="list-text">下載完成腳本：</block>
   <block id="bbd32e1d32af84e3002666b13f548cce" category="list-text">在您的使用者目錄下建立一個新目錄，用於存放腳本：</block>
@@ -1934,17 +1867,10 @@
   <block id="45dba4471beecdb4813778042a6ccfc2" category="list-text">將下載的腳本移到<block ref="d6ca46a9bae5529cb8e845fb419ba1e0" prefix=" " category="inline-code"></block>目錄：</block>
   <block id="e2f12f24108169a5ab9aa9923f95a468" category="list-text">將以下行新增至<block ref="f0f9c4057b7322a99704208706a05ba7" prefix=" " category="inline-code"></block>您主目錄中的檔案：</block>
   <block id="7bbf9a1a0bbcbeb6a4fef133c3975079" category="paragraph">下次登入 shell 時，您可以使用 tridentctl-protect 外掛程式進行指令自動補全。</block>
-  <block id="ef3bab72151c3b40feca67b002c6d518" category="summary">自訂Trident Protect 的預設設置，以滿足您的特定需求。</block>
-  <block id="c465b5ba6226b5fce1902a4b68097d26" category="doc">自訂Trident Protect 安裝</block>
-  <block id="f59f3d4c8cdf79dc43502eea9ff82e75" category="paragraph">您可以自訂Trident Protect 的預設配置，以符合您環境的特定要求。</block>
-  <block id="d9802724acbde7ce7749f0884262496a" category="section-title">指定Trident Protect 容器資源限制</block>
-  <block id="723ff7c28b60307db94ddb35dd6cc517" category="paragraph">安裝Trident Protect 後，您可以使用設定檔來指定Trident Protect 容器的資源限制。設定資源限制可以控制Trident Protect 作業消耗叢集資源的程度。</block>
   <block id="45d7099b61647936da59ccfbaa49ca5c" category="list-text">建立一個名為的文件<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>。</block>
-  <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">根據您的環境需求，在檔案中填入Trident Protect 容器的資源限制選項。</block>
   <block id="df0ecee897380da18617ddb170abdeb0" category="paragraph">以下範例設定檔顯示了可用設置，並包含每個資源限制的預設值：</block>
   <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">應用以下值<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>文件：</block>
   <block id="73d4542a63a157d0b7e3093eabec8fc9" category="section-title">自訂安全上下文約束</block>
-  <block id="d3b1c8ea61eed8a2b7579d4013d792b3" category="paragraph">安裝Trident Protect 後，您可以使用設定檔來修改Trident Protect 容器的 OpenShift 安全上下文約束 (SCC)。這些約束定義了 Red Hat OpenShift 叢集中 pod 的安全性限制。</block>
   <block id="2708058a93672fbaa8bcf3e785e87b21" category="list-text">建立一個名為的文件<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>。</block>
   <block id="468f17ddccd3b34c0d539404233a5e45" category="list-text">在文件中新增 SCC 選項，並根據您的環境需求修改參數。</block>
   <block id="616d9e371ad293e03cb7d5ad25d66c80" category="paragraph">以下範例顯示了 SCC 選項的參數預設值：</block>
@@ -1958,7 +1884,6 @@
   <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1</block>
   <block id="ee747b6b4f133aa926c072d073f4a8d5" category="list-text">應用以下值<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>文件：</block>
   <block id="54b43aeb73b3f5136e6febff4f374663" category="paragraph">這將用指定的值替換預設值。<block ref="12cbdc8aa1f61a2cee8eff2b77c0e113" prefix=" " category="inline-code"></block>文件。</block>
-  <block id="5db3625cb782a771bf36efc4994a8da5" category="section-title">設定其他Trident保護 Helm Chart 設定</block>
   <block id="a7532dec52b4d581a8873a3048e6e181" category="paragraph">您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：</block>
   <block id="a1fa27779242b4902f7ae3bdd5c6d508" category="cell">類型</block>
   <block id="1fceae4a3c0d1966481601a7ac4d1f83" category="cell">自動支援代理</block>
@@ -1968,7 +1893,6 @@
   <block id="84e2c64f38f78ba3ea5c905ab5a2da27" category="cell">布林值</block>
   <block id="ecf5fdf2786d609376e95f541c7dcdfa" category="cell">設定為“跳過AutoSupport代理連接的 TLS 驗證”<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> 。僅用於不安全的代理連線。  (預設:<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> ）</block>
   <block id="4dd202185370b5db00de876ba19c1bd1" category="cell">自動支援已啟用</block>
-  <block id="5d75e627a269bd09b3b5ebef5a7bf257" category="cell">啟用或停用每日Trident保護AutoSupport捆綁包上傳。設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>每日定時上傳功能已停用，但您仍可以手動產生支援包。  (預設:<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> ）</block>
   <block id="22416353aff9ef4322e1ee858f418ae4" category="cell">恢復跳過命名空間註釋</block>
   <block id="a91c3b0476974e9ec186952f05c189f1" category="cell">若要從備份和復原作業中排除的命名空間註解的逗號分隔清單。允許您根據註釋過濾命名空間。</block>
   <block id="8028cf835d9b72ff2d6f835934c25568" category="cell">restoreSkipNamespaceLabels</block>
@@ -1980,15 +1904,10 @@
   <block id="8050ee75d62c0711ec176f9e1481041b" category="list-text">填寫完後<block ref="ba05023d0f1b5d4b64b6cad4cf9a7ecd" prefix=" " category="inline-code"></block>使用正確的值建立配置文件，並套用該設定檔：</block>
   <block id="2ee46f1547524b1cfc2f8b760b44c719" category="open-title">使用 CLI 標誌</block>
   <block id="fc7791ffb26e7154ff5b48ab1b14bf8b" category="list-text">使用以下命令：<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block>用於指定個別參數的標誌：</block>
-  <block id="19ac5903f95d5ebe1db017be54990f37" category="section-title">將Trident Protect Pod 限制在特定節點上</block>
-  <block id="2c9025d65a10f87c581d792f629f0b40" category="paragraph">您可以使用 Kubernetes nodeSelector 節點來選擇約束，根據節點標籤來控制哪些節點有資格執行Trident protect pod。預設情況下， Trident Protect 僅限於執行 Linux 的節點。您可以根據需要進一步自訂這些限制條件。</block>
   <block id="e131fc2359f1f35a2fdb476c3f19bfdd" category="list-text">建立一個名為的文件<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>。</block>
   <block id="785a1066f4a7291f0bd0c65d4529e79f" category="list-text">在檔案中新增 nodeSelector 選項，並修改檔案以新增或變更節點標籤，從而根據您的環境需求進行限制。例如，以下檔案包含預設的作業系統限制，但同時也針對特定區域和應用程式名稱：</block>
   <block id="0b3a205b675b10deddbe1e4c76c36e22" category="list-text">應用以下值<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>文件：</block>
   <block id="86ff3a8cca72a77f236198059cede1b6" category="paragraph">這將預設限制替換為您在設定中指定的限制。<block ref="7eec75c3fd904f84005cd47f3bed0e47" prefix=" " category="inline-code"></block>文件。</block>
-  <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關所管理的叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。</block>
-  <block id="b9ef0ee6944eb101de3de64b82db00dd" category="doc">產生Trident Protect 支援包</block>
-  <block id="0884919e7c7d4a1981b4419350c63124" category="paragraph">Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關所管理的叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。</block>
   <block id="e984343e441956b7136d09919877b5ab" category="open-title">使用 CR 建立支援包</block>
   <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">建立自訂資源 (CR) 檔案並將其命名為（例如，<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block> ）。</block>
   <block id="18924d9e76d2dc9a88bddb772904461d" category="list-text">配置以下屬性：</block>
@@ -2008,28 +1927,12 @@
   <block id="8aadefe9cc0cc86a02267b80b207f617" category="list-text">等待<block ref="f9826424ec573cdc9bb51c0f5cb897b0" prefix=" " category="inline-code"></block>到達<block ref="07ca5050e697392c9ed47e6453f1453f" prefix=" " category="inline-code"></block>狀態。您可以使用以下命令監控產生進度：</block>
   <block id="3bea11acf8836689dcfed98dab0d1b2e" category="list-text">將支援包檢索到您的本機系統。從已完成的AutoSupport套件中取得複製指令：</block>
   <block id="ada844bd6c6a80bfce3dc4e9178eef4a" category="paragraph">找到<block ref="768c4e4d1692df1d92007f61dbeb0a6a" prefix=" " category="inline-code"></block>從輸出中讀取命令並運行它，將目標參數替換為您首選的本機目錄。</block>
-  <block id="4351048276414d4fad273a0c7ad9f491" category="summary">如果您的環境符合要求，您可以依照下列步驟安裝Trident Protect。</block>
-  <block id="9ee0b57319616120eef37546fa8e4c42" category="doc">安裝並設定Trident Protect</block>
-  <block id="dc48a335c2095fb6a79ee14ee62b4806" category="paragraph">如果您的環境符合Trident Protect 的要求，您可以依照下列步驟在叢集上安裝Trident Protect。您可以從NetApp取得Trident Protect，或從您自己的私人註冊表中安裝它。如果您的叢集無法存取互聯網，從私有註冊表安裝會很有幫助。</block>
-  <block id="884400bd4c8f5f2b0070bef92b055594" category="section-title">安裝Trident Protect</block>
-  <block id="1d5f2a4008fa2c223d0ebc6aea423256" category="open-title">從NetApp安裝Trident Protect</block>
-  <block id="35d393329a969d87338f26cd6fe42238" category="list-text">使用 Helm 安裝Trident Protect。代替<block ref="ecc79c99c4f86f0db5cc7f200415205f" prefix=" " category="inline-code"></block>集群名稱將分配給集群，並用於標識集群的備份和快照：</block>
-  <block id="f1db582519ebcfcc20d90e41c0c5e9cc" category="open-title">從私人註冊表安裝Trident Protect</block>
-  <block id="73dac5f92be0a06ecbcb1b8139b40593" category="paragraph">如果您的 Kubernetes 叢集無法存取互聯網，您可以從私人鏡像倉庫安裝Trident Protect。在這些範例中，請將括號中的值替換為您環境中的資訊：</block>
   <block id="dfb8cfd789dde682f000a96e0aabb1f1" category="list-text">將以下鏡像拉取到本地計算機，更新標籤，然後將其推送到您的私有鏡像倉庫：</block>
-  <block id="2dcd4437dbff8aff3bc16ac15a71b74d" category="list-text">建立Trident Protect 系統命名空間：</block>
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">登入註冊表：</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">建立用於私有註冊表驗證的拉取金鑰：</block>
-  <block id="c8dac6733f0c00d0b3b8b239841a0255" category="list-text">建立一個名為的文件<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>。請確保其中包含以下Trident Protect 設定：</block>
-  <block id="b8c29704f9b86600d95c1c0c4d902455" category="list-text">使用 Helm 安裝Trident Protect。代替<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>集群名稱將分配給集群，並用於標識集群的備份和快照：</block>
-  <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trident Protect 能夠識別您想要管理的應用程式。</block>
-  <block id="bf4313699bccd15d73aa8653cfdfd754" category="doc">使用Trident Protect 定義管理應用程式</block>
-  <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">您可以透過建立應用程式 CR 和關聯的 AppVault CR 來定義要使用Trident Protect 管理的應用程式。</block>
   <block id="58bd941b0268654136e17a3f6361fa75" category="section-title">建立 AppVault CR</block>
   <block id="f5ddee36f3439fbf6875de509925b804" category="inline-link-macro">AppVault 自訂資源。</block>
-  <block id="2c2c79b6a4bc3f3b90fed9b96ab44d05" category="paragraph">您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。  AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：<block ref="7e7838343a821a01b97d2b866c568a54" category="inline-link-macro-rx"></block></block>
   <block id="2fd92693952062fc00d949899370185d" category="section-title">定義應用程式</block>
-  <block id="da305154e58c2f6709cee1cca6b2d8c8" category="paragraph">您需要定義要使用Trident Protect 管理的每個應用程式。您可以透過手動建立應用程式 CR 或使用Trident Protect CLI 來定義要管理的應用程式。</block>
   <block id="7eb786201a1068df31c2a8d7805c50bf" category="open-title">使用 CR 新增應用程式</block>
   <block id="b4b10aa7102ef4de9ba1d5672445c895" category="list-text">建立目標應用程式 CR 檔案：</block>
   <block id="0f14679ea6b53d676a4e19300d32937e" category="list-text">建立自訂資源 (CR) 檔案並將其命名為（例如，<block ref="6e1c6964e1bb7e391ff353b09e122d80" prefix=" " category="inline-code"></block> ）。</block>
@@ -2038,21 +1941,17 @@
   <block id="cc8aa03bb88101c1901ab425b29a1901" category="list-text">*spec.includedClusterScopedResources*: (_可選_) 使用此屬性指定要包含在應用程式定義中的叢集範圍資源。此屬性可讓您根據資源的群組、版本、種類和標籤來選擇這些資源。</block>
   <block id="eba6898a839f426c3106a97f94614eb9" category="list-text">*groupVersionKind*: (_必要_) 指定叢集範圍資源的 API 群組、版本和類型。</block>
   <block id="8d8a8010684a930aa7760c829cad4141" category="list-text">*labelSelector*: (_可選_) 依照標籤篩選叢集範圍的資源。</block>
-  <block id="029d1c6e95e08907e4a8d285674ab46b" category="inline-link-macro">全球Trident保護凍結設置</block>
-  <block id="f0c05ba588826dcd6ebd5a2b3796d458" category="list-text">*metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block> 。</block>
   <block id="1fdb8b98325df025bfd256fc475c0986" category="paragraph">如果需要在應用程式建立後套用此註解，可以使用以下命令：</block>
   <block id="2508b93e69f47b3a094284dbdc9a09de" category="list-text">（可選）新增篩選條件，包含或排除帶有特定標籤的資源：</block>
   <block id="b4d332d25d8164d8387707934254781d" category="admonition">當兩者<block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>和<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>被使用，<block ref="a25777d0a6883efb33950a7cd7a8f9b9" prefix=" " category="inline-code"></block>先運行，然後<block ref="2021b5ec814a388ca04af6c6d6c2d16f" prefix=" " category="inline-code"></block>應用於生成的資源。</block>
   <block id="964ba319e15e38c5b0f3ee2a3dd4a8f8" category="list-text">建立與您的環境相符的應用程式變更要求後，請套用該變更要求。例如：</block>
   <block id="edb32c41feaaffb2d7ff10dac9d80312" category="open-title">使用 CLI 新增應用程式</block>
   <block id="221764e612f482dbef981bc478028287" category="list-text">使用以下範例之一建立並應用應用程式定義，將括號中的值替換為您環境中的資訊。您可以使用逗號分隔的列表，並在範例中顯示參數，將命名空間和資源包含在應用程式定義中。</block>
-  <block id="50b08150a783c8c645d4ae11790366e3" category="paragraph">建立應用程式時，您可以選擇使用註解來指定應用程式在快照期間是否可以寫入檔案系統。這僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。如果您將註釋設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>該應用程式忽略全域設置，可以在快照期間寫入檔案系統。如果你把它設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>該應用程式忽略全域設置，導致檔案系統在快照期間凍結。如果使用了註解，但應用程式定義中沒有虛擬機，則該註解將被忽略。如果您不使用註解，應用程式將遵循以下規則：<block ref="61895e61fe23c9afb5a69eafa8d9b7ba" category="inline-link-macro-rx"></block> 。</block>
   <block id="26f08cf1da862c1ae831c562f3621d09" category="paragraph">在使用 CLI 建立應用程式時，若要指定註解，可以使用以下方法：<block ref="3164592cacced1f14eeb788e764306a8" prefix=" " category="inline-code"></block>旗幟。</block>
   <block id="1ab026b6049460749549c7e94872c903" category="list-text">建立應用程式並使用檔案系統凍結行為的全域設定：</block>
   <block id="5c69fd9a5297da7a82e38395fe1ca096" category="list-text">建立應用程式並配置本機應用程式設定以控製檔案系統凍結行為：</block>
   <block id="6b556cca1436ef5909ccaa59f5aae989" category="paragraph">您可以使用<block ref="e80c5db95c437e3b5acee80112bd1f1a" prefix=" " category="inline-code"></block>和<block ref="484f02b530e920abf065e3f27b7a6d80" prefix=" " category="inline-code"></block>用於根據以下條件包含或排除資源的標誌<block ref="303a9ae359153efd5b4c1067cd875175" prefix=" " category="inline-code"></block>例如群組、類型、版本、標籤、名稱和命名空間，如下例所示：</block>
   <block id="0ef657dffb550796349fff7260ee7b1f" category="summary">您可以將備份或快照資料還原到不同的叢集或儲存類別。</block>
-  <block id="b6a8ee5a5280d899b4ea1be0f8697335" category="doc">使用Trident Protect 遷移應用程式</block>
   <block id="e2cc5e54cd44b8315b1324dec48b3d79" category="paragraph">您可以透過還原備份資料在叢集之間或不同的儲存類別之間遷移您的應用程式。</block>
   <block id="85ff05ce333a3cc83e4b1bece0b1a885" category="admonition">遷移應用程式時，為該應用程式配置的所有執行鉤子都會隨應用程式一起遷移。如果存在恢復後執行鉤子，它將作為恢復操作的一部分自動運行。</block>
   <block id="dea2f94d534ebdd522c0137cd11f63bf" category="section-title">備份和復原作業</block>
@@ -2070,7 +1969,6 @@
   <block id="1c7b9a68982aa2ad5f1d69eeb5bdf99e" category="inline-link-macro">從備份中恢復數據</block>
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>。</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">克隆到不同的集群</block>
-  <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集克隆），請在來源叢集上建立備份，然後將備份還原到不同的叢集。確保目標叢集上安裝了Trident保護。</block>
   <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirror複製</block>
   <block id="f6acb98f21e25882aaaa267339abcc92" category="admonition">您可以使用以下方法在不同的叢集之間複製應用程式<block ref="69314cba6d14bf88b8e850c978056766" category="inline-link-macro-rx"></block>。</block>
   <block id="fe961357dbe4b6bf8b5503f4919ea35c" category="list-text">確保目標叢集上已配置包含備份的物件儲存桶的 AppVault CR。</block>
@@ -2093,9 +1991,6 @@
   <block id="4f7a601ab79eb07bd8f0460d0e4ebccf" category="list-text">這<block ref="c322d3de29d2b0c5e2e011dad5e77df2" prefix=" " category="inline-code"></block>參數使用命名空間和快照名稱，格式如下<block ref="7310980de32cd5ca687291f4b01b2e19" prefix=" " category="inline-code"></block>。</block>
   <block id="9a3152a9bfe0e487c80e9e42ee22e9f0" category="list-text">這<block ref="65e11896cb6b19f7dcb2432e67c74725" prefix=" " category="inline-code"></block>此參數使用冒號分隔的命名空間，將來源命名空間對應到正確的目標命名空間，格式如下：<block ref="07c70c21dcae158a4b2f0d389a52981b" prefix=" " category="inline-code"></block> 。</block>
   <block id="3909674c7e76459d193fe9c27f127cbf" category="summary">使用自動保護策略或臨時方法，透過建立快照和備份來保護所有應用程式。</block>
-  <block id="da1046077b664fa54e4894632960137d" category="paragraph">您可以使用自動保護策略或臨時保護策略，透過拍攝快照和備份來保護Trident Protect 管理的所有應用程式。</block>
-  <block id="e27f117e119beccd01579e6a8d0151fb" category="inline-link-macro">了解更多關於使用Trident Protect 設定檔系統凍結的信息</block>
-  <block id="9efebf2c277b6c382e759b6b916fd0dd" category="admonition">您可以設定Trident Protect 在資料保護作業期間凍結和解凍檔案系統。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
   <block id="2530ad97c013f5d8d9c69004a4e7ee67" category="section-title">建立按需快照</block>
   <block id="9bbdcd6083ca1f29424ab7d4e6e6d3f5" category="paragraph">您可以隨時建立按需快照。</block>
   <block id="c2c21ce64dd4770c44c8642d322a5424" category="admonition">如果叢集範圍的資源在應用程式定義中被明確引用，或被引用到任何應用程式命名空間，則這些資源將包含在備份、快照或複製中。</block>
@@ -2163,21 +2058,13 @@
   <block id="b030755f5014f11eb86aee527d4ef872" category="paragraph">您可以使用命令列來檢查正在進行、已完成或已失敗的備份作業的狀態。</block>
   <block id="83fe182363ccdea33046e538aec4ac23" category="list-text">使用以下命令檢索備份作業的狀態，將方括號中的值替換為您環境中的資訊：</block>
   <block id="bdd3c7731ba2eae7059bfebd0d56c7e3" category="section-title">啟用 Azure NetApp 檔案 (ANF) 作業的備份和還原</block>
-  <block id="e9730662640f8238dbf4ed30d6292ecb" category="paragraph">如果您已安裝Trident Protect，則可以為使用 azure-netapp-files 儲存類別且在Trident 24.06 之前建立的儲存後端啟用節省空間的備份和還原功能。此功能適用於 NFSv4 卷，並且不會佔用容量池中的額外空間。</block>
   <block id="a3ba5a3fd33b03f148e52fd833cda7c3" category="paragraph">確保以下事項：</block>
-  <block id="a6cdb2021351db573212b98138416717" category="list-text">您已安裝Trident Protect。</block>
-  <block id="1b56af5799cb507ae72605b020a620df" category="list-text">您已在Trident Protect中定義了一個應用程式。在您完成此步驟之前，此應用程式的保護功能將受到限制。</block>
   <block id="a9910fb38baec2aa849c3ea6191b1cf9" category="list-text">你有<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>已選為儲存後端的預設儲存類別。</block>
   <block id="579cc8ac85c74501fbfa1bac4d013c1f" category="example-title">展開檢視設定步驟</block>
   <block id="b1927eae954479de09c736cae4ed08dd" category="list-text">如果 ANF 磁碟區是在升級到Trident 24.10 之前建立的，請在Trident中執行以下操作：</block>
   <block id="119a6ab21356c173b517e4baf8ab21d3" category="list-text">為每個基於 azure-netapp-files 且與應用程式關聯的 PV 啟用快照目錄：</block>
   <block id="9cb0a94d3b3051cae7cda63d4c5aa1d6" category="list-text">確認已為每個關聯的 PV 啟用快照目錄：</block>
   <block id="54472d1da4b0c6eadf8684e846b25dcc" category="paragraph">回覆:</block>
-  <block id="77c9498d5c74a08af1c5918bd5fd8ee1" category="paragraph">如果未啟用快照目錄， Trident Protect 會選擇常規備份功能，這會在備份過程中暫時佔用容量池中的空間。在這種情況下，請確保容量池中有足夠的空間來建立​​與被備份磁碟區大小相同的臨時磁碟區。</block>
-  <block id="2efd4c8775ce47d6aa29183091d2a4e2" category="paragraph">該應用程式已準備好使用Trident Protect 進行備份和還原。每個 PVC 也可供其他應用程式用於備份和還原。</block>
-  <block id="697f51e8965440d487236d46d469510d" category="summary">首先，請驗證您的運行環境、應用程式叢集、應用程式和授權是否已準備就緒。請確保您的環境符合部署和執行Trident Protect 的這些要求。</block>
-  <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">Trident保護 Kubernetes 叢集相容性</block>
-  <block id="c8f91050b5ec3e677d9c7e16e424f9bc" category="paragraph">Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包括：</block>
   <block id="480c9b5f979d1ce95ea2a58b09826d1b" category="list-text">亞馬遜彈性 Kubernetes 服務 (EKS)</block>
   <block id="974030a30a48754684d05541fd5e96c9" category="list-text">Google Kubernetes 引擎 (GKE)</block>
   <block id="f3bd1985b243e9691bbbd63c6702344b" category="list-text">Microsoft Azure Kubernetes 服務 (AKS)</block>
@@ -2185,31 +2072,23 @@
   <block id="6577b94f9943e513915919cfd0dc5909" category="list-text">SUSE Rancher</block>
   <block id="c395793804bd9dfa82ff727781faf3c5" category="list-text">VMware Tanzu 產品組合</block>
   <block id="1de3a8db0dcc39abe68ae2b506a8f0ac" category="list-text">上游 Kubernetes</block>
-  <block id="1991a9f25a93e75eb693b6e02bc130ed" category="list-text">Trident保護備份僅支援 Linux 計算節點。Windows 運算節點不支援備份作業。</block>
   <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">這些說明</block>
-  <block id="664d28801abc192d5c7dfd7bfa758e98" category="list-text">確保安裝Trident Protect 的叢集已配置正在執行中的快照控制器和相關的 CRD。若要安裝快照控制器，請參閱<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>。</block>
-  <block id="f6fbfc99b1ed4fcb2dee65355a088f0b" category="section-title">Trident Protect 儲存後端相容性</block>
-  <block id="dc754c1df3be627f8c83600f4c69aade" category="paragraph">Trident Protect 支援以下儲存後端：</block>
   <block id="ca3930511e1c5997e851e891e33190ab" category="list-text">ONTAP儲存陣列</block>
   <block id="e254891423d193d0e614eaf948880de5" category="paragraph">請確保您的儲存後端符合以下要求：</block>
   <block id="28b0a2e1fa7af6d4a2a83bc61c130c0f" category="list-text">確保連接到叢集的NetApp儲存裝置使用的是Trident 24.02 或更高版本（建議使用Trident 24.10）。</block>
   <block id="1efa9b79a24750278cc3058eaf2ead00" category="list-text">請確保您擁有NetApp ONTAP儲存後端。</block>
   <block id="c9a524733ac9eb25fbf1980538b5437d" category="list-text">請確保您已配置用於儲存備份的物件儲存桶。</block>
-  <block id="953216b11f9b494b0b28bcec605cbea1" category="list-text">建立您計劃用於應用程式或應用程式資料管理作業的任何應用程式命名空間。  Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定了不存在的命名空間，則操作將會失敗。</block>
   <block id="f4ce5a5f08fdc6de51b81cc305a21fd0" category="section-title">nas-economy 容量要求</block>
-  <block id="85641afe25671a9190f50185f6e499d5" category="paragraph">Trident Protect 支援對 nas-economy 磁碟區進行備份和復原作業。目前不支援將快照、克隆和SnapMirror複製到 nas-economy 磁碟區。您需要為計劃與Trident Protect 一起使用的每個 nas-economy 磁碟區啟用快照目錄。</block>
   <block id="43da051477acee60af3ad54451d3d090" category="paragraph">某些應用程式與使用快照目錄的磁碟區不相容。對於這些應用，您需要透過在ONTAP儲存系統上執行以下命令來隱藏快照目錄：</block>
   <block id="beb2d6f4cedfc5b87a39d1766369fade" category="paragraph">您可以透過對每個 nas-economy 磁碟區執行以下命令來啟用快照目錄，並將命令替換為<block ref="a86374477aa0b3d451812bb6ced0458d" prefix=" " category="inline-code"></block>使用要變更的磁碟區的 UUID：</block>
   <block id="70117c3862b4c793cc80799862e6fde9" category="admonition">您可以透過設定Trident後端設定選項，為新磁碟區預設啟用快照目錄。<block ref="7ad68fdac2eac069eb8ed0fc45b0fb74" prefix=" " category="inline-code"></block>到<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>。現有捲數不受影響。</block>
   <block id="ac84b7596169ab3fb6c24e8a5c85c234" category="section-title">使用 KubeVirt 虛擬機器保護數據</block>
   <block id="3ab436334531996382ccf17d7d3a4d69" category="section-title">SnapMirror複製的要求</block>
-  <block id="572a8b759ae44dd81571fb9d11e9932b" category="paragraph">NetApp SnapMirror複製功能可與Trident Protect 搭配使用，適用於下列ONTAP解決方案：</block>
   <block id="701fc71f0daf0d596d98b3af41d195dd" category="list-text">本地部署的NetApp FAS、 AFF和ASA集群</block>
   <block id="00ae925249b1dcd734cdb679b48bf8f7" category="list-text">NetApp ONTAP Select</block>
   <block id="0f0b99ea2f70cd363c2c6a279f74e760" category="list-text">NetApp Cloud Volumes ONTAP</block>
   <block id="9f91d52d37c43ec162560596ac851ec9" category="section-title">ONTAP叢集對SnapMirror複製的要求</block>
   <block id="6ed8f95cb1dcd3baff756120151793a9" category="paragraph">如果您打算使用SnapMirror複製功能，請確保您的ONTAP叢集符合以下要求：</block>
-  <block id="089456655f37605dd109f3d8c7ece010" category="list-text">* NetApp Trident *：使用ONTAP作為後端服務的來源 Kubernetes 叢集和目標 Kubernetes 叢集上都必須存在NetApp Trident 。  Trident Protect 支援使用NetApp SnapMirror技術進行複製，該技術使用以下驅動程式支援的儲存類別：</block>
   <block id="070b998f5495f2da2fb3ac5053772d1e" category="list-text"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>：極品飛車</block>
   <block id="48af35aa41f6c14dcd31a429e161cd45" category="list-text"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>：iSCSI</block>
   <block id="af09466318992e13530265625ea96e63" category="list-text"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block>：FC</block>
@@ -2225,25 +2104,17 @@
   <block id="ddae31913091b421eaff815ed1e19b4f" category="list-text">*叢集和 SVM*： ONTAP儲存後端必須相互連接。請參閱<block ref="36ecaf21e9ca81a83e736deb4ff5c657" category="inline-link-rx"></block>了解更多。</block>
   <block id="94ac6b3955eab183cb88ab17c91000eb" category="admonition">確保兩個ONTAP叢集之間複製關係中使用的 SVM 名稱是唯一的。</block>
   <block id="39741179a069c04c2421056e0f2b56fa" category="list-text">* NetApp Trident和 SVM*：對等遠端 SVM 必須可供目標叢集上的NetApp Trident使用。</block>
-  <block id="e05c29680eacd6a4c163eefe138ff9fd" category="list-text">*託管後端*：您需要在Trident Protect 中新增和管理ONTAP儲存後端，以建立複製關係。</block>
   <block id="57fe82c052fea1c269ca2b14e92e80d3" category="section-title">用於SnapMirror複製的Trident / ONTAP配置</block>
-  <block id="59292a70a610fc937685ef1c3a3b5cb1" category="paragraph">Trident Protect 要求您至少設定一個支援來源叢集和目標叢集複製的儲存後​​端。如果來源叢集和目標叢集相同，為了獲得最佳彈性，目標應用程式應該使用與來源應用程式不同的儲存後端。</block>
   <block id="62fd283f8b260923bfb8cde9c318b507" category="section-title">SnapMirror複製的 Kubernetes 叢集要求</block>
   <block id="03ba2e33bef23ce0f974f7521e636992" category="paragraph">請確保您的 Kubernetes 叢集符合以下要求：</block>
   <block id="da635a644d2727b18debb9ea48c169b6" category="list-text">*AppVault 可存取性*：來源叢集和目標叢集都必須具有網路存取權限，才能從 AppVault 讀取資料和寫入數據，以實現應用程式物件複製。</block>
   <block id="debae13e33c5f861b21b322eed48bf3f" category="list-text">*網路連線*：設定防火牆規則、儲存桶權限和 IP 允許列表，以啟用兩個叢集和 AppVault 之間透過 WAN 進行通訊。</block>
   <block id="35d8960b4053e461085ad015f6805d14" category="admonition">許多企業環境在廣域網路連線中實施嚴格的防火牆策略。在配置複製之前，請先與您的基礎架構團隊確認這些網路需求。</block>
-  <block id="4b92c534580865d96f1efb9f86289249" category="summary">您可以使用Trident Protect 從快照或備份中還原您的應用程式。將應用程式還原到同一群集時，從現有快照恢復速度會更快。</block>
-  <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">使用Trident Protect 恢復應用程式</block>
   <block id="f346d32ba5d9c332bf8577bf1bacda07" category="list-text">還原應用程式時，為該應用程式配置的所有執行鉤子都會隨應用程式一起復原。如果存在恢復後執行鉤子，它將作為恢復操作的一部分自動運行。</block>
   <block id="961ce5b35a999d2dc3f7e386f74eb614" category="list-text">支援從備份還原到不同的命名空間或還原到原始命名空間（適用於 qtree 磁碟區）。但是，對於 qtree 卷，不支援從快照還原到不同的命名空間或還原到原始命名空間。</block>
-  <block id="b34476802a6b2dff98e6f97e309970b2" category="inline-link-macro">使用進階Trident保護恢復設定</block>
-  <block id="22d9eb2f3982698c6f5c93edae216a51" category="list-text">您可以使用進階設定來自訂恢復操作。欲了解更多信息，請參閱 <block ref="80b4b5e2c832cc4fcff1f69711f1c808" category="inline-link-macro-rx"></block>。</block>
   <block id="a082effb2d23d4eb077129001a77582f" category="section-title">從備份還原到不同的命名空間</block>
-  <block id="b0e7049d5aeb967991b6b3a21db08de3" category="paragraph">當您使用 BackupRestore CR 將備份還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立一個應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。</block>
   <block id="cff063350a0daf1b0ee4c6c97eb2e2de" category="admonition">將備份還原到具有現有資源的不同命名空間不會變更與備份中資源同名的任何資源。若要還原備份中的所有資源，請刪除並重新建立目標命名空間，或將備份還原到新的命名空間。</block>
   <block id="d110d36251c4dd04b7da5ef237ac6063" category="inline-link">科皮亞文檔</block>
-  <block id="3efe6f70bb45e527ed991c55df7d621d" category="admonition">當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>有關您可以配置的選項的詳細資訊。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>有關使用Trident Protect CLI 指定註釋的更多信息，請參閱命令。</block>
   <block id="0334c5d881452d9144d4edf93d44ff85" category="list-text">建立自訂資源 (CR) 檔案並將其命名為<block ref="aa3356b96c40153ef83fe9854ede7a70" prefix=" " category="inline-code"></block>。</block>
   <block id="8ebefb3e84a05b2e3bf54824870d776d" category="list-text">*spec.appArchivePath*: AppVault 內儲存備份內容的路徑。您可以使用以下命令尋找此路徑：</block>
   <block id="3f1db1c30ba33e5d04499f000ed77f97" category="list-text">*spec.appVaultRef*: (_必要_) 儲存備份內容的 AppVault 的名稱。</block>
@@ -2257,13 +2128,10 @@
   <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">從備份還原到不同的集群</block>
   <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">如果原始叢集出現問題，您可以將備份還原到其他叢集。</block>
   <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">確保滿足以下先決條件：</block>
-  <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">目標叢集已安裝Trident Protect。</block>
   <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">目標叢集可以存取與來源叢集相同的 AppVault 的儲存桶路徑，備份就儲存在該儲存桶中。</block>
-  <block id="e95fc483374f2aa2997fb27e7235f723" category="list-text">執行 AppVault CR 時，請確保本機環境可以連接到 AppVault CR 中定義的物件儲存桶。<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block>命令。如果網路限制阻止訪問，請從目標叢集上的 pod 內執行Trident Protect CLI。</block>
   <block id="2358fb4006fff416413cb9bfc04e4b73" category="list-text">確保 AWS 會話令牌的過期時間足以滿足任何長時間運行的復原操作。如果在恢復操作期間令牌過期，則操作可能會失敗。</block>
   <block id="df710f89ebb9e663bd3d66607a0bf413" category="inline-link">AWS 文件</block>
   <block id="f3aa7db516c38030a276a5895520407a" category="list-text">請參閱<block ref="968595e57d50a64e3fbe0f06bc16cb91" category="inline-link-rx"></block>有關 AWS 資源憑證的詳細資訊。</block>
-  <block id="0425d0358a4cba7a7cce5ddd727ab6a2" category="list-text">使用Trident Protect CLI 外掛程式檢查目標叢集上 AppVault CR 的可用性：</block>
   <block id="1ff83a5266e9e025c2984e0c10dea90e" category="admonition">確保用於應用程式還原的命名空間存在於目標叢集上。</block>
   <block id="8d433ae9a21c49e9e5433ebd408605c0" category="list-text">查看目標叢集中可用 AppVault 的備份內容：</block>
   <block id="378e6f0ba7080535a4462b5311befb40" category="paragraph">執行此命令將顯示 AppVault 中可用的備份，包括其來源叢集、對應的應用程式名稱、時間戳記和歸檔路徑。</block>
@@ -2272,7 +2140,6 @@
   <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">如果 BackupRestore CR 不可用，您可以使用步驟 2 中提到的指令來查看備份內容。</block>
   <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">使用以下命令恢復應用程序，將括號中的值替換為您環境中的資訊。命名空間映射參數使用冒號分隔的命名空間，將來源命名空間對應到正確的目標命名空間，格式為 source1:dest1,source2:dest2。例如：</block>
   <block id="db4c6bfd26488f4d6ab2ec6129b067d8" category="section-title">從快照還原到不同的命名空間</block>
-  <block id="4b405223d9feceac91c5ef8df77b1961" category="paragraph">您可以使用自訂資源 (CR) 檔案從快照還原數據，還原到不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。</block>
   <block id="15910dd29963e5df5f2b5879472bcc00" category="admonition">SnapshotRestore 支持<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block>屬性，但僅當來源儲存類別和目標儲存類別使用相同的儲存後端時才有效。如果您嘗試恢復到<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block>如果使用不同的儲存後端，則復原操作將會失敗。</block>
   <block id="941a76112ae80457a7a22ae552218be9" category="section-title">從快照還原到原始命名空間</block>
   <block id="a392e5395f0751460dc460cd6ec5e89d" category="paragraph">您可以隨時將快照還原到原始命名空間。</block>
@@ -2282,7 +2149,6 @@
   <block id="ba2718de6be08337811d049982d9f03f" category="section-title">檢查還原操作的狀態</block>
   <block id="97dedb929a195e839af5f7d7f8ef0ec5" category="paragraph">您可以使用命令列來檢查正在進行、已完成或已失敗的還原作業的狀態。</block>
   <block id="c076e91339c1f092aaad1d36a9c18a7a" category="list-text">使用以下命令檢索恢復操作的狀態，將方括號中的值替換為您環境中的資訊：</block>
-  <block id="4c2451a6dd1d1ce7a84476069f101573" category="summary">您可以使用註解、命名空間設定和儲存選項自訂Trident保護復原作業。</block>
   <block id="3fbccf21ba46fe754417d45e7396e0e4" category="paragraph">您可以使用進階設定（例如註解、命名空間設定和儲存選項）自訂復原操作，以滿足您的特定要求。</block>
   <block id="52391deb129507aac52d6fb22aaf137c" category="section-title">支援的字段</block>
   <block id="c87f7398b288400e3d2c984a3d997d7b" category="paragraph">本節介紹可用於恢復操作的其他欄位。</block>
@@ -2298,30 +2164,15 @@
   <block id="3b2f6f0bb673ee02e8aafe624e2e971f" category="cell">protect.trident.netapp.io/kopia-content-cache-size-limit-mb</block>
   <block id="f044e4dc5e5fdde631180451c25a973c" category="cell">Kopia 內容快取的最大大小限制（以兆位元組為單位）。</block>
   <block id="9d397fb20eca1ebda087637e32a30a7b" category="cell">“1000”</block>
-  <block id="3b236bd888d7d3460e381b13adb8f6b8" category="summary">如果您要從試用版升級到完整版產品，可能需要移除Trident Protect 元件。</block>
-  <block id="1bc8acdabd6fc240195da5f19b986dd6" category="doc">解除安裝Trident Protect</block>
-  <block id="fb509ce83a58c3beeca23f5d55c8d75c" category="paragraph">若要移除Trident Protect，請執行下列步驟。</block>
-  <block id="f6116aed83b3970c50d28447d27f4f97" category="list-text">移除Trident保護的CR檔案：</block>
   <block id="0ae48837f8ebc5da6e90828852d02027" category="admonition">25.06 及更高版本不需要此步驟。</block>
-  <block id="aec02c2a1b714f40a949aa18d1f2d588" category="list-text">移除Trident保護：</block>
-  <block id="20c06650be80c297c0e4dc5ae977d44f" category="list-text">移除Trident保護命名空間：</block>
-  <block id="c14dcfe7b0231c7a77642ffab50a55eb" category="summary">您可以將Trident Protect 升級到最新版本，以享受新功能或修復錯誤。</block>
-  <block id="91d6fa36b819133d3be4dc9c8bf2cf22" category="doc">升級Trident保護</block>
   <block id="ed98e5c2a168d1606df0370fe371df28" category="paragraph">從 24.10 版本升級時，升級期間執行的快照可能會失敗。此故障不會阻止將來建立快照，無論是手動建立還是計劃建立。如果在升級過程中快照失敗，您可以手動建立新的快照，以確保您的應用程式受到保護。</block>
   <block id="756accba0f305693c47126f932bd7ac6" category="paragraph">為避免潛在的故障，您可以在升級前停用所有快照計劃，並在升級後重新啟用它們。但是，這會導致在升級期間錯過任​​何計劃的快照。</block>
-  <block id="9a4ef497aa1e88e71b08a41b069a9cf4" category="paragraph">若要升級Trident Protect，請執行下列步驟。</block>
   <block id="08583ac87350c1205f57ca5d8c629482" category="list-text">更新Trident Helm 倉庫：</block>
-  <block id="0f5b1b3a9bfb872579b78d2db623d3d8" category="list-text">升級Trident保護 CRD：</block>
-  <block id="afce633f05d99c109d2b0429ee891495" category="admonition">如果您是從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在Trident protect Helm 圖表中。</block>
   <block id="8e903b2b577c535f6f70248f34e61228" category="list-text">執行此命令以將 CRD 的管理權從<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>到<block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block>：</block>
   <block id="da4df818678014568aed9623276fd9f5" category="list-text">執行此命令以刪除 Helm 金鑰<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>圖表：</block>
   <block id="aeea10a9d4e3d29e20b749a201f0ae46" category="admonition">不要卸載<block ref="23901a54edbcff97a89483ac3112545c" prefix=" " category="inline-code"></block>使用 Helm 建立圖表可能會刪除您的 CRD 和任何相關資料。</block>
-  <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">升級Trident保護：</block>
-  <block id="a8c1fc9f09b8338dd9f8badd5c3d30c0" category="summary">您可以使用Trident Protect 為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。</block>
-  <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">管理Trident Protect 執行鉤子</block>
   <block id="ccd62d676165e34c2e9c6d088c06e70f" category="paragraph">執行鉤子是一種自訂操作，您可以將其配置為與受管應用程式的資料保護操作一起運行。例如，如果您有一個資料庫應用程序，則可以使用執行掛鉤在快照之前暫停所有資料庫事務，並在快照完成後恢復事務。這確保了應用程式一致的快照。</block>
   <block id="83fbf1604bedff410ea11872b40ab9f0" category="section-title">執行鉤子的類型</block>
-  <block id="d702711249a4d54c15ce81c80152b8e7" category="paragraph">Trident Protect 支援以下幾種執行鉤子類型，取決於它們的運行時機：</block>
   <block id="9c6a9cc04a4d5840a5d237b232190a35" category="list-text">預快照</block>
   <block id="65db6b15c7f05c97a1647c11699053e3" category="list-text">快照後</block>
   <block id="0a2055495a94f091655a2e4d421cffe2" category="list-text">預備份</block>
@@ -2331,7 +2182,6 @@
   <block id="a9f57378169166a88acf61a71442e5fb" category="section-title">執行順序</block>
   <block id="e8132483e0cae3565c87c193b3fd8f57" category="paragraph">當執行資料保護操作時，執行掛鉤事件會依照下列順序發生：</block>
   <block id="4a6ccf1757fd10978b3fb28d81187dcc" category="list-text">任何適用的自訂預操作執行掛鉤都在適當的容器上運行。您可以根據需要建立和運行任意數量的自訂預操作掛鉤，但這些掛鉤在操作之前的執行順序既無法保證也無法配置。</block>
-  <block id="08810911e9a818361e28207072354bd4" category="list-text">如果適用，則會發生檔案系統凍結。<block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>。</block>
   <block id="cfbed2286711be0cf6dbc12aba602709" category="list-text">執行資料保護操作。</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">如果適用，凍結的檔案系統將被解凍。</block>
   <block id="9465fae733e0b5fdcd6e532ef8a78b08" category="list-text">任何適用的自訂後操作執行掛鉤都在適當的容器上運行。您可以根據需要建立和運行任意數量的自訂後操作掛鉤，但操作後這些掛鉤的執行順序既無法保證也無法配置。</block>
@@ -2346,21 +2196,17 @@
   <block id="f99748fb4b1cf592516b60937743c52d" category="section-title">關於自訂執行鉤子的重要說明</block>
   <block id="6b8e88c5f4231fbc6994f3a29dd893af" category="paragraph">在為您的應用程式規劃執行掛鉤時，請考慮以下事項。</block>
   <block id="c9333604c0c05d7727ea70ec5f1b806b" category="list-text">執行鉤子必須使用腳本來執行操作。許多執行鉤子可以引用同一個腳本。</block>
-  <block id="cc0a52984aa9087cc5fca898c4dc1caa" category="list-text">Trident Protect 要求執行鉤子使用的腳本以可執行 shell 腳本的格式編寫。</block>
   <block id="6a7d60379bb9015c0bfe02adcc54d0b5" category="list-text">腳本大小限制為 96KB。</block>
-  <block id="d6eb1b65eb578d8eb99d367edc11bb03" category="list-text">Trident Protect 使用執行鉤子設定和任何符合條件來決定哪些鉤子適用於快照、備份或還原作業。</block>
   <block id="6b988caf78b1aa60f0402c611a1c8e2a" category="admonition">由於執行鉤子通常會減少或完全停用其所針對的應用程式的功能，因此您應該始終嘗試盡量減少自訂執行鉤子的運行時間。如果您啟動具有相關執行掛鉤的備份或快照操作，但隨後取消它，則如果備份或快照操作已經開始，則仍允許掛鉤運行。這意味著備份後執行掛鉤中使用的邏輯不能假定備份已完成。</block>
   <block id="99dc882fc0f61d1db87631ed9f156913" category="section-title">執行鉤子過濾器</block>
   <block id="44db75fbdb91be494665aebf40107fcf" category="paragraph">當您為應用程式新增或編輯執行掛鉤時，您可以向執行掛鉤添加過濾器來管理該掛鉤將匹配哪些容器。過濾器對於在所有容器上使用相同容器鏡像但可能將每個鏡像用於不同目的的應用程式（例如 Elasticsearch）很有用。過濾器可讓您建立執行掛鉤在某些（但不一定是所有）相同的容器上運行的場景。如果為單一執行掛鉤建立多個篩選器，它們將透過邏輯 AND 運算子組合在一起。每個執行掛鉤最多可以有 10 個活動過濾器。</block>
   <block id="7caae75448dbc59fcadd621099e170b3" category="inline-link">正規表示式 2 (RE2) 語法支持</block>
-  <block id="c8390f7fcf8913e63d64e8069f87aa58" category="paragraph">新增到執行掛鉤的每個過濾器都使用正規表示式來匹配叢集中的容器。當鉤子與容器匹配時，鉤子將在該容器上運行其關聯的腳本。過濾器的正規表示式使用正規表示式 2 (RE2) 語法，該語法不支援建立從符合清單中排除容器的過濾器。有關Trident Protect 在執行鉤子過濾器中支援的正規表示式語法的詳細信息，請參閱<block ref="d4d0dd655d04b2dc5b031206e1febd50" category="inline-link-rx"></block>。</block>
   <block id="4c004df391027b81952b788a3802e37c" category="admonition">如果將命名空間過濾器新增至在復原或複製作業後執行的執行掛鉤，且復原或複製來源和目標位於不同的命名空間中，則命名空間篩選器僅適用於目標命名空間。</block>
   <block id="f1ec6389b6d19d3be02f29f4a7d29051" category="section-title">執行鉤子範例</block>
   <block id="0370124d48bfc5af2def19c48f433283" category="inline-link">NetApp Verda GitHub 項目</block>
   <block id="a59e4fa5cc01a3a4bdebbff4cec60b47" category="paragraph">訪問<block ref="84d9961ef5a89731849bc2055780d0b6" category="inline-link-rx"></block>下載流行應用程式（如 Apache Cassandra 和 Elasticsearch）的真實執行掛鉤。您還可以查看範例並獲得建立自己的自訂執行掛鉤的想法。</block>
   <block id="b103709bb8bab06f6db02c661d88466a" category="section-title">建立執行鉤子</block>
   <block id="e39c63d5ded2742e4215d5e339fa729e" category="list-text">建立自訂資源 (CR) 檔案並將其命名為<block ref="ce6abb389eaae6953714e27f1dfde579" prefix=" " category="inline-code"></block>。</block>
-  <block id="a1b64283bac1ca460b6b777a46121e7f" category="list-text">設定以下屬性以符合您的Trident Protect 環境和叢集設定：</block>
   <block id="500ef917ae8cc36e9c85a2c0bc7d9337" category="list-text">*spec.applicationRef*: (_必要_) 要執行執行鉤子的應用程式的 Kubernetes 名稱。</block>
   <block id="5422fe7ebd8e2354557341f5b0c60905" category="list-text">*spec.stage*: (_Required_) 一個字串，指示執行鉤子應該在操作的哪個階段運行。可能的值：</block>
   <block id="fb55a965b77791b31ffd2bb548f71080" category="list-text">預</block>
@@ -2403,16 +2249,12 @@
   <block id="aa9f056f37cdee5e5bcd47f7bc3ac1ba" category="list-text">建立手動執行鉤子運行請求：</block>
   <block id="42e563c466d27e9d4943ef1acd3703b7" category="list-text">檢查執行鉤子運行狀態。您可以重複執行此命令，直到操作完成：</block>
   <block id="8430f2c56dfc9e79fcaf741392d54499" category="list-text">描述 exechooksrun 物件以查看最終詳細資訊和狀態：</block>
-  <block id="d37692493f4055c8b34b9de2897bb1a6" category="summary">使用Trident Protect，您可以利用NetApp SnapMirror技術的非同步複製功能，將資料和應用程式變更從一個儲存後端複製到另一個儲存後端，無論是在同一叢集內還是在不同叢集之間。</block>
-  <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">使用NetApp SnapMirror和Trident Protect 複製應用程式</block>
   <block id="685db7ca1bcc71c55d1592c71e464158" category="section-title">故障轉移和反向操作期間的執行鉤子</block>
   <block id="bfc5a6b94bc23ccc51c85a2aa1cb71b4" category="paragraph">使用 AppMirror 關係保護應用程式時，在故障轉移和反向操作期間，您應該注意與執行鉤子相關的特定行為。</block>
   <block id="3d11bc959173dddd2997400e7bdf4d67" category="list-text">故障轉移期間，執行鉤子會自動從來源叢集複製到目標叢集。您無需手動重新建立它們。故障轉移後，應用程式上會存在執行鉤子，這些鉤子將在任何相關操作期間執行。</block>
   <block id="ba9dd6212c2e02686051fbf28e548584" category="list-text">在反向同步或反向重同步期間，應用程式上任何現有的執行鉤子都會被移除。當來源應用程式變為目標應用程式時，這些執行鉤子將不再有效，並將被刪除以防止其執行。</block>
-  <block id="98b9f287abe5860abcc3ab5364313188" category="paragraph">要了解有關執行鉤子的更多信息，請參閱<block ref="d0f7adc5528355d3ba6ac91271095c29" category="inline-link-macro-rx"></block>。</block>
   <block id="40322a2a338856f04751d8d3bdb62496" category="section-title">建立複製關係</block>
   <block id="f7c69ddccabddb0b74276d3c2a3086e0" category="paragraph">建立複製關係涉及以下步驟：</block>
-  <block id="a7b38e98cd0b780e4d7f39ca030851fe" category="list-text">選擇Trident Protect 執行應用程式快照的頻率（包括應用程式的 Kubernetes 資源以及應用程式每個磁碟區的磁碟區快照）。</block>
   <block id="cc37bc9830a1edb8e50e296af8ade03b" category="list-text">選擇複製計劃（包括 Kubernetes 資源以及持久卷資料）</block>
   <block id="55960a396448d8f19fb182dfd2b04d90" category="list-text">設定拍攝快照的時間</block>
   <block id="7fe804bb721f10861ae38239b332f774" category="inline-link-macro">AppVault 自訂資源</block>
@@ -2476,7 +2318,6 @@
   <block id="d4c94febe4f13411fa761de57ad6cce6" category="open-title">使用 CLI 建立 AppMirrorRelationship</block>
   <block id="3d9dc864aeb5b914422a6a665c53ceeb" category="list-text">（可選）在目標叢集上，檢查複製關係的狀態：</block>
   <block id="70cc2bec279e168711b67e789468c45c" category="section-title">故障轉移到目標集群</block>
-  <block id="196c4df78e5add7c9590d6a1c18367ec" category="paragraph">使用Trident Protect，您可以將複製的應用程式故障轉移到目標叢集。此過程會停止複製關係，並將應用程式在目標叢集上連線。如果來源叢集上的應用程式正在運行， Trident Protect 不會停止該應用程式。</block>
   <block id="fe07abfd92e0d0809a7eb71ce3f79b4b" category="list-text">在目標叢集上，編輯 AppMirrorRelationship CR 檔案（例如，<block ref="e4fba3915616865173fe7feee130a30f" prefix=" " category="inline-code"></block> ）並將 *spec.desiredState* 的值變更為<block ref="2c42d7d277f63fcbe64b041b997ceaed" prefix=" " category="inline-code"></block>。</block>
   <block id="2d258c624d61d2388efacfc246d2439e" category="list-text">儲存CR文件。</block>
   <block id="66ccf267a388b1a30a7530a93ea5ce18" category="list-text">（可選）在故障轉移應用程式上建立所需的任何保護計劃。</block>
@@ -2495,7 +2336,6 @@
   <block id="5ca8234bb17898bdaa8421e9bab83a0b" category="list-text">確保新目標（原始來源叢集）配置了兩個 AppVault CR。</block>
   <block id="8a427fa57d96e74516c008754320b521" category="list-text">在相反的集群上建立複製關係，並配置反向的值。</block>
   <block id="792322eb4a0bf1a122100fc009041d9b" category="section-title">反向應用程式複製方向</block>
-  <block id="eb89cf8a1850f41e41a65f7b65ec9c87" category="paragraph">當您反轉複製方向時， Trident Protect 會將應用程式移至目標儲存後端，同時繼續複製回原始來源儲存後端。  Trident Protect 會停止來源應用程式並將資料複製到目標位置，然後再故障轉移到目標應用程式。</block>
   <block id="4625c1e6ccf2351ad9a08dcee33270c8" category="paragraph">在這種情況下，你交換了來源位址和目標位址。</block>
   <block id="e319bd320145e358af8fd5dbada2d800" category="list-text">在來源叢集上，建立關機快照：</block>
   <block id="4f902591d45de06985f0af6d869c8a04" category="open-title">使用 CR 建立關機快照</block>
@@ -2521,7 +2361,6 @@
   <block id="b6c3873d17157e3e4a0b1ef02b3cef69" category="list-text">該應用程式的 Kubernetes 資源是從關閉前的快照中恢復的，使用的是在原始來源應用程式關閉後複製的捲資料。</block>
   <block id="3cecdf93ba8c40eb3b09b7a7f9985e1d" category="list-text">複製過程以相反的方向重新建立。</block>
   <block id="827d6f4840be3ba668aa3eaee7c11d8d" category="section-title">將應用程式故障恢復到原始來源集群</block>
-  <block id="fbe6471033a142db5e3165e4034c1157" category="paragraph">使用Trident Protect，您可以透過以下步驟序列操作在故障轉移作業後實現「故障復原」。在此恢復原始複製方向的工作流程中， Trident Protect 會將任何應用程式變更複製（重新同步）回原始來源應用程序，然後再反轉複製方向。</block>
   <block id="3a045f0ae84563b460627f43bb272936" category="paragraph">流程從已完成故障轉移至目標位置的關係開始，並涉及以下步驟：</block>
   <block id="9cbd7771b861e31b5edb23d83de4758c" category="list-text">從故障轉移狀態開始。</block>
   <block id="fe411ea35c29677771dcaad52985fc08" category="list-text">反向重新同步複製關係。</block>
@@ -3503,7 +3342,6 @@
   <block id="fc679dfce4052095eac6de2f7f86cd16" category="paragraph">發行說明提供了有關NetApp Trident最新版本的新功能、增強功能和錯誤修復的資訊。</block>
   <block id="e4c4d344a524d21b898e4d04b6539aa7" category="admonition">這<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>安裝程式 zip 檔案中提供的 Linux 二進位檔案是經過測試和支援的版本。請注意，<block ref="43b9d8ea18c48c3a64c4e37338fc668f" prefix=" " category="inline-code"></block>提供的二進位文件<block ref="1e6add150fa42ebd470891f1547d31f0" prefix=" " category="inline-code"></block>壓縮文件中的部分內容未經測試或支援。</block>
   <block id="c70a7b422c141acedc1060dd737c17a5" category="section-title">25.06.2 中的新增功能</block>
-  <block id="08f1535b065719df5968364b00b95026" category="paragraph">「新增功能」摘要提供了有關Trident和Trident Protect 版本增強功能、修復程序和棄用項目的詳細資訊。</block>
   <block id="41cf959adc98386b54829d71a6ed5d37" category="section-title">修復</block>
   <block id="3e49406f91b1756e000630d03496d0da" category="list-text">*Kubernetes*：修正了從 Kubernetes 節點分離磁碟區時發現不正確的 iSCSI 裝置的嚴重問題。</block>
   <block id="76adb46eab5f5dd5b58c3c8a62320c12" category="section-title">25.06.1 中的變更</block>
@@ -3551,8 +3389,6 @@
   <block id="9bfdfc993711fd8c92649ae6040af106" category="list-text">修正了使用ONTAP REST API 時克隆分割操作同步執行的問題。</block>
   <block id="d7061136425214e6ed7ba38910be5772" category="section-title">棄用：</block>
   <block id="eb0a31990fe8d3afbb4177136e0a9c3b" category="list-text">*Kubernetes*：已將最低支援的 Kubernetes 版本更新至 v1.27。</block>
-  <block id="cb1f1e88b6db83dc715d1cb1d8733445" category="section-title">Trident保護</block>
-  <block id="b094c3f306a844e9e49992f69a84cfa4" category="paragraph">NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存設定器支援的有狀態 Kubernetes 應用程式的功能和可用性。</block>
   <block id="df6370ee6ad8bc05b4c28dc223a119ea" category="list-text">提高了復原速度，並提供了更頻繁執行完整備份的選項。</block>
   <block id="6d133839389fad9d044a57e7cd98852e" category="list-text">改進了應用程式定義的粒度，並可透過群組版本類型 (GVK) 篩選進行選擇性復原。</block>
   <block id="d22659d02ebeb222423ac210fcf66e17" category="list-text">使用 AppMirrorRelationship (AMR) 和NetApp SnapMirror時，可實現高效的重新同步和反向複製，從而避免完全 PVC 複製。</block>
@@ -3572,7 +3408,6 @@
   <block id="d6dc63ac67744b1aac236b69c66dfde2" category="inline-link-macro">第961期</block>
   <block id="7bc2d7846b2e95d3f64a4d4f4b53cc3c" category="list-text">修正了ONTAP故障轉移復原期間多路徑會話無法復原的問題（<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block> ）。</block>
   <block id="212dff1a74c955a52357c5a67478720d" category="section-title">25.02 中的變化</block>
-  <block id="b343abb76f62f4eef4afa255e885eee4" category="paragraph">從Trident 25.02 開始，「新增功能」摘要提供了有關Trident和Trident Protect 版本的增強功能、修復程序和棄用項目的詳細資訊。</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">增加了對ONTAP ASA r2 的 iSCSI 支援。</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">增加了在非正常節點關閉情況下強制分離ONTAP-NAS 卷的支援。新的ONTAP-NAS 磁碟區現在將使用Trident管理的按磁碟區匯出策略。為現有磁碟區提供升級路徑，使其在取消發佈時過渡到新的匯出策略模型，而不會影響正在運行的工作負載。</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">新增了 cloneFromSnapshot 註解。</block>
@@ -3599,13 +3434,10 @@
   <block id="50da178eec9235ba0a85999374d51cba" category="list-text">在Trident運算子中新增了停用自動配置器協調的選項（<block ref="95579fcabb606a95f307c6ba89588c08" category="inline-link-macro-rx"></block> ）。</block>
   <block id="16aa6756a13a48723b3d2bc4bf50c104" category="inline-link-macro">第976期</block>
   <block id="60b04b91abae29736bd23b21579be5cb" category="list-text">為 csi-resizer 容器新增了 securityContext（<block ref="a97be45bfcdf3eeaee81dc9917811f8f" category="inline-link-macro-rx"></block> ）。</block>
-  <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">為 KubeVirt / OpenShift 虛擬化虛擬機器添加了備份和復原支持，支援 volumeMode: File 和 volumeMode: Block（原始設備）儲存。此支援與所有Trident驅動程式相容，並在使用NetApp SnapMirror和Trident Protect 複製儲存時增強了現有的保護功能。</block>
   <block id="7df125a00671c08a40e0225c8e7bfe51" category="list-text">為 Kubevirt 環境增加了在應用程式層級控製凍結行為的功能。</block>
   <block id="bde8e1e3de96ead9884d920004bad3bf" category="list-text">增加了對配置AutoSupport代理連線的支援。</block>
   <block id="3a3a7f688efad3284b8088de98d9c990" category="list-text">增加了為資料移動加密（Kopia / Restic）定義金鑰的功能。</block>
   <block id="7bd24598cff0819911511e7a4114afc9" category="list-text">增加了手動運行執行鉤子的功能。</block>
-  <block id="d8420a2285ade91fbb556a8705392d4e" category="list-text">增加了在Trident Protect 安裝過程中設定安全上下文約束 (SCC) 的功能。</block>
-  <block id="397cc2a4d426cf97968c783f15ec2de3" category="list-text">增加了在Trident Protect 安裝過程中設定 nodeSelector 的支援。</block>
   <block id="b5b9bc3aab84e4b648c1432f95ac9294" category="list-text">為 AppVault 物件新增了對 HTTP / HTTPS 出口代理的支援。</block>
   <block id="e7ce2b289382a615113880a71867a2fb" category="list-text">擴展資源過濾器，以排除叢集範圍的資源。</block>
   <block id="230ae1ea7310e8fa80a6cd9e6208085e" category="list-text">為 S3 AppVault 憑證新增了對 AWS 會話令牌的支援。</block>
@@ -3635,8 +3467,6 @@
   <block id="5866b98c049a53ea6dc7f50f9349f434" category="list-text">資料遷移</block>
   <block id="645a84975202e30700b572b49a5ee29d" category="list-text">災難復原</block>
   <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">應用行動性</block>
-  <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">了解更多關於Trident Protect的信息</block>
-  <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>。</block>
   <block id="85be3851760f745038ec3bba18d62914" category="list-text">新增標誌<block ref="8a3f78e98fdbc7da7e036e7ae4598a23" prefix=" " category="inline-code"></block>指示安裝程式設定Trident用於與 Kubernetes API 伺服器通訊的 QPS 值。</block>
   <block id="46b4e7bf1e76e8eeb88747ded42b6d4f" category="list-text">額外<block ref="1606f6268af560ddbfffdd3790afb4d2" prefix=" " category="inline-code"></block>向安裝程式發出訊號，以便自動管理 Kubernetes 叢集節點上的儲存協定相依性。已測試並驗證與 Amazon Linux 2023 iSCSI 儲存協定的兼容性</block>
   <block id="ee2cc86dbfffd3b53ed4701a6b458dfb" category="list-text">增加了對ONTAP-NAS-Economy 磁碟區在非正常節點關閉場景下強制分離的支援。</block>
@@ -5773,8 +5603,6 @@
   <block id="386307d41b3f4169a1e6e046a727cdd2" category="sidebar">使用Trident運營商進行升級</block>
   <block id="c2be0dce836d12b399a864c7019c6c72" category="sidebar">使用Trident</block>
   <block id="a2d3ef10e2d8aae09270e11f8faea2d2" category="sidebar">進階資料管理和保護</block>
-  <block id="6274fe9ce01bdde4e27e80b7958fb714" category="sidebar">使用Trident Protect 進行進階資料保護</block>
-  <block id="1251ea693b8f0b6da19ce6991115faa0" category="sidebar">部署Trident保護</block>
   <block id="81a123ccab93cd947289b672b0e50348" category="sidebar">演示和教程</block>
   <block id="c2cad626583e84ad7681ff1f879baed0" category="sidebar">Trident視頻</block>
   <block id="813011e2103649bb71f124adedcc10ea" category="sidebar">部落格和社區</block>
@@ -5800,8 +5628,6 @@
   <block id="c95d3f2a880ad1b81926c3a78c2294ed" category="sidebar">管理與監控Trident</block>
   <block id="71f5771dab663d80ba4dad1627e3386a" category="sidebar">升級概述</block>
   <block id="5ff3faebb0ff710340bdbee89a4667ad" category="sidebar">透過營運商進行升級</block>
-  <block id="6c3cb2816fa53d1d99c44a111d9f7206" category="sidebar">使用Trident Protect 保護應用程式</block>
-  <block id="f284d92e4bd22a3c7a76bfe530ddd899" category="sidebar">管理Trident保護</block>
   <block id="3f94255d3ae6517615821f8939ba6230" category="sidebar">管理授權和存取控制</block>
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">管理和保護應用程式</block>
   <block id="618ce5e44021c1c57c9655e5e3846eda" category="sidebar">使用 AppVault 物件管理儲存桶</block>
@@ -5811,7 +5637,6 @@
   <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">使用進階設定</block>
   <block id="73ff2f0e4c750901167edccad459407d" category="sidebar">使用NetApp SnapMirror複製應用程式</block>
   <block id="5d23a9c0c55a80ece74daa65c04f1d66" category="sidebar">遷移應用程式</block>
-  <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">使用Trident Protect 管理執行鉤子</block>
   <block id="a20f982d79c3dd66d244ffe0f7d940ee" category="sidebar">最佳實踐和建議</block>
   <block id="4182ceafe6e7afa67be49e639a8fa3a9" category="sidebar">Trident集成</block>
   <block id="301ebdf8067a213d5a55c65fbb488290" category="sidebar">安全建議</block>
@@ -5842,4 +5667,180 @@
   <block id="7749c9ae56691a1f3a933f4d23d038e3" category="list-text">*spec.sourceApplicationUID*: （必要）此值必須與您在來源應用程式 CR 中定義的來源應用程式的 UID 相符。</block>
   <block id="3d684c1e0271c67148a368e61c2e954e" category="list-text">*spec.storageClassName*: (_可選_) 選擇叢集上有效的儲存類別的名稱。儲存類別必須連結到與來源環境建立對等連線的ONTAP儲存 VM。如果未提供儲存類，則預設使用叢集上的預設儲存類別。</block>
   <block id="c97418e1743694adcebfb4447351b629" category="list-text">建立並套用 AppMirrorRelationship 對象，並將括號中的值替換為您環境中的資訊：</block>
+  <block id="deca7f5d5c734fc5db3590b2dbe431b8" category="paragraph">Trident Protect 24.10 和 24.10.1 及更高版本在保護運行在 KubeVirt VM 上的應用程式時，行為有所不同。對於這兩個版本，您都可以在資料保護操作期間啟用或停用檔案系統凍結和解凍。</block>
+  <block id="ea7f18044a9efb2ea47bdd370e5870f3" category="paragraph-title">Trident Protect 24.10</block>
+  <block id="98d3ce5c789124fc9207b48d4d1e8fc7" category="paragraph">Trident Protect 24.10 在資料保護作業期間不會自動確保 KubeVirt VM 檔案系統的一致性狀態。如果您想使用Trident Protect 24.10 保護您的 KubeVirt VM 數據，則需要在執行資料保護作業之前手動啟用檔案系統的凍結/解凍功能。這樣可以確保檔案系統處於一致狀態。</block>
+  <block id="5ea5c247812e1dca5ff02ca853f05032" category="paragraph">您可以設定Trident Protect 24.10 來管理資料保護作業期間 VM 檔案系統的凍結與解凍。<block ref="e0dd4c4b8aa16596df6c3f5cb36d3cdc" category="inline-link-macro-rx"></block>然後使用以下命令：</block>
+  <block id="d9add54d9d6181f1b39ad4d1bc6451d0" category="paragraph-title">Trident Protect 24.10.1 及更高版本</block>
+  <block id="a099f4b5b32bb2a3c98bf39fd2eada0d" category="paragraph">從Trident Protect 24.10.1 開始， Trident Protect 會在資料保護作業期間自動凍結和解凍 KubeVirt 檔案系統。您也可以使用以下命令停用此自動行為：</block>
+  <block id="d65eac563b898cb7e41b8853a4fe1a3c" category="paragraph">如果您使用 Helm 安裝了來源應用程序，<block ref="cc1f5c1d16e33b8463c9ee27295cd5df" prefix=" " category="inline-code"></block>國旗，給予特殊待遇<block ref="b068931cc450442b63f5b3d276ea4297" prefix=" " category="inline-code"></block>標籤鍵。在復原或故障轉移過程中， Trident Protect 會將此標籤複製到目標命名空間，但如果來源命名空間的值與來源命名空間的值匹配，則會將值更新為目標命名空間的值。如果此值與來源命名空間不匹配，則會將其複製到目標命名空間，而不做任何變更。</block>
+  <block id="2cb1c3616d5b69db8670e7040d8b858f" category="admonition">Trident Protect 會自動選擇一些資源，因為它們與您選擇的資源有關聯。例如，如果您選擇持久性磁碟區宣告資源且它有一個關聯的 pod， Trident Protect 也會還原關聯的 pod。</block>
+  <block id="17c507c96af0d4930d7ac2524e3a8acd" category="summary">您可以找到一些很棒的NetApp Trident和Trident Protect 部落格。</block>
+  <block id="5a2bfc6e50f399c48eab6faf10a936b5" category="doc">Trident和Trident Protect 博客</block>
+  <block id="a379165e52bcf191b35cd8f667084f8b" category="paragraph">您可以在這裡找到一些很棒的NetApp Trident和Trident Protect 部落格：</block>
+  <block id="578bed20f2bcf30122be983c8ce6db25" category="section-title">Trident Protect博客</block>
+  <block id="824b24caca137b6e7945137aa9d8f586" category="inline-link-macro">利用Trident Protect 的恢復後鉤子實現登錄機碼故障轉移的自動化，以進行災難復原</block>
+  <block id="6d36c1f345cef80083542e771027df24" category="list-text">2025年5月16日：<block ref="222214dff1838a6a01ed98ff4a8282b3" category="inline-link-macro-rx"></block></block>
+  <block id="0fab9671fe897fb9ef3bdbca36b49c71" category="inline-link-macro">使用Trident Protect 備份和還原進行儲存類別遷移</block>
+  <block id="b3ffb1f04461024c29e35bb953531d81" category="list-text">2025年5月13日：<block ref="735f3c24f5b29e94acabd21a58785df0" category="inline-link-macro-rx"></block></block>
+  <block id="50b1e99149398e4544ef6941270243a2" category="inline-link-macro">使用Trident Protect 恢復後鉤子重新擴展 Kubernetes 應用程式</block>
+  <block id="4d3f50a0bb8d0aa06198251d243a610f" category="list-text">2025年5月9日：<block ref="8bf4497e25dfb1d363a51c8a1225e8b2" category="inline-link-macro-rx"></block></block>
+  <block id="51cbce14d33c240dcce6264e624cc50c" category="inline-link-macro">隆重介紹Trident Protect 基於角色的存取控制</block>
+  <block id="6160324dcfbbd61773bc180e8a31deb7" category="list-text">2025年1月15日：<block ref="081a62f4f9eb4d3386a2721283573d9c" category="inline-link-macro-rx"></block></block>
+  <block id="182ea97ce927399855cdcfbb500fd3b5" category="inline-link">隆重介紹 tridentctl protect： Trident Protect 的強大命令列介面</block>
+  <block id="8e71d16338d786f6825af5e4b954c0cc" category="list-text">2024年11月11日：<block ref="b1b53e288de7dce6fe2cc1c6406062ed" category="inline-link-rx"></block></block>
+  <block id="9f2c55992b2b50b1d922c2d01e878ff7" category="inline-link-macro">Kubernetes驅動的資料管理： Trident Protect開啟新時代</block>
+  <block id="0e7954c659c3ab1217994a58581a985d" category="list-text">2024年11月11日：<block ref="a4680749fd618f0f08eaefc023a6637d" category="inline-link-macro-rx"></block></block>
+  <block id="3e08b68951a9cc47f14998b092350bbb" category="inline-link">使用Trident Protect 保護應用程式</block>
+  <block id="a12844efcfbf8005da28d423b66fbc21" category="paragraph">從使用 Restic 建立的 Amazon S3 備份中還原 30GB 或更大的檔案時，復原作業可能會失敗。作為變通方法，可以使用 Kopia 作為資料移動工具備份資料（Kopia 是備份的預設資料移動工具）。請參閱<block ref="8ad9bc2d5e7eb4a82f2f28b944c3ba3a" category="inline-link-rx"></block>以取得說明。</block>
+  <block id="186ed0696d9f28961b696fce39a1ab04" category="summary">Trident Protect 讓您能夠使用Trident保護您的應用程式和應用程式資料。</block>
+  <block id="a1fc1c89153021eb03a34941e90a9ac8" category="doc">了解Trident Protect</block>
+  <block id="8e5dd4e5adac56cea1dc2d33ce1fb16d" category="paragraph">NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。Trident Protect 簡化了跨公有雲和本地環境的容器化工作負載的管理、保護和遷移。它還透過其 API 和 CLI 提供自動化功能。</block>
+  <block id="f8c19139074cb59a75b44d606c717f8c" category="paragraph">您可以透過建立自訂資源 (CR) 或使用Trident Protect CLI 來使用Trident Protect 保護應用程式。</block>
+  <block id="f75cefaa6253f6baec3b37a877190d58" category="paragraph">您可以先了解Trident Protect 的相關需求，然後再進行安裝：</block>
+  <block id="a36c33156a01492f882621b3d9439e19" category="inline-link-macro">Trident保護要求</block>
+  <block id="e729e17d911612e1e8443312aeca41bc" category="list-text"><block ref="e729e17d911612e1e8443312aeca41bc" category="inline-link-macro-rx"></block></block>
+  <block id="9576ee16383bba42a76a1c5c4fba3610" category="summary">Trident Protect 使用 Kubernetes 的角色為基礎的存取控制 (RBAC) 模型。您可以使用Trident Protect RBAC 功能來更精細地控制對資源的存取。</block>
+  <block id="ed335c13bb78e208d86e5f041a062d77" category="doc">管理Trident Protect 授權和存取控制</block>
+  <block id="53f246f5b6c5c9527af81e004a5465cb" category="paragraph">Trident Protect 使用 Kubernetes 的角色為基礎的存取控制 (RBAC) 模型。預設情況下， Trident Protect 提供一個系統命名空間及其關聯的預設服務帳戶。如果您的組織擁有眾多使用者或特定的安全需求，則可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源和命名空間的存取。</block>
+  <block id="35f04ac444c4730f0b010b0b00905ab3" category="paragraph">只有管​​理員才能存取具有特權的Trident Protect 自訂資源對象，其中包括：</block>
+  <block id="1ebe16955ececaae67d3cf58803335d2" category="list-text">*AutoSupportBundle*：收集指標、日誌和其他敏感的Trident Protect數據</block>
+  <block id="f5b0d8e5ea0bcbbfdb4c2b59f377ab84" category="paragraph">安裝Trident Protect 時會建立一個預設的 ClusterRole 物件。您可以透過建立和套用 RoleBinding 物件將此 ClusterRole 綁定到服務帳戶。</block>
+  <block id="e7602722404dc8ff90221b60a1300a2e" category="summary">您可以使用 kube-state-metrics 和 Prometheus 監控Trident Protect 資源的狀態。這可以為您提供有關部署、節點和 Pod 的運作狀況資訊。</block>
+  <block id="8d4bffa6f29dbf7808f048c4d63753cb" category="doc">監控Trident保護資源</block>
+  <block id="049debaeac5a21b1b9a5b2a67f704d77" category="paragraph">您可以使用 kube-state-metrics、Prometheus 和 Alertmanager 開源工具來監控Trident Protect 保護的資源的健康狀況。</block>
+  <block id="2afaaad3ea4a6b79522c2166bf833518" category="paragraph">kube-state-metrics 服務從 Kubernetes API 通訊產生指標。將其與Trident Protect 結合使用，可以顯示有關環境中資源狀態的有用資訊。</block>
+  <block id="5ceeae4af4fbba7b6c3f23860e93d3cf" category="paragraph">Prometheus 是一個工具包，它可以接收 kube-state-metrics 產生的數據，並將其呈現為關於這些物件的易於閱讀的資訊。kube-state-metrics 和 Prometheus 共同提供了一種方法，讓您可以監控使用Trident Protect 管理的資源的健康狀況和狀態。</block>
+  <block id="12bdb359a24d5856fe76fb568abcf8d1" category="paragraph">要在Trident Protect 中啟用資源監控，您需要安裝和設定 kube-state-metrics、Promethus 和 Alertmanager。</block>
+  <block id="3b15ac971d514086584c073fc7b9ebda" category="list-text">請依照下列說明配置 kube-state-metrics，以產生Trident Protect 使用的自訂資源的指標：<block ref="0c2d96c77ebc80eb4f9df846c2904f4c" category="inline-link-rx"></block> 。</block>
+  <block id="bc13327772f75ed0280d75f548627918" category="summary">Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。AppVault 是儲存桶的聲明式 Kubernetes 工作流程表示。</block>
+  <block id="36232457f4c28ae76f2c98b665ead40c" category="doc">使用Trident Protect AppVault 物件來管理儲存桶。</block>
+  <block id="32b7058b3107bb8f17c6bba2e35a930c" category="paragraph">Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。AppVault 物件是儲存桶的聲明性 Kubernetes 工作流程表示。AppVault CR 包含儲存桶在保護作業（例如備份、快照、復原作業和SnapMirror複製）中所使用的必要配置。只有管​​理員才能建立應用保險庫。</block>
+  <block id="07d57f7af53f2cdc1c56d31f616d6057" category="admonition">確保 AppVault CR 位於安裝了Trident Protect 的叢集上。如果 AppVault CR 不存在或您無法訪問，命令列將顯示錯誤。</block>
+  <block id="14de1852089ccb2c36bf8405a90d3638" category="paragraph">當您使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以為 Restic 和 Kopia 加密指定帶有自訂密碼的 Kubernetes 金鑰。如果您不指定金鑰， Trident Protect 將使用預設密碼。</block>
+  <block id="184a14468493ef937883ca0199fa55f7" category="list-text">使用Trident Protect CLI 建立 AppVault 物件時，請使用<block ref="66f22eb4f5e5b0147ea7521212b07044" prefix=" " category="inline-code"></block>用於指定密鑰的參數。</block>
+  <block id="c378872ba7a56053ab0f374a666d9c47" category="paragraph">請參考以下範例建立密碼密鑰。建立 AppVault 物件時，您可以指示Trident Protect 使用此金鑰向資料移動器儲存庫進行驗證。</block>
+  <block id="53a277b8ef7ee43319013252fa21a97f" category="paragraph">當您存取與 S3 相容的儲存空間（例如 Amazon S3、通用 S3）時，<block ref="3d0b4c23d9ed62ec7d7cd16273ca2521" category="inline-link-rx"></block> ， 或者<block ref="3a31dfad8c316380b9a5542d694c5833" category="inline-link-rx"></block>使用Trident Protect 時，您需要確保提供的使用者憑證具有存取儲存桶的必要權限。以下是授予使用Trident Protect 進行存取所需的最低權限的政策範例。您可以將此策略套用至管理 S3 相容儲存桶策略的使用者。</block>
+  <block id="2705dcfef9ccf6a8c26498407937a932" category="paragraph">Trident Protect 支援 Kopia 資料移動器操作的 EKS Pod Identity。此功能可實現對 S3 儲存桶的安全訪問，而無需將 AWS 憑證儲存在 Kubernetes 機密中。</block>
+  <block id="bd004a975dcd0eeb8250e5a3d1f916ec" category="paragraph">*EKS Pod Identity 與Trident Protect 的需求*</block>
+  <block id="2742f64f70d5b90bad2b1c898bdd9e64" category="paragraph">在將 EKS Pod Identity 與Trident Protect 結合使用之前，請確保以下事項：</block>
+  <block id="035fe729cd4f67810a3ad8b8885b21de" category="list-text">IAM 角色與下列Trident Protect 服務帳號關聯：</block>
+  <block id="53c26e1b5abeebc0a5a45f5e687bfe0f" category="section-title">使用Trident Protect CLI 建立 AppVault 的範例</block>
+  <block id="52cc98f9773d08c7e457aaa84d987801" category="paragraph">您可以使用Trident Protect CLI 外掛程式查看有關您在叢集上建立的 AppVault 物件的資訊。</block>
+  <block id="f34b73c5ce560d484c593f257864bcd3" category="paragraph">只有在Trident Protect helm 安裝中指定了叢集名稱時，表格第一列中的叢集名稱才可用。例如：<block ref="b84d46473a6782105f40ea4fa2bc2964" prefix=" " category="inline-code"></block> 。</block>
+  <block id="77123d25e78bd4b317b645c0cff492ef" category="open-title">使用Trident Protect CLI 刪除 AppVault</block>
+  <block id="3ad8f6db77e9b2740fd2b74265655e2b" category="summary">您可以使用 protectctl 指令建立和操作Trident Protect 自訂資源。</block>
+  <block id="66296c0c4ab3568f7a50dfabb1fc57f9" category="doc">安裝Trident Protect CLI 插件</block>
+  <block id="8c5e021776b8d89478d1d4645a6666ea" category="paragraph">您可以使用Trident Protect 命令列插件，它是Trident的一個擴充。<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>用於建立和與Trident Protect 自訂資源 (CR) 互動的實用程式。</block>
+  <block id="484622e8e21f4638a10f4d7275c68e17" category="list-text">下載Trident Protect CLI 外掛：</block>
+  <block id="10bb2ae2f693aa79b853c34cee633de3" category="paragraph">安裝Trident Protect CLI 外掛程式後，您可以為某些指令啟用自動補全功能。</block>
+  <block id="adcca0736eb3cb85bbcdcd2f589d5afc" category="summary">自訂Trident Protect 的預設設置，以滿足您的特定需求。</block>
+  <block id="595f82e1719f05918ecd1cb485230563" category="doc">自訂Trident Protect 安裝</block>
+  <block id="5242c478ae9d3b671857964b152e827c" category="paragraph">您可以自訂Trident Protect 的預設配置，以符合您環境的特定要求。</block>
+  <block id="10475501fb85172a1ecd467e858af547" category="section-title">指定Trident Protect 容器資源限制</block>
+  <block id="ee382d151f8b137775f9a254da6b324a" category="paragraph">安裝Trident Protect 後，您可以使用設定檔來指定Trident Protect 容器的資源限制。設定資源限制可以控制Trident Protect 作業消耗叢集資源的程度。</block>
+  <block id="355fc5f48551b9e07ed405860fbb4dd9" category="list-text">根據您的環境需求，在檔案中填入Trident Protect 容器的資源限制選項。</block>
+  <block id="b15f0b7b98832ccb49e56c94f9c03998" category="paragraph">安裝Trident Protect 後，您可以使用設定檔來修改Trident Protect 容器的 OpenShift 安全上下文約束 (SCC)。這些約束定義了 Red Hat OpenShift 叢集中 pod 的安全性限制。</block>
+  <block id="59f713e31282fe744caf06335d891f9a" category="section-title">設定其他Trident Protect 舵圖設置</block>
+  <block id="d26749521d8080b03797c2031c1405b1" category="cell">啟用或停用每日Trident Protect AutoSupport組合包上傳。設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>每日定時上傳功能已停用，但您仍可以手動產生支援包。(預設:<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> ）</block>
+  <block id="da0ff93953189c1e21b7a1961b08303a" category="section-title">將Trident Protect Pod 限制在特定節點上</block>
+  <block id="e327b7f51898edd8d6ac0b8e1eba09ec" category="paragraph">您可以使用 Kubernetes nodeSelector 節點來選擇約束，根據節點標籤來控制哪些節點有資格執行Trident Protect pod。預設情況下， Trident Protect 僅限於執行 Linux 的節點。您可以根據需要進一步自訂這些限制條件。</block>
+  <block id="8f02039b35e4022a5708ae80cf91e165" category="summary">Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關受管理叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。</block>
+  <block id="d50e081382e6d63e2af634e643be98d8" category="doc">產生Trident Protect 支援包</block>
+  <block id="9306c15f97b8ab2e0bc6aa8047e9e027" category="paragraph">Trident Protect 使管理員能夠產生包含對NetApp支援有用的信息的捆綁包，包括有關受管理叢集和應用程式的日誌、指標和拓撲資訊。如果您已連接到互聯網，則可以使用自訂資源 (CR) 檔案將支援包上傳至NetApp支援網站 (NSS)。</block>
+  <block id="c2429ddfa24a45055e7502efac364217" category="summary">如果您的環境符合要求，您可以依照下列步驟安裝Trident Protect。</block>
+  <block id="845b43fa08ae2a42cfeb159e5fc1366c" category="doc">安裝並設定Trident Protect</block>
+  <block id="bb50add256acfe3f6c958f2b4e018fce" category="paragraph">如果您的環境符合Trident Protect 的要求，您可以依照下列步驟在叢集上安裝Trident Protect。您可以從NetApp取得Trident Protect，或從您自己的私人註冊表中安裝它。如果您的叢集無法存取互聯網，從私有註冊表安裝會很有幫助。</block>
+  <block id="9a660681c53f773fd48d7ad58cd48d53" category="section-title">安裝Trident Protect</block>
+  <block id="e0efc186d85cb700edf5d19dd5bc9496" category="open-title">從NetApp安裝Trident Protect</block>
+  <block id="2110ce9dfcad630240ac9194e30801ad" category="list-text">使用 Helm 安裝Trident Protect。代替<block ref="ecc79c99c4f86f0db5cc7f200415205f" prefix=" " category="inline-code"></block>集群名稱將分配給集群，並用於標識集群的備份和快照：</block>
+  <block id="272a3e0fc5f097dfcb8f549a6577a5f6" category="open-title">從私人註冊表安裝Trident Protect</block>
+  <block id="357de3657314f9b2b3abd151f9d483ee" category="paragraph">如果您的 Kubernetes 叢集無法存取互聯網，您可以從私人鏡像倉庫安裝Trident Protect。在這些範例中，請將括號中的值替換為您環境中的資訊：</block>
+  <block id="8bb72cea6536be6ef0764dfc1d24b096" category="list-text">建立Trident Protect 系統命名空間：</block>
+  <block id="35931b526a6c0c04f0b248e331cfa12f" category="list-text">建立一個名為的文件<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>。請確保其中包含以下Trident Protect 設定：</block>
+  <block id="f5e4366841de053f79f8471bf881e87f" category="list-text">使用 Helm 安裝Trident Protect。代替<block ref="b90b2ffedb63ca3bd8795caf4397715e" prefix=" " category="inline-code"></block>集群名稱將分配給集群，並用於標識集群的備份和快照：</block>
+  <block id="859907c8f7f3b8fee4686d91f3ff3a95" category="summary">您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trident Protect 了解您要管理的應用程式。</block>
+  <block id="bb6a1031786570f5efbd120022930c4d" category="doc">使用Trident Protect 定義管理應用程式</block>
+  <block id="dd9087d2ada9f483d5993ca38f424ddd" category="paragraph">您可以透過建立應用程式 CR 和關聯的 AppVault CR 來定義要使用Trident Protect 管理的應用程式。</block>
+  <block id="6b351bf9a90179c1bf4dfb635cae7f8b" category="paragraph">您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：<block ref="7e7838343a821a01b97d2b866c568a54" category="inline-link-macro-rx"></block></block>
+  <block id="3127b137b318ecdc790653543934571a" category="paragraph">您需要定義要使用Trident Protect 管理的每個應用程式。您可以透過手動建立應用程式 CR 或使用Trident Protect CLI 來定義要管理的應用程式。</block>
+  <block id="5430617017ab73aa9ca4784c693f46cc" category="inline-link-macro">全球Trident Protect 冷凍設置</block>
+  <block id="56338ad00ada44f147efc5a5dc486f6a" category="list-text">*metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：<block ref="cad6f4c0cd851207bf49fc0535bd1989" category="inline-link-macro-rx"></block> 。</block>
+  <block id="5a0d81ce3f20a64549a2b409b49fca24" category="paragraph">建立應用程式時，您可以選擇使用註解來指定應用程式在快照期間是否可以寫入檔案系統。這僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。如果您將註釋設定為<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>該應用程式忽略全域設置，可以在快照期間寫入檔案系統。如果你把它設定為<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>該應用程式忽略全域設置，導致檔案系統在快照期間凍結。如果使用了註解，但應用程式定義中沒有虛擬機，則該註解將被忽略。如果您不使用註解，應用程式將遵循以下規則：<block ref="cad6f4c0cd851207bf49fc0535bd1989" category="inline-link-macro-rx"></block> 。</block>
+  <block id="02d146964c2600f14f867b6e899ac16c" category="doc">使用Trident Protect 遷移應用程式</block>
+  <block id="7cd0f85b8ff8c4b060bfcc24f7beb69a" category="paragraph">若要將應用程式複製到不同的叢集（執行跨叢集克隆），請在來源叢集上建立備份，然後將備份還原到不同的叢集。請確保目標叢集上已安裝Trident Protect。</block>
+  <block id="d075d7bb863ffe0aa757603d564ca090" category="paragraph">您可以使用自動保護策略或臨時保護策略，透過拍攝快照和備份來保護Trident Protect 管理的所有應用程式。</block>
+  <block id="b69d0d4c17b9b5532a7bf67b14c342c2" category="inline-link-macro">了解更多關於使用Trident Protect 設定檔系統凍結的信息</block>
+  <block id="7927b4fc176662e1023887f00f7cc92f" category="admonition">您可以設定Trident Protect 在資料保護作業期間凍結和解凍檔案系統。<block ref="e019680d5fc80a6a772db1153dfe4d66" category="inline-link-macro-rx"></block>。</block>
+  <block id="f93e5c10e8a9e3890ef855e7e7b53b42" category="paragraph">如果您已安裝Trident Protect，則可以為使用 azure-netapp-files 儲存類別且在Trident 24.06 之前建立的儲存後端啟用節省空間的備份和還原功能。此功能適用於 NFSv4 卷，並且不會佔用容量池中的額外空間。</block>
+  <block id="7f9574de510184fa4984256b9bd52f9e" category="list-text">您已安裝Trident Protect。</block>
+  <block id="5c988e5008390b9a3e9eec9ccb6b7275" category="list-text">您已在Trident Protect中定義了一個應用程式。在您完成此步驟之前，此應用程式的保護功能將受到限制。</block>
+  <block id="8090cb32b029f72e55f999a436014ec6" category="paragraph">如果未啟用快照目錄，則選擇常規備份功能，該功能會在備份過程中暫時佔用容量池中的空間。在這種情況下，請確保容量池中有足夠的空間來建立​​與被備份磁碟區大小相同的臨時磁碟區。</block>
+  <block id="fc53c460fa3679942307a868cb86ce5f" category="paragraph">該應用程式已準備好使用Trident Protect 進行備份和還原。每個 PVC 也可供其他應用程式用於備份和還原。</block>
+  <block id="c792e8472de999b9df658a1202580532" category="summary">首先，請驗證您的運行環境、應用程式叢集、應用程式和授權是否已準備就緒。確保您的環境符合部署和執行Trident Protect 的這些要求。</block>
+  <block id="dad76a1d38d59b472a3143f23d633d9b" category="section-title">Trident Protect Kubernetes 叢集相容性</block>
+  <block id="fd3bd2fcfeedfca19073cae4b15b6d58" category="paragraph">Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包括：</block>
+  <block id="cff79812dcd5fbc00814225da6e01321" category="list-text">Trident Protect備份僅支援Linux運算節點。Windows 運算節點不支援備份作業。</block>
+  <block id="9ac14e26b678482e730c473a2182b3cd" category="list-text">確保安裝Trident Protect 的叢集已配置正在執行中的快照控制器和相關的 CRD。若要安裝快照控制器，請參閱<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block>。</block>
+  <block id="d1aeab176ad80dc54e61f7c70cd3ae3b" category="section-title">Trident Protect 儲存後端相容性</block>
+  <block id="5599f02aecfd2b4e31e0c79404170afe" category="paragraph">Trident Protect 支援以下儲存後端：</block>
+  <block id="e8cdc937e4fea4b9dbba5e00d7662548" category="list-text">建立您計劃用於應用程式或應用程式資料管理作業的任何應用程式命名空間。Trident Protect 不會為您建立這些命名空間；如果您在自訂資源中指定了不存在的命名空間，則操作將會失敗。</block>
+  <block id="1045d62a7b99460399e0346f2ae30b23" category="paragraph">Trident Protect 支援對 nas-economy 磁碟區進行備份和復原作業。目前不支援將快照、克隆和SnapMirror複製到 nas-economy 磁碟區。您需要為計劃與Trident Protect 一起使用的每個 nas-economy 磁碟區啟用快照目錄。</block>
+  <block id="d24e3ecca2966126e528f3b9e614e910" category="paragraph">NetApp SnapMirror複製功能可與Trident Protect 搭配使用，適用於下列ONTAP解決方案：</block>
+  <block id="42612b6fec9e12698f24e329a0057ea3" category="list-text">* NetApp Trident *：使用ONTAP作為後端服務的來源 Kubernetes 叢集和目標 Kubernetes 叢集上都必須存在NetApp Trident 。Trident Protect 支援使用NetApp SnapMirror技術進行複製，該技術使用以下驅動程式支援的儲存類別：</block>
+  <block id="fd061cf50a47c913ada57ca992823154" category="list-text">*託管後端*：您需要在Trident Protect 中新增和管理ONTAP儲存後端，以建立複製關係。</block>
+  <block id="ee9dbfe472a4404175c214c5bc3503d6" category="paragraph">Trident Protect 要求您至少設定一個支援來源叢集和目標叢集複製的儲存後​​端。如果來源叢集和目標叢集相同，為了獲得最佳彈性，目標應用程式應該使用與來源應用程式不同的儲存後端。</block>
+  <block id="e91e1786215e817bc20eba0859e44992" category="summary">您可以使用Trident Protect 從快照或備份中還原您的應用程式。將應用程式還原到同一群集時，從現有快照恢復速度會更快。</block>
+  <block id="2f17c2ec082854ce1f49ed1f47122369" category="doc">使用Trident Protect 恢復應用程式</block>
+  <block id="a70d8da6dfd6ff156b493e11162ca857" category="inline-link-macro">使用進階Trident Protect 恢復設定</block>
+  <block id="24faeee2994b42f760a5f4868305d167" category="list-text">您可以使用進階設定來自訂恢復操作。欲了解更多信息，請參閱 <block ref="f411630dc75b0837a55c8046f65149cf" category="inline-link-macro-rx"></block>。</block>
+  <block id="1c6eace91e0dc01cf9008fefb2dab254" category="paragraph">當您使用 BackupRestore CR 將備份還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立一個應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。</block>
+  <block id="a893520b03c95dde2af0c5ccef82b6fd" category="admonition">當您使用 Kopia 作為資料移動器還原備份時，您可以選擇在 CR 中指定註解或使用 CLI 來控制 Kopia 使用的暫存的行為。請參閱<block ref="08f67cdc0555f043586a8a4182d9187b" category="inline-link-rx"></block>有關您可以配置的選項的詳細資訊。使用<block ref="26d4326deff4a9a34c8bff3eaf4ad7fc" prefix=" " category="inline-code"></block>有關使用Trident Protect CLI 指定註釋的更多信息，請參閱命令。</block>
+  <block id="e23fef665fca7137c4d6ee6b9a9ec06a" category="list-text">目標叢集已安裝Trident Protect。</block>
+  <block id="a9f49426447e0464bef483c17509fd98" category="list-text">執行 AppVault CR 時，請確保本機環境可以連接到 AppVault CR 中定義的物件儲存桶。<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block>命令。如果網路限制阻止訪問，請改為從目標叢集上的 pod 內執行Trident Protect CLI。</block>
+  <block id="cfb3749b52f4ce0c21dcdc3a9fce80f2" category="list-text">使用Trident Protect CLI 外掛程式檢查目標叢集上 AppVault CR 的可用性：</block>
+  <block id="00a11b317e9c8f9d94e106859445f95b" category="paragraph">您可以使用自訂資源 (CR) 檔案從快照還原數據，還原到不同的命名空間或原始來源命名空間。當您使用 SnapshotRestore CR 將快照還原到不同的命名空間時， Trident Protect 會在新的命名空間中還原應用程序，並為還原的應用程式建立應用程式 CR。為了保護已還原的應用程序，可以建立按需備份或快照，或製定保護計劃。</block>
+  <block id="f493357e2629878fdea1bf9f7073c82d" category="summary">您可以使用註解、命名空間設定和儲存選項來自訂Trident Protect 復原作業。</block>
+  <block id="b3cc398bcb7f536fcb9416eb16f4fff6" category="summary">如果您要從試用版升級到完整版產品，可能需要移除Trident Protect 元件。</block>
+  <block id="dd28e2f5a84c48ae81ab3d88858e28ee" category="doc">解除安裝Trident Protect</block>
+  <block id="cb38bfec92928c82db030cfdce9bccdf" category="paragraph">若要移除Trident Protect，請執行下列步驟。</block>
+  <block id="2e5c0707a785908014e16ab0cbf18366" category="list-text">刪除Trident Protect CR 檔案：</block>
+  <block id="776420d2a523398306e23e8ddde41835" category="list-text">移除Trident保護：</block>
+  <block id="4ddbb510a6a83f944b61747e65e231af" category="list-text">移除Trident Protect 命名空間：</block>
+  <block id="cde61ef6aff0f74c93f975b94c538c81" category="summary">您可以將Trident Protect 升級到最新版本，以享受新功能或修復錯誤。</block>
+  <block id="516ee22feede3bac94e552d7d7d47c7a" category="doc">升級Trident保護</block>
+  <block id="af256125ca711d0e16dc4c173930116f" category="paragraph">若要升級Trident Protect，請執行下列步驟。</block>
+  <block id="578bfdcecd0a48c1dad189ec9d70204a" category="list-text">升級Trident Protect CRD：</block>
+  <block id="814a37dc29d2671dd3cdbf3982ee4a85" category="admonition">如果您是從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在已包含在Trident Protect Helm 圖表中。</block>
+  <block id="e9234397b7137bc49ace1f1229a5a982" category="list-text">升級Trident保護：</block>
+  <block id="6f8a1c340d72b735b7cd3b6957d814e3" category="summary">您可以使用Trident Protect 為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。</block>
+  <block id="c8032c002085d9b42031ec80a534e894" category="doc">管理Trident Protect 執行鉤子</block>
+  <block id="ba45cbc00acdb40a749e6b9a5bf95eff" category="paragraph">Trident Protect 支援以下幾種執行鉤子類型，取決於它們的運行時機：</block>
+  <block id="019c0400e3d10bda84f61aadf4d88474" category="list-text">如果適用，則會發生檔案系統凍結。<block ref="e019680d5fc80a6a772db1153dfe4d66" category="inline-link-macro-rx"></block>。</block>
+  <block id="1f3ffd6698226c67c537c364eaf041be" category="list-text">Trident Protect 要求執行鉤子使用的腳本以可執行 shell 腳本的格式編寫。</block>
+  <block id="5f751924fb5492c94aa54485264a30e9" category="list-text">Trident Protect 使用執行鉤子設定和任何符合條件來決定哪些鉤子適用於快照、備份或還原作業。</block>
+  <block id="d46485186a1153a2fbf335ff2db190f4" category="paragraph">新增到執行掛鉤的每個過濾器都使用正規表示式來匹配叢集中的容器。當鉤子與容器匹配時，鉤子將在該容器上運行其關聯的腳本。過濾器的正規表示式使用正規表示式 2 (RE2) 語法，該語法不支援建立從符合清單中排除容器的過濾器。有關Trident Protect 在執行鉤子過濾器中支援的正規表示式語法的詳細信息，請參閱<block ref="d4d0dd655d04b2dc5b031206e1febd50" category="inline-link-rx"></block>。</block>
+  <block id="993c1145381cfb36c2a9263555019c2a" category="paragraph">您可以使用以下方法為應用程式建立自訂執行鉤子。您需要擁有所有者、管理員或成員權限才能建立執行鉤子。</block>
+  <block id="d7fe96269d51ee2db54db3f582053bbc" category="list-text">設定以下屬性以符合您的Trident Protect 環境和叢集設定：</block>
+  <block id="7614dc1d9f60c2a1a41782cd8da64d6a" category="summary">使用Trident Protect，您可以利用NetApp SnapMirror技術的非同步複製功能，將資料和應用程式變更從一個儲存後端複製到另一個儲存後端，無論是在同一叢集內還是在不同叢集之間。</block>
+  <block id="752b9530af53850991ee625c360b5886" category="doc">使用NetApp SnapMirror和Trident Protect 複製應用程式</block>
+  <block id="372808e5f5197d8bced21ed6beef8221" category="paragraph">要了解有關執行鉤子的更多信息，請參閱<block ref="81ec01a9d0e5d60206e703bc5aa140b4" category="inline-link-macro-rx"></block>。</block>
+  <block id="e7278dfae13b6c5f2e23e4b66378889e" category="list-text">選擇Trident Protect 拍攝應用程式快照的頻率（包括應用程式的 Kubernetes 資源以及應用程式每個磁碟區的磁碟區快照）。</block>
+  <block id="b89f2db2cb82925801d5b1149de27c17" category="paragraph">使用Trident Protect，您可以將複製的應用程式故障轉移到目標叢集。此過程會停止複製關係，並將應用程式在目標叢集上連線。如果來源叢集上的應用程式正在運行， Trident Protect 不會停止該應用程式。</block>
+  <block id="b65e765544fa343d7e8889398daebb9c" category="paragraph">當您反轉複製方向時， Trident Protect 會將應用程式移至目標儲存後端，同時繼續複製回原始來源儲存後端。Trident Protect 會停止來源應用程式並將資料複製到目標位置，然後再故障轉移到目標應用程式。</block>
+  <block id="61295c8685fb78b94f9c72b204443888" category="paragraph">使用Trident Protect，您可以透過以下步驟序列在故障轉移作業後實現「故障復原」。在此恢復原始複製方向的工作流程中， Trident Protect 會將任何應用程式變更複製（重新同步）回原始來源應用程序，然後再反轉複製方向。</block>
+  <block id="b7a5625966d39ef3d8e28034faa1bd0a" category="paragraph">「新增功能」摘要提供了有關Trident和Trident Protect 版本增強功能、修復程序和棄用項目的詳細資訊。</block>
+  <block id="9b6a034e6854c5f27feb3ac185829f8d" category="section-title">Trident保護</block>
+  <block id="dcf5f26cacbeeaa8161c0edfd64677e8" category="paragraph">NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。</block>
+  <block id="e1291fe029973ec93a54b63b382dcf15" category="paragraph">從Trident 25.02 開始，「新增功能」摘要提供了Trident和Trident Protect 版本的增強功能、修復和棄用詳情。</block>
+  <block id="b3ede630079275ba568ae0ecd38dd1b8" category="list-text">為 KubeVirt / OpenShift 虛擬化虛擬機器添加了備份和復原支持，支援 volumeMode: File 和 volumeMode: Block（原始設備）儲存。此支援與所有Trident驅動程式相容，並在使用NetApp SnapMirror和Trident Protect 複製儲存時增強了現有的保護功能。</block>
+  <block id="0ca0fb71ff9be8f3e574ccbd272e9df8" category="list-text">增加了在Trident Protect 安裝過程中設定安全上下文約束 (SCC) 的功能。</block>
+  <block id="0585ebe3e3fa33ee030cab4d8f843c2b" category="list-text">增加了在Trident Protect 安裝過程中設定 nodeSelector 的支援。</block>
+  <block id="f2492ecd5d283ce85dae0f4a9ee08a0a" category="inline-link-macro">了解更多關於Trident Protect的信息</block>
+  <block id="fcea491f131646a6f887b5a13212cd84" category="paragraph"><block ref="30e9c40051e05c72dc744ea1f1015e1f" category="inline-link-macro-rx"></block>。</block>
+  <block id="bb74735100fa22a9878799bf2d21623f" category="sidebar">使用Trident Protect 實現進階資料保護</block>
+  <block id="77cc7f8867b1ad1e9856bcd26c8ecff3" category="sidebar">部署Trident保護</block>
+  <block id="70568f333da28442c152ac2e1f71e1a0" category="sidebar">使用Trident Protect 保護應用程式</block>
+  <block id="8545a0d7cdafff8da2dece1a851630dc" category="sidebar">管理Trident Protect</block>
+  <block id="83ff2dd2ff6a9ee85daa1b0fefef4019" category="sidebar">使用Trident Protect 管理執行鉤子</block>
 </blocks>

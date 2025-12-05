@@ -19,7 +19,7 @@ summary: 如果您要從試用版升級到完整版產品，可能需要移除Tr
 若要移除Trident Protect，請執行下列步驟。
 
 .步驟
-. 移除Trident保護的CR檔案：
+. 刪除Trident Protect CR 檔案：
 +
 
 NOTE: 25.06 及更高版本不需要此步驟。
@@ -35,7 +35,7 @@ helm uninstall -n trident-protect trident-protect-crds
 ----
 helm uninstall -n trident-protect trident-protect
 ----
-. 移除Trident保護命名空間：
+. 移除Trident Protect 命名空間：
 +
 [source, console]
 ----

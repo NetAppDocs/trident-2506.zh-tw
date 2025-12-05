@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-appvault-custom-resources.html 
 keywords: trident. appvault, custom, protect, kubernetes 
-summary: 'Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。  AppVault 是儲存桶的聲明式 Kubernetes 工作流程表示。' 
+summary: 'Trident Protect 的儲存桶自訂資源 (CR) 稱為 AppVault。AppVault 是儲存桶的聲明式 Kubernetes 工作流程表示。' 
 ---
 = 使用Trident Protect AppVault 物件來管理儲存桶。
 :hardbreaks:
@@ -31,7 +31,7 @@ NOTE: 確保 AppVault CR 位於安裝了Trident Protect 的叢集上。如果 Ap
 
 === 資料遷移儲存庫密碼
 
-使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以指定 Kubernetes 金鑰，並使用自訂密碼進行 Restic 和 Kopia 加密。如果您未指定金鑰， Trident Protect 將使用預設密碼。
+當您使用 CR 或Trident Protect CLI 外掛程式建立 AppVault 物件時，您可以為 Restic 和 Kopia 加密指定帶有自訂密碼的 Kubernetes 金鑰。如果您不指定金鑰， Trident Protect 將使用預設密碼。
 
 * 手動建立 AppVault CR 時，請使用 *spec.dataMoverPasswordSecretRef* 欄位指定金鑰。
 * 使用Trident Protect CLI 建立 AppVault 物件時，請使用 `--data-mover-password-secret-ref`用於指定密鑰的參數。
@@ -109,15 +109,15 @@ kubectl create secret generic my-optional-data-mover-secret \
 
 === 用於 Amazon S3（AWS）驗證的 EKS Pod Identity
 
-Trident Protect 支援 EKS Pod Identity 進行 Kopia 資料移動器操作。此功能可實現對 S3 儲存桶的安全訪問，而無需將 AWS 憑證儲存在 Kubernetes 機密中。
+Trident Protect 支援 Kopia 資料移動器操作的 EKS Pod Identity。此功能可實現對 S3 儲存桶的安全訪問，而無需將 AWS 憑證儲存在 Kubernetes 機密中。
 
-*帶有Trident保護的 EKS Pod Identity 的要求*
+*EKS Pod Identity 與Trident Protect 的需求*
 
-在使用具有Trident保護的 EKS Pod Identity 之前，請確保以下事項：
+在將 EKS Pod Identity 與Trident Protect 結合使用之前，請確保以下事項：
 
 * 您的 EKS 叢集已啟用 Pod Identity。
 * 您已建立具有必要的 S3 儲存桶權限的 IAM 角色。欲了解更多信息，請參閱 link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-appvault-custom-resources.html#s3-compatible-storage-iam-permissions["S3 相容於儲存 IAM 權限"]。
-* IAM 角色與下列Trident保護服務帳戶相關聯：
+* IAM 角色與下列Trident Protect 服務帳號關聯：
 +
 ** `<trident-protect>-controller-manager`
 ** `<trident-protect>-resource-backup`
@@ -528,7 +528,7 @@ tridentctl-protect get appvaultcontent gcp-vault \
 ----
 . （可選）若要查看每個資源的 AppVaultPath，請使用該標誌 `--show-paths`。
 +
-只有在Trident Protect Helm 安裝中指定了叢集名稱時，表格第一列中的叢集名稱才可用。例如： `--set clusterName=production1` 。
+只有在Trident Protect helm 安裝中指定了叢集名稱時，表格第一列中的叢集名稱才可用。例如： `--set clusterName=production1` 。
 
 
 

@@ -2,16 +2,16 @@
 permalink: trident-protect/manage-authorization-access-control.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: 'Trident Protect 使用基於角色的存取控制 (RBAC) 的 Kubernetes 模型。您可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源的存取。' 
+summary: 'Trident Protect 使用 Kubernetes 的角色為基礎的存取控制 (RBAC) 模型。您可以使用Trident Protect RBAC 功能來更精細地控制對資源的存取。' 
 ---
-= 管理Trident Protect 的授權和存取控制
+= 管理Trident Protect 授權和存取控制
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Trident Protect 使用基於角色的存取控制 (RBAC) 的 Kubernetes 模型。預設情況下， Trident Protect 提供一個系統命名空間及其關聯的預設服務帳戶。如果您的組織擁有許多使用者或特定的安全需求，您可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源和命名空間的存取。
+Trident Protect 使用 Kubernetes 的角色為基礎的存取控制 (RBAC) 模型。預設情況下， Trident Protect 提供一個系統命名空間及其關聯的預設服務帳戶。如果您的組織擁有眾多使用者或特定的安全需求，則可以使用Trident Protect 的 RBAC 功能來更精細地控制對資源和命名空間的存取。
 
 叢集管理員始終擁有對預設資源的存取權限。 `trident-protect`命名空間，並且可以存取所有其他命名空間中的資源。要控制對資源和應用程式的訪問，您需要建立額外的命名空間，並將資源和應用程式新增至這些命名空間。
 
@@ -19,10 +19,10 @@ Trident Protect 使用基於角色的存取控制 (RBAC) 的 Kubernetes 模型�
 
 [NOTE]
 ====
-只有管​​理員才能存取受Trident Protect 保護的特權自訂資源對象，其中包括：
+只有管​​理員才能存取具有特權的Trident Protect 自訂資源對象，其中包括：
 
 * *AppVault*：需要儲存桶憑證數據
-* *AutoSupportBundle*：收集指標、日誌和其他敏感的Trident保護數據
+* *AutoSupportBundle*：收集指標、日誌和其他敏感的Trident Protect數據
 * *AutoSupportBundleSchedule*：管理日誌收集計劃
 
 
@@ -215,7 +215,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: AppVault
 metadata:
   name: appvault-for-eng-user-only
-  namespace: trident-protect # Trident protect system namespace
+  namespace: trident-protect # Trident Protect system namespace
 spec:
   providerConfig:
     azure:

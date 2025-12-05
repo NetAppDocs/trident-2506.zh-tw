@@ -139,7 +139,7 @@ NOTE: 此功能為實驗性功能，目前僅支援使用ONTAP-SAN 驅動程式�
 
 === Trident保護
 
-NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存設定器支援的有狀態 Kubernetes 應用程式的功能和可用性。
+NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。
 
 
 
@@ -190,7 +190,7 @@ NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由
 
 == 25.02 中的變化
 
-從Trident 25.02 開始，「新增功能」摘要提供了有關Trident和Trident Protect 版本的增強功能、修復程序和棄用項目的詳細資訊。
+從Trident 25.02 開始，「新增功能」摘要提供了Trident和Trident Protect 版本的增強功能、修復和棄用詳情。
 
 
 
@@ -245,7 +245,7 @@ NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由
 
 === Trident保護
 
-NetApp Trident Protect 提供進階應用程式資料管理功能，可增強由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存設定器支援的有狀態 Kubernetes 應用程式的功能和可用性。
+NetApp Trident Protect 提供進階應用程式資料管理功能，增強了由NetApp ONTAP儲存系統和NetApp Trident CSI 儲存供應器支援的有狀態 Kubernetes 應用程式的功能和可用性。
 
 
 

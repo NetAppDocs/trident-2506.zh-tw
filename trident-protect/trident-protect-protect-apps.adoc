@@ -383,7 +383,7 @@ tridentctl get volume <pv name> -n trident -o yaml | grep snapshotDir
 snapshotDirectory: "true"
 ----
 +
-如果未啟用快照目錄， Trident Protect 會選擇常規備份功能，這會在備份過程中暫時佔用容量池中的空間。在這種情況下，請確保容量池中有足夠的空間來建立​​與被備份磁碟區大小相同的臨時磁碟區。
+如果未啟用快照目錄，則選擇常規備份功能，該功能會在備份過程中暫時佔用容量池中的空間。在這種情況下，請確保容量池中有足夠的空間來建立​​與被備份磁碟區大小相同的臨時磁碟區。
 
 
 

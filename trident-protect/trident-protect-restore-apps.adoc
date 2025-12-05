@@ -20,7 +20,7 @@ summary: 您可以使用Trident Protect 從快照或備份中還原您的應用�
 ====
 * 還原應用程式時，為該應用程式配置的所有執行鉤子都會隨應用程式一起復原。如果存在恢復後執行鉤子，它將作為恢復操作的一部分自動運行。
 * 支援從備份還原到不同的命名空間或還原到原始命名空間（適用於 qtree 磁碟區）。但是，對於 qtree 卷，不支援從快照還原到不同的命名空間或還原到原始命名空間。
-* 您可以使用進階設定來自訂恢復操作。欲了解更多信息，請參閱 link:../trident-protect/trident-protect-restore-settings.html["使用進階Trident保護恢復設定"]。
+* 您可以使用進階設定來自訂恢復操作。欲了解更多信息，請參閱 link:../trident-protect/trident-protect-restore-settings.html["使用進階Trident Protect 恢復設定"]。
 
 
 ====
@@ -279,7 +279,7 @@ NOTE: 當您使用 Kopia 作為資料移動器還原備份時，您可以選擇�
 
 * 目標叢集已安裝Trident Protect。
 * 目標叢集可以存取與來源叢集相同的 AppVault 的儲存桶路徑，備份就儲存在該儲存桶中。
-* 執行 AppVault CR 時，請確保本機環境可以連接到 AppVault CR 中定義的物件儲存桶。 `tridentctl-protect get appvaultcontent`命令。如果網路限制阻止訪問，請從目標叢集上的 pod 內執行Trident Protect CLI。
+* 執行 AppVault CR 時，請確保本機環境可以連接到 AppVault CR 中定義的物件儲存桶。 `tridentctl-protect get appvaultcontent`命令。如果網路限制阻止訪問，請改為從目標叢集上的 pod 內執行Trident Protect CLI。
 * 確保 AWS 會話令牌的過期時間足以滿足任何長時間運行的復原操作。如果在恢復操作期間令牌過期，則操作可能會失敗。
 +
 ** 請參閱 https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API 文件"^]有關檢查當前會話令牌過期時間的詳細資訊。

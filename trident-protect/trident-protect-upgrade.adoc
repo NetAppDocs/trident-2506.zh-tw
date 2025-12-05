@@ -32,10 +32,10 @@ summary: 您可以將Trident Protect 升級到最新版本，以享受新功能�
 ----
 helm repo update
 ----
-. 升級Trident保護 CRD：
+. 升級Trident Protect CRD：
 +
 
-NOTE: 如果您是從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在包含在Trident protect Helm 圖表中。
+NOTE: 如果您是從 25.06 之前的版本升級，則需要執行此步驟，因為 CRD 現在已包含在Trident Protect Helm 圖表中。
 
 +
 .. 執行此命令以將 CRD 的管理權從 `trident-protect-crds`到 `trident-protect`：

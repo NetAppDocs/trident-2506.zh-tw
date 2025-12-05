@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-manage-applications.html 
 keywords: appvault, data protection, custom resource, namespace, application, cluster 
-summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trident Protect 能夠識別您想要管理的應用程式。 
+summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trident Protect 了解您要管理的應用程式。 
 ---
 = 使用Trident Protect 定義管理應用程式
 :hardbreaks:
@@ -20,7 +20,7 @@ summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trid
 
 == 建立 AppVault CR
 
-您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。  AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源。"]
+您需要建立一個 AppVault CR，該 CR 將在對應用程式執行資料保護操作時使用，並且 AppVault CR 需要位於安裝了Trident Protect 的叢集上。AppVault CR 是針對您的特定環境的；有關 AppVault CR 的範例，請參閱：link:trident-protect-appvault-custom-resources.html["AppVault 自訂資源。"]
 
 
 
@@ -46,7 +46,7 @@ summary: 您可以透過建立應用程式 CR 和關聯的 AppVault CR，讓Trid
 **** *labelSelector*: (_可選_) 依照標籤篩選叢集範圍的資源。
 
 
-*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident保護凍結設置"] 。
+*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_可選_) 此註解僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。指定此應用程式在快照期間是否可以寫入檔案系統。如果設定為 true，應用程式將忽略全域設置，並且可以在快照期間寫入檔案系統。如果設定為 false，應用程式將忽略全域設置，並且在快照期間檔案系統將被凍結。如果指定了註解，但應用程式定義中沒有虛擬機，則忽略該註解。如未特別說明，則申請流程如下：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident Protect 冷凍設置"] 。
 +
 [NOTE]
 ====
@@ -153,7 +153,7 @@ kubectl apply -f maria-app.yaml
 .步驟
 . 使用以下範例之一建立並應用應用程式定義，將括號中的值替換為您環境中的資訊。您可以使用逗號分隔的列表，並在範例中顯示參數，將命名空間和資源包含在應用程式定義中。
 +
-建立應用程式時，您可以選擇使用註解來指定應用程式在快照期間是否可以寫入檔案系統。這僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。如果您將註釋設定為 `true`該應用程式忽略全域設置，可以在快照期間寫入檔案系統。如果你把它設定為 `false`該應用程式忽略全域設置，導致檔案系統在快照期間凍結。如果使用了註解，但應用程式定義中沒有虛擬機，則該註解將被忽略。如果您不使用註解，應用程式將遵循以下規則：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident保護凍結設置"] 。
+建立應用程式時，您可以選擇使用註解來指定應用程式在快照期間是否可以寫入檔案系統。這僅適用於從虛擬機定義的應用程序，例如 KubeVirt 環境，其中檔案系統凍結發生在快照之前。如果您將註釋設定為 `true`該應用程式忽略全域設置，可以在快照期間寫入檔案系統。如果你把它設定為 `false`該應用程式忽略全域設置，導致檔案系統在快照期間凍結。如果使用了註解，但應用程式定義中沒有虛擬機，則該註解將被忽略。如果您不使用註解，應用程式將遵循以下規則：link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["全球Trident Protect 冷凍設置"] 。
 
 +
 在使用 CLI 建立應用程式時，若要指定註解，可以使用以下方法： `--annotation`旗幟。

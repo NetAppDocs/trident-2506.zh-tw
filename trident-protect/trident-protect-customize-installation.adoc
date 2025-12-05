@@ -134,7 +134,7 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 
 
 
-== 設定其他Trident保護 Helm Chart 設定
+== 設定其他Trident Protect 舵圖設置
 
 您可以自訂AutoSupport設定和命名空間過濾以滿足您的特定要求。下表描述了可用的配置參數：
 
@@ -148,7 +148,7 @@ helm upgrade trident-protect netapp-trident-protect/trident-protect -f sccconfig
 | 自動支援.不安全 | 布林值 | 設定為“跳過AutoSupport代理連接的 TLS 驗證” `true` 。僅用於不安全的代理連線。  (預設: `false` ） 
 
 
-| 自動支援已啟用 | 布林值 | 啟用或停用每日Trident保護AutoSupport捆綁包上傳。設定為 `false`每日定時上傳功能已停用，但您仍可以手動產生支援包。  (預設: `true` ） 
+| 自動支援已啟用 | 布林值 | 啟用或停用每日Trident Protect AutoSupport組合包上傳。設定為 `false`每日定時上傳功能已停用，但您仍可以手動產生支援包。(預設: `true` ） 
 
 
 | 恢復跳過命名空間註釋 | 細繩 | 若要從備份和復原作業中排除的命名空間註解的逗號分隔清單。允許您根據註釋過濾命名空間。 
@@ -206,7 +206,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == 將Trident Protect Pod 限制在特定節點上
 
-您可以使用 Kubernetes nodeSelector 節點來選擇約束，根據節點標籤來控制哪些節點有資格執行Trident protect pod。預設情況下， Trident Protect 僅限於執行 Linux 的節點。您可以根據需要進一步自訂這些限制條件。
+您可以使用 Kubernetes nodeSelector 節點來選擇約束，根據節點標籤來控制哪些節點有資格執行Trident Protect pod。預設情況下， Trident Protect 僅限於執行 Linux 的節點。您可以根據需要進一步自訂這些限制條件。
 
 .步驟
 . 建立一個名為的文件 `nodeSelectorConfig.yaml`。
