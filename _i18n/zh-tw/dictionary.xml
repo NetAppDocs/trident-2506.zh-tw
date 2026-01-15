@@ -978,10 +978,7 @@
   <block id="443432948b68bb63d707ce7ecc4a021a" category="cell">CSI拓撲</block>
   <block id="af7c8216a3289efe1a298a19c00b8b8c" category="section-title">測試過的主機作業系統</block>
   <block id="29fce9ae0f476afd36cf3ebf4de1d2a8" category="paragraph">雖然Trident官方並未正式支援特定作業系統，但已知以下作業系統可以正常運作：</block>
-  <block id="daa6a182f8035711e9635994f572c7bc" category="list-text">OpenShift 容器平台支援的 Red Hat Enterprise Linux CoreOS (RHCOS) 版本（AMD64 和 ARM64）</block>
-  <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+（AMD64 和 ARM64）</block>
   <block id="8554748be67b956e550de942edae807d" category="admonition">NVMe/TCP 需要 RHEL 9 或更高版本。</block>
-  <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22.04 或更高版本（AMD64 和 ARM64）</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows 伺服器 2022</block>
   <block id="779639a0216e7a8fd164ee8a7266d8b8" category="paragraph">預設情況下， Trident在容器中運行，因此可以在任何 Linux 工作節點上運行。但是，這些工作人員需要能夠使用標準 NFS 用戶端或 iSCSI 發起程序掛載Trident提供的磁碟區，具體取決於您使用的後端。</block>
   <block id="11ea58814ce429c3e3254a63f8cde7a4" category="paragraph">這<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>該實用程式也可在上述任何 Linux 發行版上運行。</block>
@@ -5843,4 +5840,8 @@
   <block id="70568f333da28442c152ac2e1f71e1a0" category="sidebar">使用Trident Protect 保護應用程式</block>
   <block id="8545a0d7cdafff8da2dece1a851630dc" category="sidebar">管理Trident Protect</block>
   <block id="83ff2dd2ff6a9ee85daa1b0fefef4019" category="sidebar">使用Trident Protect 管理執行鉤子</block>
+  <block id="01a2f6f3fc3712c00aaaff540b7187f3" category="list-text">OpenShift 容器平台在 AMD64 和 ARM64 架構上支援的 Red Hat Enterprise Linux CoreOS (RHCOS) 版本</block>
+  <block id="1c93bd59e1abbbe543685399acba3c3b" category="list-text">Red Hat Enterprise Linux (RHEL) 8 或更高版本，支援 AMD64 和 ARM64 架構</block>
+  <block id="d79b838675f4d040c12110c1c22fcf32" category="list-text">Ubuntu 22.04 LTS 或更高版本，支援 AMD64 和 ARM64 架構</block>
+  <block id="02869471b3c4ac5c57fb8c2e1d4355dd" category="list-text">SUSE Linux Enterprise Server (SLES) 15 或更高版本</block>
 </blocks>

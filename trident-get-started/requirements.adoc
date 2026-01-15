@@ -174,14 +174,15 @@ Trident支援以下適用於 KubeVirt 和 OpenShift 虛擬化的ONTAP驅動程�
 
 雖然Trident官方並未正式支援特定作業系統，但已知以下作業系統可以正常運作：
 
-* OpenShift 容器平台支援的 Red Hat Enterprise Linux CoreOS (RHCOS) 版本（AMD64 和 ARM64）
-* RHEL 8+（AMD64 和 ARM64）
+* OpenShift 容器平台在 AMD64 和 ARM64 架構上支援的 Red Hat Enterprise Linux CoreOS (RHCOS) 版本
+* Red Hat Enterprise Linux (RHEL) 8 或更高版本，支援 AMD64 和 ARM64 架構
 +
 
 NOTE: NVMe/TCP 需要 RHEL 9 或更高版本。
 
-* Ubuntu 22.04 或更高版本（AMD64 和 ARM64）
+* Ubuntu 22.04 LTS 或更高版本，支援 AMD64 和 ARM64 架構
 * Windows 伺服器 2022
+* SUSE Linux Enterprise Server (SLES) 15 或更高版本
 
 
 預設情況下， Trident在容器中運行，因此可以在任何 Linux 工作節點上運行。但是，這些工作人員需要能夠使用標準 NFS 用戶端或 iSCSI 發起程序掛載Trident提供的磁碟區，具體取決於您使用的後端。
