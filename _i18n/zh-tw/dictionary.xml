@@ -5835,7 +5835,6 @@
   <block id="d79b838675f4d040c12110c1c22fcf32" category="list-text">Ubuntu 22.04 LTS 或更高版本，支援 AMD64 和 ARM64 架構</block>
   <block id="02869471b3c4ac5c57fb8c2e1d4355dd" category="list-text">SUSE Linux Enterprise Server (SLES) 15 或更高版本</block>
   <block id="60aaccb9d5284a26ba3fa0ce52289c0e" category="list-text">本地部署的 FAS、AFF 或 ASA r2（iSCSI、NVMe/TCP 和 FC）運行 ONTAP 版本，這些版本在 NetApp 完全支援或有限支援下運行。請參閱<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>。</block>
-  <block id="f45ace2e96672a5ca55ea6bac48b9865" category="admonition">##如果您的應用程式使用多個命名空間，且這些命名空間中存在同名的 PVC，則快照還原作業（無論是就地還原或還原到新命名空間）都將無法正常運作。所有還原的磁碟區將包含相同的資料，而不是每個命名空間對應的正確資料。請使用備份還原而不是快照還原，或升級到 26.02 或更高版本，該版本已修復此問題。##</block>
   <block id="36a57158e28c15925c88aebde90472b6" category="admonition">執行此命令後，ONTAP 會提示輸入憑證。貼上步驟 1 中產生的<block ref="0c7b1ee06b5fdaab7c83f24275255cf5" prefix=" " category="inline-code"></block>檔案內容，然後輸入<block ref="b1a326c06d88bf042f73d70f50197905" prefix=" " category="inline-code"></block>以完成安裝。</block>
   <block id="5b8e1e79bf81135afd29cee3f88e8b30" category="summary">您可以使用<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>或 PVC 註解將現有儲存磁碟區匯入為 Kubernetes PV。</block>
   <block id="397460c9fd506a22e7b4c34b8d0d4d7d" category="paragraph">您可以使用<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>或透過使用 Trident 匯入註解建立持久性磁碟區宣告（PVC），將現有儲存磁碟區匯入為 Kubernetes PV。</block>
@@ -5862,4 +5861,5 @@
   <block id="6aa655b386a1e31c420fd6553ed2b4fc" category="paragraph">以下範例從後端<block ref="4bafc897a4f30b09156a60d3350c8819" prefix=" " category="inline-code"></block>匯入名為<block ref="a8aa3f9da25a5d21fdd26c0a26592e1e" prefix=" " category="inline-code"></block>的 1Gi<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 磁碟區，並使用 PVC 註解設定 RWO 存取模式：</block>
   <block id="3a175f8153aad5b64492df6eadb5a5af" category="paragraph">以下範例展示如何匯入託管和非託管磁碟區：</block>
   <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">以下範例使用磁碟區 <block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block> 從後端 <block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block> 匯入磁碟區。</block>
+  <block id="13ad5ea7a7de5c042f384062c89a068e" category="admonition">如果您的應用程式使用多個命名空間，且這些命名空間中存在同名的 PVC，則快照還原作業（無論是就地還原或還原到新命名空間）都將無法正常運作。所有還原的磁碟區將包含相同的資料，而不是每個命名空間對應的正確資料。請使用備份還原代替快照還原，或升級到 26.02 或更高版本以修復此問題。</block>
 </blocks>
