@@ -798,7 +798,7 @@ Kubernetes
 
 == 22.04 中的變化
 
-NetApp不斷改進和增強其產品和服務。以下是Trident的一些最新功能。有關先前版本，請參閱 https://docs.netapp.com/us-en/trident/earlier-versions.html["早期版本的文檔"]。
+NetApp 不斷改進和增強其產品和服務。以下是 Trident 的一些最新功能。有關先前版本的信息，請參閱早期版本的文檔。
 
 
 IMPORTANT: 如果您是從任何先前的Trident版本升級，並且使用Azure NetApp Files，則``location``配置參數現在是必填的單例欄位。

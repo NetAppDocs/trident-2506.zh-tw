@@ -21,7 +21,7 @@ summary: 您可以使用操作員輕鬆升級現有的Trident安裝。
 您可以從叢集範圍的Trident操作員安裝升級到另一個叢集範圍的Trident操作員安裝。所有Trident版本都使用叢集範圍的運算元。
 
 
-NOTE: 若要從使用命名空間作用域運算子安裝的Trident （版本 20.07 至 20.10）進行升級，請使用下列升級說明：link:../earlier-versions.html["您已安裝的版本"]Trident。
+NOTE: 若要從使用命名空間範圍運算子安裝的 Trident（版本 20.07 至 20.10）進行升級，請使用適用於您已安裝的 Trident 版本的升級說明。
 
 .關於此任務
 Trident提供了一個捆綁文件，您可以使用該文件安裝 Operator 並為您的 Kubernetes 版本建立關聯物件。

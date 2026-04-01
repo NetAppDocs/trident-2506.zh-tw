@@ -98,28 +98,6 @@
   <block id="ccd722b2b8950bc9aa2b92826dcc4664" category="list-text">2025年3月11日：<block ref="751073ae4d07c4adc8a15e872b137421" category="inline-link-macro-rx"></block></block>
   <block id="bc057a27d4d8047073d6f5fa802c9c2b" category="inline-link-macro">Trident 25.02：透過令人興奮的新功能提升 Red Hat OpenShift 體驗</block>
   <block id="fb68b473f5b70bc40e206ef882be4c63" category="list-text">2025年3月3日：<block ref="ce0fc75766d0530b76aaabf87dc1b463" category="inline-link-macro-rx"></block></block>
-  <block id="17c5eeb01739643b5aef94fe18b6c849" category="summary">您可以使用版本選擇器在最新版本和前四個版本之間導航，或使用下面的連結。</block>
-  <block id="ba09ee47d11962c1ccd13d7e1f10e6c5" category="doc">早期版本的文檔</block>
-  <block id="472039bf3422ff2697dba6fc9fdd57d8" category="inline-link-macro">Trident支援生命週期</block>
-  <block id="a3148578e6ffde89485954832ff9be37" category="paragraph">如果您使用的不是Trident 25.06 版本，則可以根據以下資訊取得先前版本的文件：<block ref="6d47e9235a19453f00cf246917b9e162" category="inline-link-macro-rx"></block> 。</block>
-  <block id="a1862e00d8111386cdf238bd23bb97db" category="inline-link">Trident25.02</block>
-  <block id="25bdd2f6eb0ca7663bf4152396a74a09" category="list-text"><block ref="25bdd2f6eb0ca7663bf4152396a74a09" category="inline-link-rx"></block></block>
-  <block id="41ee1e1e674f49a8e3c78fc5517b1b83" category="inline-link">Trident24.10</block>
-  <block id="330905133ec61fb32dbdb0593cf466a2" category="list-text"><block ref="330905133ec61fb32dbdb0593cf466a2" category="inline-link-rx"></block></block>
-  <block id="c45d9c1b397ff706a7a39c069930c677" category="inline-link">Trident24.06</block>
-  <block id="d0fd12656eeec63fe137c83181c17c0b" category="list-text"><block ref="d0fd12656eeec63fe137c83181c17c0b" category="inline-link-rx"></block></block>
-  <block id="45d1e500370372fc7e76e110b5aff92d" category="inline-link">Trident24.02</block>
-  <block id="b735f50352c31f80267e7a6fc57ce804" category="list-text"><block ref="b735f50352c31f80267e7a6fc57ce804" category="inline-link-rx"></block></block>
-  <block id="b4dfeb42b5c9816777494eeb7a772461" category="inline-link">Trident23.10</block>
-  <block id="55cad0455da7cf59434d9f8ff225c39b" category="list-text"><block ref="55cad0455da7cf59434d9f8ff225c39b" category="inline-link-rx"></block></block>
-  <block id="8806d0d5f26e8a704b5d26c076c531bd" category="inline-link">Trident23.07</block>
-  <block id="9c74a4e8266dd7e50d12a159c32d6b10" category="list-text"><block ref="9c74a4e8266dd7e50d12a159c32d6b10" category="inline-link-rx"></block></block>
-  <block id="3a4e6f76b26aa8878f5798aba052777c" category="inline-link">Trident23.04</block>
-  <block id="5bff8eb1dea519dd15a076031fa9f288" category="list-text"><block ref="5bff8eb1dea519dd15a076031fa9f288" category="inline-link-rx"></block></block>
-  <block id="5382f4fbc3622ef143d9ddbe033351ab" category="inline-link">Trident23.01</block>
-  <block id="a9425b076f0cf301dc3a2d77e67816ca" category="list-text"><block ref="a9425b076f0cf301dc3a2d77e67816ca" category="inline-link-rx"></block></block>
-  <block id="2e0d64f2a4b164112beaf0506070ad85" category="inline-link">Trident22.10</block>
-  <block id="e4c5c8d195d27f073639195f80da50a2" category="list-text"><block ref="e4c5c8d195d27f073639195f80da50a2" category="inline-link-rx"></block></block>
   <block id="c48696f9d5a5a881f7f2f08fd40ce424" category="summary">尋找有關Trident 的安裝、設定、升級和故障排除的常見問題。</block>
   <block id="af2a4d2810d86aa0169c117f82682f9a" category="doc">常見問題解答</block>
   <block id="96ab491ef73d5db0cd15f55e1552cc22" category="section-title">一般性問題</block>
@@ -284,7 +262,6 @@
   <block id="c6fc0d89ce850093b5d2e987955ba870" category="list-text">Trident 的文件可在發布日期後的第 25 個月至第 36 個月內查閱。</block>
   <block id="34b6cd75171affba6957e308dcbd92be" category="cell">版本</block>
   <block id="e26bc895e5bb00237e35bd08e101a228" category="inline-link-macro">25.06</block>
-  <block id="512754259e832a6faaee7e55aa2a0641" category="paragraph"><block ref="512754259e832a6faaee7e55aa2a0641" category="inline-link-macro-rx"></block></block>
   <block id="c21446b3ecfb30ed6c2760d686bd4578" category="cell">2026年6月</block>
   <block id="2f57a6988da045d1c26e2c5016ad0900" category="cell">2027年6月</block>
   <block id="e388180fa8946253a28286d92fcbc393" category="cell">2028年6月</block>
@@ -295,31 +272,24 @@
   <block id="eaaf7bd308bf6f27888c8d18ba11417d" category="cell">2028年2月</block>
   <block id="e9c4cf1c3d2fd7e6c0a13bfe44d8e785" category="inline-link-macro">24.10</block>
   <block id="5956c33dbd8c8ed6e363f54092a9d544" category="paragraph"><block ref="5956c33dbd8c8ed6e363f54092a9d544" category="inline-link-macro-rx"></block></block>
-  <block id="99dfa28920a40a7be0858c50f989a3e5" category="cell">2025年10月</block>
   <block id="78c875172f37f031a2632dc008815ee1" category="cell">2026年10月</block>
   <block id="17ab7ccda1012696aabc01e478bd7612" category="cell">2027年10月</block>
   <block id="38999be4c01ec9d8c11d4405b7dc50e0" category="inline-link-macro">24.06</block>
   <block id="1e441e2a6ea2842643d9b8f88e32aebf" category="paragraph"><block ref="1e441e2a6ea2842643d9b8f88e32aebf" category="inline-link-macro-rx"></block></block>
-  <block id="94d267f658e04734eb2e098127293a89" category="cell">2025年6月</block>
   <block id="4e9b156e7e2788c8cd4b0877fd922657" category="inline-link-macro">24.02</block>
   <block id="d2196853cebe173567df4b864e4816f7" category="paragraph"><block ref="d2196853cebe173567df4b864e4816f7" category="inline-link-macro-rx"></block></block>
-  <block id="6cc5c9e930ea3d3b8bff4367c60ceea4" category="cell">2025年2月</block>
   <block id="766995a062c6503acd7ac4752fbb865d" category="inline-link-macro">23.10</block>
   <block id="bcb8f00239af2cecd5a6b534dabea922" category="paragraph"><block ref="bcb8f00239af2cecd5a6b534dabea922" category="inline-link-macro-rx"></block></block>
   <block id="cfab1ba8c67c7c838db98d666f02a132" category="cell">--</block>
   <block id="217af7d1776d22530d98be04d104fd49" category="inline-link-macro">23.07</block>
   <block id="62bc04158f931e9b0a26f5676c8ab043" category="paragraph"><block ref="62bc04158f931e9b0a26f5676c8ab043" category="inline-link-macro-rx"></block></block>
-  <block id="928f12ce7e1197fe962e09f979b98d0d" category="cell">2025年7月</block>
   <block id="a257f7f4b2f6e07845ce567df142ad00" category="cell">2026年7月</block>
   <block id="1a3a2b5e6c52142797bb5c00594e2a3c" category="inline-link-macro">23.04</block>
   <block id="4f00a05b361ef580687832a6a48984db" category="paragraph"><block ref="4f00a05b361ef580687832a6a48984db" category="inline-link-macro-rx"></block></block>
-  <block id="42ce83dc3f5ef22d986311b267a5ac20" category="cell">2025年4月</block>
   <block id="fc7d05f9009e90b92a15aad926bca249" category="cell">2026年4月</block>
   <block id="8dfda84fc7f59655e20a770603bf9231" category="inline-link-macro">23.01</block>
   <block id="e0ed61e44672f0b6193055dd0719d240" category="paragraph"><block ref="e0ed61e44672f0b6193055dd0719d240" category="inline-link-macro-rx"></block></block>
   <block id="7022ed6df71cc12fbd0576cef4df23fd" category="cell">2026年1月</block>
-  <block id="775d4bb28d257a6aa23992563a82c458" category="inline-link-macro">22.10</block>
-  <block id="1d064e71d708bc66779c604db1339850" category="paragraph"><block ref="1d064e71d708bc66779c604db1339850" category="inline-link-macro-rx"></block></block>
   <block id="40e41fb2db11266b8f751c0d5c67cba0" category="inline-link">NetApp知識庫（需要登入）</block>
   <block id="62c93f738b926db77daa59d585fbfa48" category="paragraph">如需查看完整的故障排除文章列表，請參閱<block ref="57f5c759ada931c6a2051314ca6ee99e" category="inline-link-rx"></block>。</block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">社區支持</block>
@@ -1583,7 +1553,6 @@
   <block id="c4b35352cbf7a52a9444a610687067f8" category="doc">解除安裝Trident</block>
   <block id="7fdff6d1496ee07f5530882ace839236" category="paragraph">卸載Trident時，應使用與安裝Trident時相同的方法。</block>
   <block id="bbe48fb854ea022537208eeeff822f91" category="list-title">關於此任務</block>
-  <block id="e2f3eebc5fb0722c4ff76f470c4c3644" category="list-text">如果升級後出現錯誤、依賴項問題或升級失敗/不完整，需要修復，則應卸載Trident並按照相應的說明重新安裝早期版本。<block ref="e168bf6cc8da3b05fae6b22bcd12ba37" category="inline-link-macro-rx"></block> 。這是降級到早期版本的唯一推薦方法。</block>
   <block id="0a5e338ee1a9820e7a4a7d64f09e4a90" category="inline-link-macro">徹底移除Trident和CRDs</block>
   <block id="bfc34bbf9ae6407400b3d77e0e84543b" category="list-text">為了方便升級和重新安裝，解除安裝Trident不會刪除Trident建立的 CRD 或相關物件。如果您需要徹底刪除Trident及其所有數據，請參閱以下內容：<block ref="a2addcf593ef6071e49d2a678662f830" category="inline-link-macro-rx"></block> 。</block>
   <block id="39596b8f60148eb1bbb5294ed08b18e3" category="paragraph">如果您要停用 Kubernetes 集群，則必須先刪除所有使用Trident建立的磁碟區的應用程序，然後再卸載。這樣可以確保在 Kubernetes 節點上刪除 PVC 之前，PVC 會被取消發布。</block>
@@ -1634,8 +1603,6 @@
   <block id="5430a6b8f98712c8210f8df2d906793a" category="paragraph">您可以使用Trident Operator 手動升級Trident ，也可以使用 Helm 進行升級。您可以從一個Trident Operator 安裝升級到另一個Trident Operator 安裝，或從一個 Trident Operator 安裝升級到另一個 Trident Operator 安裝。<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>安裝到Trident操作員版本。審查<block ref="5cffa5fbe758cc3901f0e33c78b29d1b" category="inline-link-macro-rx"></block>在升級Trident操作程序之前。</block>
   <block id="3ef75911ec16a9d0ba70cfd4e68dcb71" category="section-title">升級手動安裝</block>
   <block id="618fab30e005e12b783d70218c18af46" category="paragraph">您可以從叢集範圍的Trident操作員安裝升級到另一個叢集範圍的Trident操作員安裝。所有Trident版本都使用叢集範圍的運算元。</block>
-  <block id="b0e74afe1fdeb605b5c47b501c43b71b" category="inline-link-macro">您已安裝的版本</block>
-  <block id="18466b7fafaca62c9c0d2438889ca0c6" category="admonition">若要從使用命名空間作用域運算子安裝的Trident （版本 20.07 至 20.10）進行升級，請使用下列升級說明：<block ref="567dd1ff029f25a404a69ff1e3c8d83b" category="inline-link-macro-rx"></block>Trident。</block>
   <block id="eb7a4fa3d9aff7ec5b23abb8b82d516b" category="paragraph">Trident提供了一個捆綁文件，您可以使用該文件安裝 Operator 並為您的 Kubernetes 版本建立關聯物件。</block>
   <block id="bd2cc8575fe69c7f775292759380c838" category="inline-link-macro">bundle_pre_1_25.yaml</block>
   <block id="f27e6cf95381139bd9916c64f178d212" category="list-text">對於運行 Kubernetes 1.24 的集群，請使用<block ref="ccef28639b5a7d8b851d32c1ca719ce3" category="inline-link-macro-rx"></block>。</block>
@@ -1686,8 +1653,6 @@
   <block id="87459c33b1692755deb4b22c7eaa864c" category="section-title">步驟 1：選擇版本</block>
   <block id="a307a5edde0e4eeeb35bb77f0a1f1cc7" category="paragraph">Trident 的版本遵循基於日期的命名規則。<block ref="fb6921a005d395f9482cdac0306d4935" prefix=" " category="inline-code"></block>命名規則中，「YY」是年份的最後兩位數字，「MM」是月份。 Dot 版本遵循<block ref="d93ec759c4a0e8c1cf9c7653b2939656" prefix=" " category="inline-code"></block>按照慣例，其中“X”是補丁等級。您需要根據目前版本選擇要升級到的版本。</block>
   <block id="843e8c92f2887fa83e4564f86e6a7ca0" category="list-text">您可以直接升級到與已安裝版本相差不超過四個版本視窗內的任何目標版本。例如，您可以直接從 24.06（或任何 24.06 的小版本）升級到 25.06。</block>
-  <block id="2251733916a92fc0c61d943165128928" category="inline-link-macro">早期版本</block>
-  <block id="d4ea8129c0158e8c6ac0b3bb00a333e5" category="list-text">如果您要從四個版本視窗以外的版本升級，請執行多步驟升級。請依照升級說明進行操作。<block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block>您正在從目前版本升級到符合四版本發布視窗的最新版本。例如，如果您目前運行的是 23.07 版本，並且想要升級到 25.06 版本：</block>
   <block id="96643a0b653f3484db440bd905d8e591" category="list-text">首次升級從 23.07 升級到 24.06。</block>
   <block id="0d5f6bd4062e1e564fa83bfc5eb6a64c" category="list-text">然後從 24.06 升級到 25.06。</block>
   <block id="199ed8c975e8bb544d18428ba17adbc3" category="inline-link">GitHub 上的問題詳情</block>
@@ -3673,7 +3638,6 @@
   <block id="d3889fc650fa47326b5f1d0c56f50970" category="inline-link-macro">艙體安全標準</block>
   <block id="5e65f8ef909da6c604c403e32b1b48ee" category="paragraph">一個新的<block ref="305368b4f0d008a807e095ab9da58448" category="inline-link-macro-rx"></block>（PSS）部分已添加，詳細說明了Trident在安裝時啟用的權限。</block>
   <block id="278dc4a29aa2b881b9dc4b45a82929c5" category="section-title">22.04 中的變化</block>
-  <block id="1709d6f66b1414fcc9f298c36d33f86b" category="paragraph">NetApp不斷改進和增強其產品和服務。以下是Trident的一些最新功能。有關先前版本，請參閱<block ref="25da125dffad1d6323c21354bccf0203" category="inline-link-rx"></block>。</block>
   <block id="7072ec708b0ea7e3243747d8b79c0d20" category="admonition">如果您是從任何先前的Trident版本升級，並且使用Azure NetApp Files，則<block ref="d5189de027922f81005951e6efe0efd5" prefix="" category="inline-code"></block>配置參數現在是必填的單例欄位。</block>
   <block id="cb60f101c87f3def78d0fef168389244" category="inline-link-macro">GitHub 問題 #681</block>
   <block id="2901fba3b85d37ea6000d90e72366ba6" category="list-text">改進了 iSCSI 發起程序名稱的解析。  （<block ref="3947f141b94c1867221790f45a6ee173" category="inline-link-macro-rx"></block> ）</block>
@@ -5584,7 +5548,6 @@
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">升級ONTAP後，NFSv4.2 用戶端在嘗試掛載 NFSv4.2 匯出時可能會報告「無效參數」錯誤。當<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> SVM 上未啟用該選項。.解決方法啟用<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> 選項或升級至ONTAP 9.12.1 或更高版本，預設此選項為啟用。</block>
   <block id="65edeac74973a1ff99e0e74473ca1ac5" category="sidebar">Trident是由NetApp維護的開源儲存配置器和編排器。它允許您為由 Docker 和 Kubernetes 管理的容器化應用程式建立儲存磁碟區。</block>
   <block id="7d0ee6fed10d3d4e5c9ee496729ab519" category="sidebar">發行說明</block>
-  <block id="93168a8084b3e838d2932c4734bd234e" category="sidebar">早期版本</block>
   <block id="312b0dc38b01ff32c1b2f5f81ee1ab2d" category="sidebar">使用Trident操作員進行部署</block>
   <block id="e0e3d7f1aacdf4a8196132549709430c" category="sidebar">使用 tridentctl 進行部署</block>
   <block id="386307d41b3f4169a1e6e046a727cdd2" category="sidebar">使用Trident運營商進行升級</block>
@@ -5862,4 +5825,9 @@
   <block id="3a175f8153aad5b64492df6eadb5a5af" category="paragraph">以下範例展示如何匯入託管和非託管磁碟區：</block>
   <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">以下範例使用磁碟區 <block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block> 從後端 <block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block> 匯入磁碟區。</block>
   <block id="13ad5ea7a7de5c042f384062c89a068e" category="admonition">如果您的應用程式使用多個命名空間，且這些命名空間中存在同名的 PVC，則快照還原作業（無論是就地還原或還原到新命名空間）都將無法正常運作。所有還原的磁碟區將包含相同的資料，而不是每個命名空間對應的正確資料。請使用備份還原代替快照還原，或升級到 26.02 或更高版本以修復此問題。</block>
+  <block id="07a0c4f99cfe65cec75fbd8213b75633" category="paragraph"><block ref="07a0c4f99cfe65cec75fbd8213b75633" category="inline-link-macro-rx"></block></block>
+  <block id="0919404c158a119162b6d17412099e85" category="list-text">如果升級後出現錯誤、相依性問題或升級失敗／不完整，需要修復，則應解除安裝 Trident，然後依照對應版本的說明重新安裝早期版本。這是_降級_到早期版本的唯一推薦方法。</block>
+  <block id="6cb6457c77d43e645e6ad531fd87c3e7" category="admonition">若要從使用命名空間範圍運算子安裝的 Trident（版本 20.07 至 20.10）進行升級，請使用適用於您已安裝的 Trident 版本的升級說明。</block>
+  <block id="c6e5aff4c5e70680da18857e52172127" category="list-text">如果您要從超出四版本視窗期的版本升級，請執行多步驟升級。使用您要升級的早期版本的升級說明，升級到符合四版本視窗期的最新版本。例如，如果您目前運行的是 23.07 版本，並且想要升級到 25.06 版本：</block>
+  <block id="bdb3932167e7866c6c505613dc0f7cb7" category="paragraph">NetApp 不斷改進和增強其產品和服務。以下是 Trident 的一些最新功能。有關先前版本的信息，請參閱早期版本的文檔。</block>
 </blocks>

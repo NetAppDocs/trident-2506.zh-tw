@@ -15,7 +15,7 @@ summary: 卸載Trident時，應使用與安裝Trident時相同的方法。如果
 卸載Trident時，應使用與安裝Trident時相同的方法。
 
 .關於此任務
-* 如果升級後出現錯誤、依賴項問題或升級失敗/不完整，需要修復，則應卸載Trident並按照相應的說明重新安裝早期版本。link:../earlier-versions.html["版本"] 。這是降級到早期版本的唯一推薦方法。
+* 如果升級後出現錯誤、相依性問題或升級失敗／不完整，需要修復，則應解除安裝 Trident，然後依照對應版本的說明重新安裝早期版本。這是_降級_到早期版本的唯一推薦方法。
 * 為了方便升級和重新安裝，解除安裝Trident不會刪除Trident建立的 CRD 或相關物件。如果您需要徹底刪除Trident及其所有數據，請參閱以下內容：link:../troubleshooting.html#completely-remove-trident-and-crds["徹底移除Trident和CRDs"] 。
 
 
