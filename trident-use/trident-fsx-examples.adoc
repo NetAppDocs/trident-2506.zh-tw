@@ -154,7 +154,7 @@ NOTE: 如果 PVC 連接到一個或多個艙體，則必須將所有相應的艙
 | `encryption` | 在新磁碟區啟用NetApp磁碟區加密 (NVE)；預設為 `false`。若要使用此選項，必須在叢集上取得 NVE 許可並啟用 NVE。如果後端啟用了 NAE，則在Trident中配置的任何磁碟區都會啟用 NAE。更多信息，請參閱：link:../trident-reco/security-reco.html["Trident如何與 NVE 和 NAE 協同工作"] 。 | `false` 
 
 
-| `luksEncryption` | 啟用LUKS加密。參考link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用 Linux 統一金鑰設定 (LUKS)"]。僅限SAN。 | “” 
+| `luksEncryption` | 啟用 LUKS 加密。請參閱link:../trident-reco/security-luks.html["使用 Linux 統一金鑰設定 (LUKS)"]。僅限 SAN。 | “” 
 
 
 | `tieringPolicy` | 分層策略的使用	`none` |  

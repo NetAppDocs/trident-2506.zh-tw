@@ -153,7 +153,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | `managementLIF` | 叢集或 SVM 管理 LIF 的 IP 位址可以指定完全限定網域名稱 (FQDN)。如果Trident安裝時使用了 IPv6 標誌，則可以設定為使用 IPv6 位址。 IPv6 位址必須用方括號定義，例如 [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]。如果您提供 `fsxFilesystemID`在 `aws`在欄位中，您無需提供 `managementLIF`因為Trident可以檢索 SVM `managementLIF`來自 AWS 的資訊。因此，您必須提供 SVM 下使用者的憑證（例如：vsadmin），且該使用者必須擁有下列權限： `vsadmin`角色。 | "10.0.0.1", "[2001:1234:abcd::fefe]" 
 
 
-| `dataLIF` | LIF協定的IP位址。 * ONTAP NAS 驅動程式*： NetApp建議指定 dataLIF。如果未提供， Trident將從 SVM 取得 dataLIF。您可以指定一個完全限定網域名稱 (FQDN) 用於 NFS 掛載操作，從而建立輪詢 DNS 以在多個 dataLIF 之間進行負載平衡。初始設定後可以更改。參考。  * ONTAP SAN 驅動程式*：不要為 iSCSI 指定。 Trident使用ONTAP選擇性 LUN 對應來發現建立多路徑會話所需的 iSCI LIF。如果明確定義了 dataLIF，則會產生警告。如果Trident安裝時使用了 IPv6 標誌，則可以設定為使用 IPv6 位址。  IPv6 位址必須用方括號定義，例如 [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]。 |  
+| `dataLIF` | 協定 LIF 的 IP 位址。*ONTAP NAS 驅動程式*：NetApp 建議指定 dataLIF。如果未提供，Trident 將從 SVM 取得 dataLIF。您可以指定一個完全限定網域名稱（FQDN）用於 NFS 掛載操作，從而建立輪詢 DNS 以在多個 dataLIF 之間進行負載平衡。初始設定後可以更改。請參閱。*ONTAP SAN 驅動程式*：iSCSI 無需指定。Trident 使用 ONTAP 選擇性 LUN 對應來發現建立多路徑會話所需的 iSCSI LIF。如果明確定義了 dataLIF，則會產生警告。如果 Trident 是使用 IPv6 旗標安裝的，可以設定為使用 IPv6 位址。IPv6 位址必須用中括號定義，例如［28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555］。 |  
 
 
 | `autoExportPolicy` | 啟用自動匯出策略建立和更新 [布林值]。使用 `autoExportPolicy`和 `autoExportCIDRs`選用功能包括： Trident可以自動管理出口策略。 | `false` 
@@ -257,7 +257,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 | `encryption` | 在新磁碟區啟用NetApp磁碟區加密 (NVE)；預設為 `false`。若要使用此選項，必須在叢集上取得 NVE 許可並啟用 NVE。如果後端啟用了 NAE，則在Trident中配置的任何磁碟區都會啟用 NAE。更多信息，請參閱：link:../trident-reco/security-reco.html["Trident如何與 NVE 和 NAE 協同工作"] 。 | `false` 
 
 
-| `luksEncryption` | 啟用LUKS加密。參考link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["使用 Linux 統一金鑰設定 (LUKS)"]。僅限SAN。 | “” 
+| `luksEncryption` | 啟用 LUKS 加密。請參閱link:../trident-reco/security-luks.html["使用 Linux 統一金鑰設定 (LUKS)"]。僅限 SAN。 | “” 
 
 
 | `tieringPolicy` | 分層策略的使用	`none` |  

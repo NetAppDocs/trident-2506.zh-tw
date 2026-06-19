@@ -102,5 +102,5 @@ NOTE: 有關最新 Trident 版本支援計劃，請參閱 https://docs.netapp.co
 == 更多資訊
 
 * link:https://github.com/NetApp/trident["Trident資源"^]
-* link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
+* link:https://www.netapp.com/console/["Kubernetes Hub"^]
 

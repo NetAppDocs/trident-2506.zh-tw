@@ -39,16 +39,16 @@ RWO、ROX、RWX、RWOP
 
 == 了解Trident對 Google Cloud Cloud Volumes Service 的支持
 
-Trident可以在以下兩種格式之一建立Cloud Volumes Service磁碟區：link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["服務類型"^] ：
+Trident 可以透過以下兩種方式之一建立 Cloud Volumes Service 磁碟區link:https://docs.cloud.google.com/netapp/volumes/docs/discover/overview["服務類型"^]：
 
-* *CVS-Performance*： Trident 的預設服務類型。這種效能優化型服務類型最適合重視效能的生產工作負載。 CVS-Performance 服務類型是一種硬體選項，支援最小 100 GiB 大小的磁碟區。您可以選擇其中之一link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["三個服務級別"^]：
+* *CVS-Performance*：Trident 的預設服務類型。這種效能最佳化型服務類型最適合注重效能的生產工作負載。CVS-Performance 服務類型是一種硬體選項，支援最小 100 GiB 的磁碟區。您可以選擇以下選項之一link:https://docs.cloud.google.com/netapp/volumes/docs/discover/overview["三個服務級別"^]：
 +
 ** `standard`
 ** `premium`
 ** `extreme`
 
 
-* *CVS*：CVS 服務類型提供較高的區域可用性，但效能水準有限或中等。 CVS 服務類型是一種軟體選項，它使用儲存池來支援小至 1 GiB 的磁碟區。儲存池最多可包含 50 個磁碟區，所有磁碟區共用池的容量和效能。您可以選擇其中之一link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs_service_type["兩種服務級別"^]：
+* *CVS*：CVS 服務類型提供高區域可用性，但效能水準有限或中等。CVS 服務類型是一種軟體選項，使用儲存池來支援小至 1 GiB 的磁碟區。儲存池最多可包含 50 個磁碟區，所有磁碟區共用集區的容量和效能。您可以選擇以下其中一項link:https://docs.cloud.google.com/netapp/volumes/docs/discover/overview["兩種服務級別"^]：
 +
 ** `standardsw`
 ** `zoneredundantstandardsw`
@@ -57,7 +57,7 @@ Trident可以在以下兩種格式之一建立Cloud Volumes Service磁碟區：l
 
 
 .你需要什麼
-配置和使用 https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["適用於 Google Cloud 的Cloud Volumes Service"^]後端需要以下組件：
+要設定和使用 https://www.netapp.com/google-cloud/netapp-volumes/["適用於 Google Cloud 的Cloud Volumes Service"^]後端，您需要以下元件：
 
 * 已配置NetApp Cloud Volumes Service的 Google Cloud 帳戶
 * 您的 Google Cloud 帳戶的項目編號

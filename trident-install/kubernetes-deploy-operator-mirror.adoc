@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-operator-mirror.html 
+permalink: trident-install/kubernetes-deploy-operator-mirror.html 
 keywords: deploy, Trident, methods, operator, tridentctl, mirrored, registry, registries 
 summary: 您可以手動部署Trident操作員來安裝Trident。此程序適用於Trident所需的容器映像存放在私人鏡像倉庫中的安裝情況。 
 ---
@@ -38,10 +38,10 @@ summary: 您可以手動部署Trident操作員來安裝Trident。此程序適用
 
 == 手動部署Trident操作員並安裝Trident
 
-審查link:../trident-get-started/kubernetes-deploy.html["安裝概述"]確保您已滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
+檢查 link:../trident-install/kubernetes-deploy.html["安裝概述"] 以確保滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
 
 .開始之前
-登入 Linux 主機並驗證它是否正在管理一個正常工作的進程。link:requirements.html["支援的 Kubernetes 集群"^]並且您擁有必要的權限。
+登入 Linux 主機，並驗證它是否正在管理一個正常運作的 link:../trident-get-started/requirements.html["支援的 Kubernetes 集群"]，以及您是否擁有必要的權限。
 
 
 NOTE: 使用 OpenShift 時，請 `oc`而不是 `kubectl`在以下所有範例中，請先以 *system:admin* 身分登錄，方法是執行下列命令。 `oc login -u system:admin`或者 `oc login -u kube-admin`。
@@ -186,7 +186,7 @@ tridentImage: "<your-registry>/trident:25.06.0"
 
 === 步驟 6：創建 `TridentOrchestrator`並安裝Trident
 
-現在您可以創建 `TridentOrchestrator`並安裝Trident。您也可以選擇進一步link:kubernetes-customize-deploy.html["自訂您的Trident安裝"]使用屬性 `TridentOrchestrator`規格以下範例展示了Trident和 CSI 映像位於不同登錄檔的安裝。
+現在您可以建立  `TridentOrchestrator` 並安裝 Trident。您也可以選擇進一步link:../trident-install/kubernetes-customize-deploy.html["自訂您的Trident安裝"]，方法是使用 `TridentOrchestrator`規格中的屬性。以下範例顯示 Trident 和 CSI 映像檔位於不同註冊中心的安裝情況。
 
 [listing]
 ----
