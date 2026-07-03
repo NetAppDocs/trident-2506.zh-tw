@@ -146,7 +146,7 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 * Trident也可以按需透過以下方式將容器日誌傳送給NetApp支援： `tridentctl send autosupport` 。您需要觸發Trident上傳其日誌。在提交日誌之前，您應該接受 NetApp 的條款。https://www.netapp.com/company/legal/privacy-policy/["隱私權政策"^] 。
 * 除非另有說明， Trident會取得過去 24 小時的日誌。
 * 您可以使用以下方式指定日誌保留時間範圍： `--since`旗幟。例如： `tridentctl send autosupport --since=1h` 。這些資訊透過以下方式收集和發送： `trident-autosupport`與Trident一起安裝的容器。您可以從以下位置取得容器鏡像： https://hub.docker.com/r/netapp/trident-autosupport["Trident AutoSupport"^] 。
-* Trident AutoSupport不會收集或傳輸個人識別資訊 (PII) 或個人資訊。它附帶一個 https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["最終用戶許可協議"^]這並不適用於Trident容器鏡像本身。您可以了解更多關於NetApp對資料安全和信任的承諾。 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwidepdf.pdf["這裡"^] 。
+* Trident AutoSupport 不會收集或傳輸個人識別資訊（PII）或個人資訊。它附帶 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwide.pdf["最終用戶許可協議"^]不適用於 Trident 容器映像本身。您可以深入瞭解 NetApp 對資料安全性和信任的承諾 https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwide.pdf["這裡"^]。
 
 
 Trident發送的有效載荷範例如下所示：

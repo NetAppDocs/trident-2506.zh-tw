@@ -60,7 +60,7 @@ helm upgrade <name> trident-operator-21.07.1-custom.tgz --set tridentDebug=true`
 
 * 您也可以透過新增以下命令來取得每個後端的偵錯日誌。 `debugTraceFlags`在您的後端定義中。例如，包括 `debugTraceFlags: {"api":true, "method":true,}`取得Trident日誌中的 API 呼叫和方法遍歷。現有後端可以有 `debugTraceFlags`配置為 `tridentctl backend update`。
 * 使用 Red Hat Enterprise Linux CoreOS (RHCOS) 時，請確保： `iscsid`在工作節點上已啟用，並且預設已啟動。這可以透過使用 OpenShift MachineConfigs 或修改 Ignition 模板來實現。
-* 使用Trident時可能會遇到的常見問題是… https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"]指的是租用戶和用戶端金鑰來自權限不足的應用程式註冊。有關Trident要求的完整列表，請參閱link:trident-use/anf.html["Azure NetApp Files"]配置。
+* 使用 Trident 搭配 https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"]時可能遇到的一個常見問題是，租用戶金鑰和用戶端金鑰來自權限不足的應用程式註冊。有關 Trident 要求的完整清單，請參閱link:trident-use/anf.html["Azure NetApp Files"]組態。
 * 如果將光電系統安裝到貨櫃上遇到問題，請確保： `rpcbind`已安裝並正在運行。使用主機作業系統所需的軟體包管理器並檢查是否 `rpcbind`正在運行。您可以查看以下狀態： `rpcbind`透過運行服務 `systemctl status rpcbind`或其等效物。
 * 如果Trident後端報告它處於 `failed`儘管之前運行正常，但當前狀態可能是由於更改了與後端關聯的 SVM/管理員憑證所致。使用以下方式更新後端訊息 `tridentctl update backend`或者晃動Trident煙囪就能解決這個問題。
 * 如果在使用 Docker 作為容器執行時安裝Trident時遇到權限問題，請嘗試使用下列方式安裝Trident： `--in cluster=false`旗幟。這樣就不會使用安裝程式 pod，以避免因以下原因導致的權限問題： `trident-installer`用戶。
