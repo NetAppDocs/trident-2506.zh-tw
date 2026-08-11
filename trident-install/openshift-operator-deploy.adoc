@@ -19,6 +19,7 @@ summary: 如果您使用 Red Hat OpenShift，則可以使用操作員安裝Tride
 
 
 
+[[find-and-install-the-trident-operator]]
 == 找到並安裝Trident操作符
 
 .步驟
@@ -86,6 +87,7 @@ image::../media/openshift-operator-08.png[已安裝]
 
 
 
+[[uninstall-trident-operator]]
 == 卸載Trident操作員
 
 .步驟

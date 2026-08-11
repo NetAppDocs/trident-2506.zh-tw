@@ -18,6 +18,7 @@ summary: 首先，請驗證您的運行環境、應用程式叢集、應用程�
 
 
 
+[[trident-protect-kubernetes-cluster-compatibility]]
 == Trident Protect Kubernetes 叢集相容性
 
 Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包括：
@@ -41,6 +42,7 @@ Trident Protect 與各種完全託管和自架的 Kubernetes 產品相容，包�
 ====
 
 
+[[trident-protect-storage-backend-compatibility]]
 == Trident Protect 儲存後端相容性
 
 Trident Protect 支援以下儲存後端：
@@ -64,6 +66,7 @@ Trident Protect 支援以下儲存後端：
 
 
 
+[[requirements-for-nas-economy-volumes]]
 == nas-economy 容量要求
 
 Trident Protect 支援對 nas-economy 磁碟區進行備份和復原作業。目前不支援將快照、克隆和SnapMirror複製到 nas-economy 磁碟區。您需要為計劃與Trident Protect 一起使用的每個 nas-economy 磁碟區啟用快照目錄。
@@ -88,6 +91,7 @@ NOTE: 您可以透過設定Trident後端設定選項，為新磁碟區預設啟�
 
 
 
+[[protecting-data-with-kubevirt-vms]]
 == 使用 KubeVirt 虛擬機器保護數據
 
 Trident Protect 24.10 和 24.10.1 及更高版本在保護運行在 KubeVirt VM 上的應用程式時，行為有所不同。對於這兩個版本，您都可以在資料保護操作期間啟用或停用檔案系統凍結和解凍。
@@ -113,6 +117,7 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 ----
 
 
+[[requirements-for-snapmirror-replication]]
 == SnapMirror複製的要求
 
 NetApp SnapMirror複製功能可與Trident Protect 搭配使用，適用於下列ONTAP解決方案：
@@ -125,6 +130,7 @@ NetApp SnapMirror複製功能可與Trident Protect 搭配使用，適用於下�
 
 
 
+[[ontap-cluster-requirements-for-snapmirror-replication]]
 === ONTAP叢集對SnapMirror複製的要求
 
 如果您打算使用SnapMirror複製功能，請確保您的ONTAP叢集符合以下要求：
@@ -149,6 +155,7 @@ NOTE: 僅支援SnapMirror非同步保護。
 
 
 
+[[peering-considerations-for-snapmirror-replication]]
 === SnapMirror複製的對等連線注意事項
 
 如果您打算使用儲存後端對等互連，請確保您的環境符合以下要求：
@@ -164,12 +171,14 @@ NOTE: 確保兩個ONTAP叢集之間複製關係中使用的 SVM 名稱是唯一�
 
 
 
+[[trident-ontap-configuration-for-snapmirror-replication]]
 === 用於SnapMirror複製的Trident / ONTAP配置
 
 Trident Protect 要求您至少設定一個支援來源叢集和目標叢集複製的儲存後​​端。如果來源叢集和目標叢集相同，為了獲得最佳彈性，目標應用程式應該使用與來源應用程式不同的儲存後端。
 
 
 
+[[kubernetes-cluster-requirements-for-snapmirror-replication]]
 === SnapMirror複製的 Kubernetes 叢集要求
 
 請確保您的 Kubernetes 叢集符合以下要求：

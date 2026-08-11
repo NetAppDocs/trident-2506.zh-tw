@@ -19,6 +19,7 @@ NOTE: 若要使用 AWS IAM 角色進行驗證，您必須擁有一個使用 EKS 
 
 
 
+[[create-aws-secrets-manager-secret]]
 == 建立 AWS Secrets Manager 金鑰
 
 由於Trident將向 FSx 虛擬伺服器發出 API 來為您管理存儲，因此它需要憑證才能執行此操作。傳遞這些憑證的安全方法是透過 AWS Secrets Manager 金鑰。因此，如果您還沒有 AWS Secrets Manager 金鑰，則需要建立一個包含 vsadmin 帳戶憑證的金鑰。
@@ -32,6 +33,7 @@ aws secretsmanager create-secret --name trident-secret --description "Trident CS
 ----
 
 
+[[create-iam-policy]]
 == 建立 IAM 策略
 
 Trident也需要 AWS 權限才能正常運作。因此，您需要建立一個策略，賦予Trident所需的權限。
@@ -75,6 +77,7 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 
 
+[[create-pod-identity-or-iam-role-for-service-account-association-irsa]]
 === 建立 Pod 身分或 IAM 角色以關聯服務帳戶 (IRSA)
 
 您可以設定 Kubernetes 服務帳戶，使其承擔 AWS Identity and Access Management (IAM) 角色（使用 EKS Pod Identity 或 IAM 角色進行服務帳戶關聯）(IRSA)。任何已配置為使用該服務帳戶的 Pod 都可以存取該角色有權存取的任何 AWS 服務。

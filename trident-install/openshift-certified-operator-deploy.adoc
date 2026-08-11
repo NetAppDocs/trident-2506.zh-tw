@@ -19,6 +19,7 @@ summary: 如果您使用 Red Hat OpenShift，則可以使用操作員安裝Tride
 
 
 
+[[uninstall-the-netapp-trident-community-operator]]
 == 卸載NetApp Trident社群操作員
 
 .步驟
@@ -39,6 +40,7 @@ WARNING: 不要選擇“從該運算符中刪除所有操作數實例”。
 
 
 
+[[install-the-openshift-certified-operator]]
 == 安裝 OpenShift 認證的 Operator
 
 .步驟
@@ -52,6 +54,7 @@ image::../media/openshift-operator-05.png[安裝]
 
 
 
+[[verification]]
 == 確認
 
 * 在控制台中檢查 OperatorHub，以確保新認證的操作員已成功安裝。

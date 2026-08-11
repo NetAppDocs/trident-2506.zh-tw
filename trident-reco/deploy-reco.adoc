@@ -16,6 +16,7 @@ summary: 部署Trident時，請遵循此處列出的建議。
 
 
 
+[[deploy-to-a-dedicated-namespace]]
 == 部署到專用命名空間
 
 https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["命名空間"^]造成不同應用程式之間的行政隔離，並阻礙資源共享。例如，一個命名空間中的 PVC 不能在另一個命名空間中使用。  Trident為 Kubernetes 叢集中的所有命名空間提供 PV 資源，因此利用了具有提升權限的服務帳戶。
@@ -24,6 +25,7 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["�
 
 
 
+[[use-quotas-and-range-limits-to-control-storage-consumption]]
 == 使用配額和範圍限制來控制儲存消耗
 
 Kubernetes 具有兩個特性，這兩個特性結合起來，為限制應用程式的資源消耗提供了一種強大的機制。這 https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["儲存配額機制"^]管理員可以按命名空間實施全域和儲存類別特定的容量和物件數量消耗限制。此外，使用 https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["射程限制"^]確保 PVC 請求在轉送給配置器之前，其值既在最小值也在最大值範圍內。

@@ -24,6 +24,7 @@ Trident簡化了 Kubernetes 中Amazon FSx for NetApp ONTAP儲存管理，讓您�
 
 
 
+[[install-trident-via-helm]]
 == 透過 Helm 安裝Trident。
 
 [role="tabbed-block"]
@@ -108,12 +109,14 @@ helm install trident-operator netapp-trident/trident-operator --version 100.2502
 ====
 
 
+[[install-trident-via-the-eks-add-on]]
 == 透過 EKS 外掛程式安裝Trident
 
 Trident EKS 外掛程式包含最新的安全性修補程式和錯誤修復，並經過 AWS 驗證，可與 Amazon EKS 搭配使用。  EKS 外掛程式可讓您持續確保您的 Amazon EKS 叢集安全穩定，並減少安裝、設定和更新外掛程式所需的工作量。
 
 
 
+[[prerequisites]]
 === 先決條件
 
 在為 AWS EKS 設定Trident外掛程式之前，請確保您已具備以下條件：
@@ -130,6 +133,7 @@ Trident EKS 外掛程式包含最新的安全性修補程式和錯誤修復，�
 
 
 
+[[enable-the-trident-add-on-for-aws]]
 === 為 AWS 啟用Trident插件
 
 [role="tabbed-block"]
@@ -234,6 +238,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> --fo
 ====
 
 
+[[update-the-trident-eks-add-on]]
 === 更新Trident EKS 外掛
 
 [role="tabbed-block"]
@@ -298,6 +303,7 @@ eksctl update addon --name netapp_trident-operator --version v25.6.0-eksbuild.1 
 ====
 
 
+[[uninstallremove-the-trident-eks-add-on]]
 === 解除安裝/移除Trident EKS 插件
 
 您可以透過兩種方式移除 Amazon EKS 外掛：

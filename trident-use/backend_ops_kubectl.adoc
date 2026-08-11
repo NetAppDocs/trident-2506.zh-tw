@@ -16,6 +16,7 @@ summary: '了解如何使用以下方式執行後端管理操作 `kubectl`。'
 
 
 
+[[delete-a-backend]]
 == 刪除後端
 
 透過刪除一個 `TridentBackendConfig`您指示Trident刪除/保留後端（基於 `deletionPolicy`）。若要刪除後端，請確保 `deletionPolicy`已設定為刪除。僅刪除 `TridentBackendConfig`確保 `deletionPolicy`設定為保留。這樣可以確保後端仍然存在，並且可以透過以下方式進行管理： `tridentctl` 。
@@ -30,6 +31,7 @@ Trident不會刪除正在使用的 Kubernetes Secret。 `TridentBackendConfig` �
 
 
 
+[[view-the-existing-backends]]
 == 查看現有後端
 
 運行以下命令：
@@ -42,6 +44,7 @@ kubectl get tbc -n trident
 
 
 
+[[update-a-backend]]
 == 更新後端
 
 更新後端的原因可能有很多：

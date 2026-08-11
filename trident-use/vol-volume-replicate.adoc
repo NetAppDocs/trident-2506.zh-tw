@@ -20,6 +20,7 @@ Trident支援一個叢集上的來源磁碟區與對等叢集上的目標磁碟�
 
 
 
+[[replication-prerequisites]]
 == 複製的前提條件
 
 在開始之前，請確保滿足以下先決條件：
@@ -53,6 +54,7 @@ NOTE: ASA r2 系統不支援使用SnapMirror進行磁碟區複製。有關ASA r2
 
 
 
+[[create-a-mirrored-pvc]]
 == 製作鏡面PVC
 
 請依照這些步驟，並使用 CRD 範例，在主磁碟區和輔助磁碟區之間建立鏡像關係。
@@ -197,6 +199,7 @@ Trident將檢查 TridentMirrorRelationship CRD，如果該關係不存在，則�
 
 
 
+[[volume-replication-states]]
 == 卷複製狀態
 
 Trident鏡像關係 (TMR) 是一種 CRD，它表示 PVC 之間複製關係的一端。目標 TMR 具有一個狀態，該狀態告訴Trident期望的狀態是什麼。目的地 TMR 具有以下狀態：
@@ -213,6 +216,7 @@ Trident鏡像關係 (TMR) 是一種 CRD，它表示 PVC 之間複製關係的一
 
 
 
+[[promote-secondary-pvc-during-an-unplanned-failover]]
 == 在計劃外故障切換期間促進輔助PVC的運行
 
 在輔助 Kubernetes 叢集上執行下列步驟：
@@ -222,6 +226,7 @@ Trident鏡像關係 (TMR) 是一種 CRD，它表示 PVC 之間複製關係的一
 
 
 
+[[promote-secondary-pvc-during-a-planned-failover]]
 == 在計劃故障切換期間推廣備用PVC
 
 在計劃故障轉移（遷移）期間，執行以下步驟以提升輔助 PVC：
@@ -246,6 +251,7 @@ spec:
 
 
 
+[[restore-a-mirror-relationship-after-a-failover]]
 == 故障轉移後恢復鏡像關係
 
 在恢復鏡像關係之前，選擇你想作為新主要方的那一方。
@@ -257,12 +263,14 @@ spec:
 
 
 
+[[additional-operations]]
 == 附加手術
 
 Trident支援對主磁碟區和輔助磁碟區執行下列操作：
 
 
 
+[[replicate-primary-pvc-to-a-new-secondary-pvc]]
 === 將主PVC複製到新的輔助PVC
 
 請確保您已備有主PVC管及備用PVC管。
@@ -275,12 +283,14 @@ Trident支援對主磁碟區和輔助磁碟區執行下列操作：
 
 
 
+[[resize-a-mirrored-primary-or-secondary-pvc]]
 === 調整鏡像、主或次級PVC的尺寸
 
 PVC 可以像往常一樣調整大小，如果資料量超過目前大小， ONTAP將自動擴展任何目標 flevxols。
 
 
 
+[[remove-replication-from-a-pvc]]
 === 從 PVC 移除複製
 
 若要移除複製，請對目前輔助磁碟區執行下列其中一項操作：
@@ -291,24 +301,28 @@ PVC 可以像往常一樣調整大小，如果資料量超過目前大小， ONT
 
 
 
+[[delete-a-pvc-that-was-previously-mirrored]]
 === 刪除一個PVC（之前已鏡像）
 
 Trident會檢查是否有複製的 PVC，並在嘗試刪除磁碟區之前釋放複製關係。
 
 
 
+[[delete-a-tmr]]
 === 刪除 TMR
 
 刪除鏡像關係一側的 TMR 會導致剩餘的 TMR 在Trident完成刪除之前轉換為 _promoted_ 狀態。如果選擇刪除的 TMR 已處於 _promoted_ 狀態，則不存在鏡像關係，TMR 將被刪除， Trident會將本機 PVC 提升為 _ReadWrite_。此刪除操作會釋放ONTAP中本機磁碟區的SnapMirror元資料。如果將來要將此磁碟區用於鏡像關係，則在建立新的鏡像關係時，必須使用具有 _established_ 磁碟區複製狀態的新 TMR。
 
 
 
+[[update-mirror-relationships-when-ontap-is-online]]
 == ONTAP在線時，更新鏡像關係
 
 鏡像關係建立後可以隨時更新。您可以使用 `state: promoted`或者 `state: reestablished`用於更新關係的欄位。將目標磁碟區提升為常規讀寫磁碟區時，可以使用 _promotedSnapshotHandle_ 指定要將目前磁碟區還原到的特定快照。
 
 
 
+[[update-mirror-relationships-when-ontap-is-offline]]
 == ONTAP離線時更新鏡像關係
 
 您可以使用 CRD 執行SnapMirror更新，而無需Trident與ONTAP叢集直接連線。請參考以下 TridentActionMirrorUpdate 的範例格式：

@@ -16,6 +16,7 @@ summary: '建立一個持久性磁碟區 (PV) 和一個持久性磁碟區宣告 
 
 
 
+[[overview]]
 == 概況
 
 一個 https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^]（PVC）是對叢集上持久卷的存取請求。
@@ -26,6 +27,7 @@ PVC 可以配置為請求儲存特定尺寸或存取模式。使用關聯的 Sto
 
 
 
+[[create-the-pvc]]
 == 製作PVC管
 
 .步驟
@@ -74,6 +76,7 @@ kubectl delete pod pv-pod
 
 
 
+[[sample-manifests]]
 === 樣品清單
 
 .PersistentVolumeClaim 樣本清單

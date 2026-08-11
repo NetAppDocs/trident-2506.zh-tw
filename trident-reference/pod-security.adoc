@@ -19,6 +19,7 @@ NOTE: PSS 取代了 Pod 安全性策略 (PSP)。 PSP 在 Kubernetes v1.21 中已
 
 
 
+[[required-kubernetes-security-context-and-related-fields]]
 == 必需的 Kubernetes 安全上下文和相關字段
 
 [cols=","]
@@ -53,6 +54,7 @@ NOTE: PSS 取代了 Pod 安全性策略 (PSP)。 PSP 在 Kubernetes v1.21 中已
 |===
 
 
+[[pod-security-standards-pss]]
 == 艙體安全標準 (PSS)
 
 [cols=",,"]
@@ -68,6 +70,7 @@ WARNING: 更改命名空間標籤可能會導致 Pod 無法調度，出現「建
 
 
 
+[[pod-security-policies-psp]]
 == Pod 安全策略 (PSP)
 
 [cols=",,"]
@@ -148,6 +151,7 @@ WARNING: 更改命名空間標籤可能會導致 Pod 無法調度，出現「建
 |===
 
 
+[[security-context-constraints-scc]]
 == 安全上下文約束 (SCC)
 
 [cols=",,"]

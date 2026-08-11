@@ -16,6 +16,7 @@ summary: '若要建立卷，請使用標準 `docker volume`需要時，請使用
 
 
 
+[[create-a-volume]]
 == 創建卷
 
 * 使用預設名稱建立帶有驅動程式的磁碟區：
@@ -48,6 +49,7 @@ TIP: 磁碟區大小以字串形式表示，其中包含一個整數值，單位
 
 
 
+[[remove-a-volume]]
 == 移除音量
 
 * 刪除該磁碟區的方式與其他 Docker 磁碟區一樣：
@@ -66,6 +68,7 @@ IMPORTANT: 使用時 `solidfire-san`上述驅動程式範例刪除並清除磁�
 
 
 
+[[clone-a-volume]]
 == 複製卷
 
 使用時 `ontap-nas`， `ontap-san` ， `solidfire-san` ， 和 `gcp-cvs storage drivers`Trident可以克隆卷。使用時 `ontap-nas-flexgroup`或者 `ontap-nas-economy`驅動程式不支援克隆。從現有磁碟區建立新磁碟區將建立一個新的快照。
@@ -92,6 +95,7 @@ docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_v
 
 
 
+[[example]]
 === 例子
 
 [source, console]
@@ -128,6 +132,7 @@ docker volume rm volFromSnap
 ----
 
 
+[[access-externally-created-volumes]]
 == 存取外部建立的捲
 
 只有當外部建立的區塊裝置（或其複製）沒有分割且其檔案系統受Trident支援時（例如：一個），容器才能使用Trident存取這些區塊裝置（或其複製）。 `ext4`格式化 `/dev/sdc1`無法透過Trident訪問）。

@@ -16,6 +16,7 @@ summary: 了解配置具有ONTAP NAS 驅動程式的ONTAP後端的要求、驗�
 
 
 
+[[requirements]]
 == 要求
 
 * 對於所有ONTAP後端， Trident要求至少將一個聚合分配給 SVM。
@@ -26,6 +27,7 @@ summary: 了解配置具有ONTAP NAS 驅動程式的ONTAP後端的要求、驗�
 
 
 
+[[authenticate-the-ontap-backend]]
 == 對ONTAP後端進行身份驗證
 
 Trident提供兩種ONTAP後端身分驗證方式。
@@ -41,6 +43,7 @@ WARNING: 如果您嘗試同時提供憑證和證書，則後端建立將會失�
 
 
 
+[[enable-credential-based-authentication]]
 === 啟用基於憑證的身份驗證
 
 Trident需要 SVM 範圍/叢集範圍管理員的憑證才能與ONTAP後端通訊。建議使用標準的、預先定義的角色，例如： `admin`或者 `vsadmin`。這樣可以確保與未來ONTAP版本向前相容，這些版本可能會公開一些功能 API，供未來的Trident版本使用。雖然可以建立自訂安全登入角色並將其與Trident一起使用，但不建議這樣做。
@@ -86,6 +89,7 @@ credentials:
 
 
 
+[[enable-certificate-based-authentication]]
 === 啟用基於憑證的身份驗證
 
 新的和現有的後端都可以使用憑證與ONTAP後端通訊。後端定義需要三個參數。
@@ -168,6 +172,7 @@ tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 
 
 
+[[update-authentication-methods-or-rotate-credentials]]
 === 更新身份驗證方法或輪換憑證
 
 您可以更新現有後端，以使用不同的身份驗證方法或輪換其憑證。這種方法是雙向的：使用使用者名稱/密碼的後端可以更新為使用憑證；使用憑證的後端可以更新為基於使用者名稱/密碼的後端。為此，您必須刪除現有的身份驗證方法並新增新的身份驗證方法。然後使用包含所需參數的更新後的 backend.json 檔案來執行 `tridentctl update backend`。
@@ -207,6 +212,7 @@ NOTE: 輪換密碼時，儲存管理員必須先更新ONTAP上使用者的密碼
 
 
 
+[[create-custom-ontap-role-for-trident]]
 === 為Trident建立自訂ONTAP角色
 
 您可以建立一個具有最低權限的ONTAP叢集角色，這樣您就不必使用ONTAP管理員角色在Trident中執行操作。在Trident後端設定中包含使用者名稱時， Trident將使用您建立的ONTAP叢集角色來執行操作。
@@ -266,6 +272,7 @@ NOTE: 輪換密碼時，儲存管理員必須先更新ONTAP上使用者的密碼
 
 
 
+[[manage-nfs-export-policies]]
 == 管理 NFS 導出策略
 
 Trident使用 NFS 匯出策略來控制對其所配置磁碟區的存取。
@@ -278,6 +285,7 @@ Trident在處理出口策略時提供兩種選擇：
 
 
 
+[[dynamically-manage-export-policies]]
 === 動態管理出口策略
 
 Trident提供了動態管理ONTAP後端匯出策略的功能。這樣，儲存管理員就可以指定工作節點 IP 的允許位址空間，而無需手動定義明確的規則。它大大簡化了導出策略管理；對導出策略的修改不再需要對儲存叢集進行人工幹預。此外，這有助於將對儲存叢集的存取限制在僅允許掛載磁碟區且 IP 位址在指定範圍內的節點上，從而支援細粒度和自動化管理。
@@ -368,6 +376,7 @@ NOTE: 刪除具有自動管理匯出策略的後端將刪除動態建立的匯�
 
 
 
+[[prepare-to-provision-smb-volumes]]
 == 準備配置SMB卷
 
 稍作準備，您就可以使用以下方式設定 SMB 卷 `ontap-nas`司機。
@@ -445,6 +454,7 @@ NOTE: 請參閱link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-
 
 
 
+[[enable-secure-smb]]
 === 啟用安全的 SMB
 
 從 25.06 版本開始， NetApp Trident支援使用以下方式安全配置建立的 SMB 磁碟區： `ontap-nas`和 `ontap-nas-economy`後端。啟用安全 SMB 後，您可以使用存取控制清單 (ACL) 為 Active Directory (AD) 使用者和使用者群組提供對 SMB 共用的受控存取。

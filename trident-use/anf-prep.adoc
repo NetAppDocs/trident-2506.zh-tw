@@ -16,6 +16,7 @@ summary: 在設定Azure NetApp Files後端之前，需要確保滿足以下要�
 
 
 
+[[prerequisites-for-nfs-and-smb-volumes]]
 == NFS 和 SMB 磁碟區的先決條件
 
 如果您是第一次使用Azure NetApp Files或在新的位置使用，則需要進行一些初始設定來設定 Azure NetApp檔案並建立 NFS 磁碟區。參考 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure：設定Azure NetApp Files並建立 NFS 卷"^]。
@@ -91,6 +92,7 @@ summary: 在設定Azure NetApp Files後端之前，需要確保滿足以下要�
 
 
 
+[[additional-requirements-for-smb-volumes]]
 == 中小企業卷的附加要求
 
 若要建立 SMB 卷，您必須具備以下條件：

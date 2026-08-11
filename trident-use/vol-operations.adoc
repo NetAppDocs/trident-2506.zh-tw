@@ -16,6 +16,7 @@ summary: Trident提供了多種磁碟區管理功能。了解Trident在大量處
 
 
 
+[[managing-volumes]]
 == 管理容量
 
 請參考以下內容，以了解如何使用Trident管理您的磁碟區。

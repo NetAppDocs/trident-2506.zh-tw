@@ -16,6 +16,7 @@ summary: 查看適用於您的Trident配置的設定選項。
 
 
 
+[[global-configuration-options]]
 == 全域配置選項
 
 這些配置選項適用於所有Trident配置，無論使用何種儲存平台。
@@ -71,6 +72,7 @@ TIP: 請勿使用 `storagePrefix`（包括預設值）適用於 Element 後端�
 |===
 
 
+[[ontap-configuration]]
 == ONTAP 配置
 
 除了上述全域配置值之外，使用ONTAP時，還可以使用下列頂級選項。
@@ -267,6 +269,7 @@ SAN 選項用於選擇檔案系統類型，預設為 `ext4`
 |===
 
 
+[[scaling-options]]
 === 縮放選項
 
 這 `ontap-nas`和 `ontap-san`驅動程式為每個 Docker 磁碟區建立一個ONTAP FlexVol 。  ONTAP每個叢集節點最多支援 1000 個 FlexVol，叢集最多可支援 12,000 個FlexVol磁碟區。如果您的 Docker 磁碟區需求符合此限制，則 `ontap-nas`由於 FlexVols 提供了 Docker 磁碟區粒度快照和克隆等附加功能，因此驅動程式是首選的 NAS 解決方案。
@@ -295,6 +298,7 @@ NOTE: 這 `ontap-nas-economy`Docker Swarm 目前不支援該驅動程序，因�
 
 
 
+[[custom-ontap-role-for-trident]]
 === 為Trident訂製ONTAP角色
 
 您可以建立一個具有最低權限的ONTAP叢集角色，這樣您就不必使用ONTAP管理員角色在Trident中執行操作。在Trident後端設定中包含使用者名稱時， Trident將使用您建立的ONTAP叢集角色來執行操作。
@@ -355,6 +359,7 @@ NOTE: 這 `ontap-nas-economy`Docker Swarm 目前不支援該驅動程序，因�
 
 
 
+[[example-ontap-configuration-files]]
 === ONTAP設定檔範例
 
 .<code>ontap-nas</code>驅動程式的NFS範例
@@ -491,6 +496,7 @@ NOTE: 這 `ontap-nas-economy`Docker Swarm 目前不支援該驅動程序，因�
 ====
 
 
+[[element-software-configuration]]
 == Element軟體配置
 
 除了全域設定值之外，在使用 Element 軟體（NetApp HCI/ SolidFire）時，還可以使用這些選項。
@@ -545,6 +551,7 @@ QoS規範
 
 
 
+[[example-element-software-configuration-file]]
 === 範例元素軟體設定檔
 
 [source, json]

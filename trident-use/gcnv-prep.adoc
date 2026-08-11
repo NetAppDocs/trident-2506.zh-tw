@@ -16,6 +16,7 @@ summary: 在設定Google Cloud NetApp Volumes後端之前，您需要確保符�
 
 
 
+[[prerequisites-for-nfs-volumes]]
 == NFS 磁碟區的先決條件
 
 如果您是第一次使用Google Cloud NetApp Volumes或在新的位置使用，則需要進行一些初始設定來設定Google Cloud NetApp Volumes並建立 NFS 磁碟區。參考link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["開始之前"^]。

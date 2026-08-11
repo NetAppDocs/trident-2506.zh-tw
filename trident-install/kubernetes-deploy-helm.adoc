@@ -16,6 +16,7 @@ summary: 您可以使用 Helm 部署Trident Operator 並安裝Trident 。此程�
 
 
 
+[[critical-information-about-trident-25-06]]
 == 關於Trident25.06的關鍵訊息
 
 *您必須閱讀以下關於Trident的重要資訊。 *
@@ -36,6 +37,7 @@ summary: 您可以使用 Helm 部署Trident Operator 並安裝Trident 。此程�
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == 使用 Helm 部署Trident Operator 並安裝Trident。
 
 使用Tridentlink:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["掌舵圖"^]您可以一步完成Trident運算子的部署和Trident 的安裝。
@@ -43,7 +45,7 @@ summary: 您可以使用 Helm 部署Trident Operator 並安裝Trident 。此程�
 檢查 link:../trident-install/kubernetes-deploy.html["安裝概述"] 以確保滿足安裝先決條件並為您的環境選擇了正確的安裝選項。
 
 .開始之前
-除了 link:../trident-install/kubernetes-deploy.html#before-you-deploy["部署前提條件"] 之外，您還需要 link:https://v3.helm.sh/["Helm 版本 3"^]。
+除了 link:kubernetes-deploy.html#before-you-begin["部署前提條件"] 之外，您還需要 link:https://v3.helm.sh/["Helm 版本 3"^]。
 
 .步驟
 . 新增Trident Helm 倉庫：
@@ -68,6 +70,7 @@ NOTE: 如果您已經為Trident創建了命名空間，那麼 `--create-namespac
 
 
 
+[[pass-configuration-data-during-install]]
 == 安裝過程中傳遞配置數據
 
 安裝過程中有兩種方法可以傳遞設定資料：
@@ -94,6 +97,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2506.0  --crea
 ----
 
 
+[[configuration-options]]
 == 配置選項
 
 這張表格和 `values.yaml`該檔案是 Helm chart 的一部分，提供了鍵及其預設值的清單。
@@ -257,6 +261,7 @@ NOTE: *技術預覽*：此功能在NetApp Trident 25.06 中處於實驗階段，
 |===
 
 
+[[understanding-controller-pods-and-node-pods]]
 === 了解控制器 pod 和節點 pod
 
 Trident以單一控制器 pod 的形式運行，叢集中的每個工作節點上也有一個節點 pod。節點 pod 必須運行在您希望掛載Trident磁碟區的任何主機上。

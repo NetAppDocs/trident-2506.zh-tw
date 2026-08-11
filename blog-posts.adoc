@@ -16,6 +16,7 @@ summary: 您可以找到一些很棒的NetApp Trident和Trident Protect 部落�
 
 
 
+[[trident-blogs]]
 == Trident部落格
 
 * 2025年5月9日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automatic-Trident-backend-configuration-for-FSx-for-ONTAP-with-the-Amazon-EKS/ba-p/460586["使用 Amazon EKS 外掛程式為 FSx for ONTAP自動設定Trident後端"^]
@@ -28,7 +29,6 @@ summary: 您可以找到一些很棒的NetApp Trident和Trident Protect 部落�
 * 2025年3月5日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["解鎖無縫的 iSCSI 儲存整合：AWS ROSA 叢集上的 FSxN 指南"^]
 * 2025年2月27日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Deploying-cloud-identity-with-Trident-GKE-and-Google-Cloud-NetApp-Volumes/ba-p/458912["使用Trident、GKE 和Google Cloud NetApp Volumes部署雲端身份"^]
 * 2024年12月12日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Fibre-Channel-support-in-Trident/ba-p/457427["Trident引入光纖通道支援"^]
-* 2024年11月26日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Trident-25-01-Enhancing-the-Kubernetes-Storage-Experience-with-New-Features-and/ba-p/456885["Trident 25.01：透過新功能和增強功能增強 Kubernetes 儲存體驗"^]
 * 2024年11月11日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-Trident-with-Google-Cloud-NetApp-Volumes/ba-p/456484["NetApp Trident與Google Cloud NetApp Volumes"^]
 * 2024年10月29日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Amazon-FSx-for-NetApp-ONTAP-with-Red-Hat-OpenShift-Service-on-AWS-ROSA-using/ba-p/456167["使用Trident在 AWS 上將Amazon FSx for NetApp ONTAP與 Red Hat OpenShift 服務 (ROSA) 結合使用"^]
 * 2024年10月29日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Live-Migration-of-VMs-with-OpenShift-Virtualization-on-ROSA-and-Amazon-FSx-for/ba-p/456213["使用 ROSA 上的 OpenShift 虛擬化和Amazon FSx for NetApp ONTAP即時遷移虛擬機"^]
@@ -39,6 +39,7 @@ summary: 您可以找到一些很棒的NetApp Trident和Trident Protect 部落�
 
 
 
+[[trident-protect-blogs]]
 == Trident Protect博客
 
 * 2025年5月16日：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automating-registry-failover-for-disaster-recovery-with-Trident-protect-post/ba-p/460777["利用Trident Protect 的恢復後鉤子實現登錄機碼故障轉移的自動化，以進行災難復原"^]

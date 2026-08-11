@@ -16,6 +16,7 @@ Trident可以利用以下方式選擇性地建立磁碟區並將其附加到 Kub
 
 
 
+[[overview]]
 == 概況
 
 使用 CSI 拓撲功能，可以根據區域和可用區域將對磁碟區的存取限製到節點子集。如今，雲端服務供應商允許 Kubernetes 管理員建立基於區域的節點。節點可以位於一個區域內的不同可用區，也可以跨越多個區域。為了方便在多區域架構中為工作負載配置卷， Trident使用了 CSI 拓撲。
@@ -56,6 +57,7 @@ kubectl get nodes -o=jsonpath='{range .items[*]}[{.metadata.name}, {.metadata.la
 
 
 
+[[step-1-create-a-topology-aware-backend]]
 == 步驟 1：建立拓樸感知後端
 
 Trident儲存後端可設計為根據可用區選擇性地配置磁碟區。每個後端都可以攜帶一個可選組件 `supportedTopologies`表示所支援的區域和地區列表的區塊。對於使用此類後端的 StorageClasses，只有在受支援的區域/區域中調度的應用程式請求時才會建立磁碟區。
@@ -146,6 +148,7 @@ storage:
 
 
 
+[[step-2-define-storageclasses-that-are-topology-aware]]
 == 步驟 2：定義拓樸感知的儲存類別。
 
 根據提供給叢集中節點的拓樸標籤，可以定義 StorageClasses 來包含拓樸資訊。這將決定哪些儲存池可作為 PVC 請求的候選對象，以及哪些節點子集可以使用Trident提供的磁碟區。
@@ -176,6 +179,7 @@ parameters:
 
 
 
+[[step-3-create-and-use-a-pvc]]
 == 步驟 3：製作並使用 PVC
 
 建立 StorageClass 並將其對應到後端後，現在可以建立 PVC。
@@ -284,12 +288,14 @@ pvc-san   Bound    pvc-ecb1e1a0-840c-463b-8b65-b3d033e2e62b   300Mi      RWO    
 ----
 
 
+[[update-backends-to-include-supportedtopologies]]
 == 更新後端以包含 `supportedTopologies`
 
 可以更新現有的後端，使其包含以下清單： `supportedTopologies`使用 `tridentctl backend update`。這不會影響已經分配的容量，只會用於後續的PVC。
 
 
 
+[[find-more-information]]
 == 查找更多信息
 
 * https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["管理容器資源"^]

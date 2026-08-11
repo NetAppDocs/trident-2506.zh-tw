@@ -16,6 +16,7 @@ summary: 請按照此處列出的建議，確保您的Trident安裝安全可靠�
 
 
 
+[[run-trident-in-its-own-namespace]]
 == 在Trident自身的命名空間中運行它
 
 防止應用程式、應用程式管理員、使用者和管理應用程式存取Trident物件定義或 pod 非常重要，以確保可靠的儲存並封鎖潛在的惡意活動。
@@ -24,6 +25,7 @@ summary: 請按照此處列出的建議，確保您的Trident安裝安全可靠�
 
 
 
+[[use-chap-authentication-with-ontap-san-backends]]
 == 使用 CHAP 驗證與ONTAP SAN 後端配合使用
 
 Trident支援基於 CHAP 的ONTAP SAN 工作負載驗證（使用 `ontap-san`和 `ontap-san-economy`司機）。  NetApp建議使用Trident的雙向 CHAP 進行主機與儲存後端之間的驗證。
@@ -32,6 +34,7 @@ Trident支援基於 CHAP 的ONTAP SAN 工作負載驗證（使用 `ontap-san`和
 
 
 
+[[use-chap-authentication-with-netapp-hci-and-solidfire-backends]]
 == 使用 CHAP 驗證連線NetApp HCI和SolidFire後端
 
 NetApp建議部署雙向 CHAP，以確保主機與NetApp HCI和SolidFire後端之間的驗證。 Trident使用一個包含每個租用戶兩個 CHAP 密碼的秘密物件。安裝Trident後，它會管理 CHAP 金鑰並將其儲存在一個位置。 `tridentvolume`對應 PV 的 CR 物件。在建立 PV 時， Trident使用 CHAP 金鑰啟動 iSCSI 會話，並透過 CHAP 與NetApp HCI和SolidFire系統通訊。
@@ -41,6 +44,7 @@ NOTE: Trident建立的磁碟區不會與任何磁碟區存取群組關聯。
 
 
 
+[[use-trident-with-nve-and-nae]]
 == 將Trident與 NVE 和 NAE 結合使用
 
 NetApp ONTAP提供靜態資料加密，以保護敏感數據，防止磁碟被盜、退回或重新利用。有關詳細信息，請參閱link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["配置NetApp卷加密概述"^]。

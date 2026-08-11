@@ -16,6 +16,7 @@ summary: 了解如何在Trident安裝中建立和使用 Element 後端。
 
 
 
+[[element-driver-details]]
 == 元素驅動程式詳情
 
 Trident提供 `solidfire-san`用於與叢集通訊的儲存驅動程式。支援的存取模式有：_ReadWriteOnce_ (RWO)、_ReadOnlyMany_ (ROX)、_ReadWriteMany_ (RWX)、_ReadWriteOncePod_ (RWOP)。
@@ -50,6 +51,7 @@ RWO，RWOP
 |===
 
 
+[[before-you-begin]]
 == 開始之前
 
 在建立 Element 後端之前，您需要以下內容。
@@ -61,6 +63,7 @@ RWO，RWOP
 
 
 
+[[backend-configuration-options]]
 == 後端配置選項
 
 請參閱下表以了解後端配置選項：
@@ -113,6 +116,7 @@ WARNING: 請勿使用 `debugTraceFlags`除非您正在進行故障排除並且�
 
 
 
+[[example-1-backend-configuration-for-solidfire-san-driver-with-three-volume-types]]
 == 範例 1：後端配置 `solidfire-san`具有三種音量類型的驅動器
 
 本範例展示了一個使用 CHAP 認證的後端文件，並對三種具有特定 QoS 保證的捲類型進行了建模。最有可能的情況是，您會定義儲存類別來使用它們。 `IOPS`儲存類別參數。
@@ -148,6 +152,7 @@ Types:
 ----
 
 
+[[example-2-backend-and-storage-class-configuration-for-solidfire-san-driver-with-virtual-pools]]
 == 範例 2：後端和儲存類別配置 `solidfire-san`帶有虛擬池的驅動程式
 
 此範例顯示了配置了虛擬池的後端定義檔以及引用這些虛擬池的儲存類別。
@@ -266,6 +271,7 @@ parameters:
 ----
 
 
+[[find-more-information]]
 == 查找更多信息
 
 * link:../trident-concepts/vol-access-groups.html["卷訪問群組"^]

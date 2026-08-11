@@ -16,6 +16,7 @@ summary: 使用Trident，您可以在主命名空間中建立磁碟區，並在�
 
 
 
+[[features]]
 == 特徵
 
 TridentVolumeReference CR 可讓您在一個或多個 Kubernetes 命名空間之間安全地共用 ReadWriteMany (RWX) NFS 磁碟區。這種 Kubernetes 原生解決方案具有以下優點：
@@ -31,6 +32,7 @@ image::cross-namespace-sharing.png[跨命名空間共享的概念圖。]
 
 
 
+[[quick-start]]
 == 快速啟動
 
 只需幾個步驟即可設定NFS卷共享。
@@ -53,6 +55,7 @@ image::cross-namespace-sharing.png[跨命名空間共享的概念圖。]
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == 配置來源命名空間和目標命名空間
 
 為確保安全，跨命名空間共用需要來源命名空間擁有者、叢集管理員和目標命名空間擁有者的協作和行動。使用者角色在每個步驟中都會被指定。
@@ -133,12 +136,14 @@ Trident讀取 `shareFromPVC`在目標 PVC 上新增註釋，並將目標 PV 建�
 
 
 
+[[delete-a-shared-volume]]
 == 刪除共享卷
 
 您可以刪除跨多個命名空間共享的磁碟區。 Trident將移除對來源命名空間中該磁碟區的存取權限，並保留對共用該磁碟區的其他命名空間的存取權限。當所有引用該磁碟區的命名空間都被刪除後， Trident會刪除該磁碟區。
 
 
 
+[[use-tridentctl-get-to-query-subordinate-volumes]]
 == 使用 `tridentctl get`查詢子卷
 
 使用 [`tridentctl` 公用程式，您可以執行  `get` 命令來取得從屬磁碟區。如需詳細資訊，請參閱 link:../trident-managing-k8s/tridentctl.html[`tridentctl` 命令和選項]。
@@ -157,6 +162,7 @@ Usage:
 
 
 
+[[limitations]]
 == 限制
 
 * Trident無法阻止目標命名空間寫入共享磁碟區。您應該使用文件鎖定或其他方法來防止覆蓋共享卷資料。
@@ -166,6 +172,7 @@ Usage:
 
 
 
+[[for-more-information]]
 == 更多資訊
 
 要了解有關跨命名空間卷訪問的更多資訊：

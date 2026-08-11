@@ -16,6 +16,7 @@ summary: Trident遵循四個月的發布節奏，每年發布三個主要版本�
 
 
 
+[[considerations-before-upgrading]]
 == 升級前的注意事項
 
 升級至最新版Trident時，請注意以下事項：
@@ -34,6 +35,7 @@ summary: Trident遵循四個月的發布節奏，每年發布三個主要版本�
 
 
 
+[[step-1-select-a-version]]
 == 步驟 1：選擇版本
 
 Trident 的版本遵循基於日期的命名規則。 `YY.MM`命名規則中，「YY」是年份的最後兩位數字，「MM」是月份。 Dot 版本遵循 `YY.MM.X`按照慣例，其中“X”是補丁等級。您需要根據目前版本選擇要升級到的版本。
@@ -52,6 +54,7 @@ NOTE: 在 OpenShift 容器平台上使用Trident運算子進行升級時，應�
 
 
 
+[[step-2-determine-the-original-installation-method]]
 == 步驟二：確定原始安裝方法
 
 若要確定您最初安裝Trident時所使用的版本：
@@ -72,6 +75,7 @@ NOTE: 在 OpenShift 容器平台上使用Trident運算子進行升級時，應�
 
 
 
+[[step-3-select-an-upgrade-method]]
 == 步驟 3：選擇升級方式
 
 通常情況下，您應該使用與初始安裝相同的方法進行升級，但您也可以link:../trident-install/kubernetes-deploy.html#moving-between-installation-methods["安裝方法之間的轉換"]。有兩種升級 Trident 的選項。
