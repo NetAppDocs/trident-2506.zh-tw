@@ -19,8 +19,6 @@
   <block id="20f40e0b9308901dac07ce8a8efb3350" category="inline-link">OpenShift 安全上下文約束文檔</block>
   <block id="2c9ccd5e8999c2c36f29069165f327c3" category="admonition">如果您使用 Red Hat OpenShift，請務必注意命名空間註解在 OpenShift 環境中的重要角色。命名空間註解可確保復原的 pod 遵守 OpenShift 安全性情境約束 (SCC) 定義的適當權限和安全性配置，並且可以存取磁碟區而不會出現權限問題。欲了解更多信息，請參閱<block ref="f3121e004cef0b92f500227025367589" category="inline-link-rx"></block>。</block>
   <block id="6c83555d4261acb08ebbc5f24823dc7b" category="paragraph">您可以透過設定 Kubernetes 環境變數來防止目標命名空間中的特定註解被覆蓋。<block ref="1580ff61f204e9d56cd5324c7e9221ba" prefix=" " category="inline-code"></block>在執行復原或故障轉移操作之前。例如：</block>
-  <block id="8238f7162d9219360737b28886d1e81e" category="inline-link-macro">配置AutoSupport和命名空間過濾選項</block>
-  <block id="f674ee7017be04f3990c16ce1e52c071" category="admonition">執行復原或故障轉移操作時，任何命名空間註解和標籤都將生效。<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block> 和<block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block> 不參與恢復或故障轉移操作。確保在初始 Helm 安裝期間配置這些設定。欲了解更多信息，請參閱 <block ref="be04583f34cff5b6411cf18afbc58993" category="inline-link-macro-rx"></block>。</block>
   <block id="0a52730597fb4ffa01fc117d9e71e3a9" category="section-title">例子</block>
   <block id="1280c48f074ec68fd2281266662c9a3f" category="paragraph">以下範例展示了來源命名空間和目標命名空間，每個命名空間都有不同的註解和標籤。您可以查看操作前後目標命名空間的狀態，以及目標命名空間中的註解和標籤是如何組合或覆蓋的。</block>
   <block id="2cfe257f724ed59a07ab01918c828fb5" category="section-title">在恢復或故障轉移操作之前</block>
@@ -5826,4 +5824,5 @@
   <block id="db7fc8df66e930e05282807a6ebd58f4" category="paragraph">除了 <block ref="1feb3274d112f2cef694d133af384cac" category="inline-link-macro-rx"></block> 之外，您還需要 <block ref="fc0cdbd8defe0c7175199dd05a0f8e76" category="inline-link-macro-rx"></block>。</block>
   <block id="c82b4b0fab3872638ac3c7cebf4e6354" category="paragraph">如果您有需要升級的現有部署，或者您希望對部署進行高度定制，則應考慮使用<block ref="e214bf159dbaf6573cfe15f1373b92db" category="inline-link-macro-rx"></block>。這是部署 Trident 的傳統方法。</block>
   <block id="cd133424a13afaa0badf4f13c4bf4c72" category="list-text">除了 iSCSI 之外，還新增對 NVMe/TCP 的 ONTAP ASA r2 支援。請參閱<block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>。</block>
+  <block id="98b806d92f2e28da541021a181de980f" category="admonition">執行還原或容錯移轉作業時，<block ref="22416353aff9ef4322e1ee858f418ae4" prefix=" " category="inline-code"></block> 和 <block ref="8028cf835d9b72ff2d6f835934c25568" prefix=" " category="inline-code"></block> 中指定的任何命名空間註釋和標籤都會從還原或容錯移轉作業中排除。請確保在初始 Helm 安裝期間配置這些設定。若要深入瞭解，請參閱 <block ref="647ed99900e7ff1307ad7b7cec525a2c" category="inline-link-macro-rx"></block>。</block>
 </blocks>
